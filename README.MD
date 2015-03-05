@@ -1,0 +1,1 @@
+Phoca Guestbook is Joomla! CMS extension. Component which displays guestbook and its entries on website.
