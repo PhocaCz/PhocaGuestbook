@@ -1,0 +1,782 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+    <fieldset name="form"
+              label="COM_PHOCAGUESTBOOK_CONFIG_HEAD_FORM_LABEL">
+
+		<field 	name="display_title_form" 
+				type="radio" 
+				class="btn-group"
+				default="2" 
+				label="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_SUBJECT_FORM_LABEL"
+				description="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_SUBJECT_FORM_DESC">
+			<option value="1">COM_PHOCAGUESTBOOK_YES</option>
+			<option value="2">COM_PHOCAGUESTBOOK_YES_REQUIRED</option>
+			<option value="0">COM_PHOCAGUESTBOOK_NO</option>
+		</field>
+	
+		<field 	name="display_name_form"
+				class="btn-group"
+				type="radio" 
+				default="2" 
+				label="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_NAME_FORM_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_NAME_FORM_DESC">
+			<option value="1">COM_PHOCAGUESTBOOK_YES</option>
+			<option value="2">COM_PHOCAGUESTBOOK_YES_REQUIRED</option>
+			<option value="0">COM_PHOCAGUESTBOOK_NO</option>
+		</field>
+		
+		<field 	name="display_email_form" 
+				type="radio"
+				class="btn-group"
+				default="1"
+				label="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_EMAIL_FORM_LABEL"
+				description="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_EMAIL_FORM_DESC">
+			<option value="1">COM_PHOCAGUESTBOOK_YES</option>
+			<option value="2">COM_PHOCAGUESTBOOK_YES_REQUIRED</option>
+			<option value="0">COM_PHOCAGUESTBOOK_NO</option>
+		</field>
+		
+		<field 	name="display_website_form" 
+				type="radio"
+				class="btn-group"
+				default="0"
+				label="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_WEBSITE_FORM_LABEL"
+				description="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_WEBSITE_FORM_DESC">
+			<option value="1">COM_PHOCAGUESTBOOK_YES</option>
+			<option value="2">COM_PHOCAGUESTBOOK_YES_REQUIRED</option>
+			<option value="0">COM_PHOCAGUESTBOOK_NO</option>
+		</field>
+	
+		<field 	name="display_content_form" 
+				type="radio"
+				class="btn-group"
+				default="2" 
+				label="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_CONTENT_FORM_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_CONTENT_FORM_DESC">
+			<option value="1">COM_PHOCAGUESTBOOK_YES</option>
+			<option value="2">COM_PHOCAGUESTBOOK_YES_REQUIRED</option>
+			<option value="0">COM_PHOCAGUESTBOOK_NO</option>
+		</field>
+		
+		<field 	name="enable_editor" 
+				type="radio" 
+				class="btn-group"
+				default="1" 
+				label="COM_PHOCAGUESTBOOK_FIELD_ENABLE_JAVASCRIPT_EDITOR_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_ENABLE_JAVASCRIPT_EDITOR_DESC">
+			<option value="1">COM_PHOCAGUESTBOOK_YES</option>
+			<option value="0">COM_PHOCAGUESTBOOK_NO</option>
+		</field>
+				
+		<field 	name="spacer1" type="spacer" hr="true" />
+	
+		<field 	name="display_form" 
+				type="radio" 
+				class="btn-group"
+				default="1" 
+				label="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_FORM_LABEL"
+				description="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_FORM_DESC">
+			<option value="0">COM_PHOCAGUESTBOOK_HIDE</option>
+			<option value="1">COM_PHOCAGUESTBOOK_DISPLAY</option>
+		</field>
+			
+		<field 	name="form_position" 
+				type="radio" 
+				class="btn-group"
+				default="2" 
+				label="COM_PHOCAGUESTBOOK_FIELD_FORM_POSITION_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_FORM_POSITION_DESC">
+			<option value="0">COM_PHOCAGUESTBOOK_TOP</option>
+			<option value="1">COM_PHOCAGUESTBOOK_BOTTOM</option>
+			<option value="2">COM_PHOCAGUESTBOOK_TAB</option>
+		</field>
+		<field 	name="form_style" 
+				type="radio" 
+				class="btn-group"
+				default="1" 
+				label="COM_PHOCAGUESTBOOK_FIELD_FORM_STYLE_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_FORM_STYLE_DESC">
+			<option value="0">COM_PHOCAGUESTBOOK_STYLE_CLASSIC</option>
+			<option value="1">COM_PHOCAGUESTBOOK_STYLE_ICONS</option>
+		</field>
+
+		
+	</fieldset>
+
+    <fieldset name="general"
+              label="COM_PHOCAGUESTBOOK_CONFIG_HEAD_GENERAL_LABEL">
+		
+		<field 	name="predefined_name" 
+				default="" 
+				type="text" 
+				label="COM_PHOCAGUESTBOOK_FIELD_PREDEFINED_NAME_LABEL"
+				description="COM_PHOCAGUESTBOOK_FIELD_PREDEFINED_NAME_DESC"/>	
+		
+		<field 	name="username_or_name" 
+				type="radio"
+				class="btn-group"
+				default="0" 
+				label="COM_PHOCAGUESTBOOK_FIELD_USERNAME_OR_NAME_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_USERNAME_OR_NAME_DESC">
+			<option value="0">COM_PHOCAGUESTBOOK_USERNAME</option>
+			<option value="1">COM_PHOCAGUESTBOOK_NAME</option>
+		</field>
+		
+		<field 	name="disable_user_check" 
+				type="radio" 
+				class="btn-group"
+				default="0" 
+				label="COM_PHOCAGUESTBOOK_FIELD_DISABLE_USER_CHECK_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_DISABLE_USER_CHECK_DESC">
+			<option value="0">COM_PHOCAGUESTBOOK_NO</option>
+			<option value="1">COM_PHOCAGUESTBOOK_YES</option>
+		</field>
+			
+		<field 	name="review_item" 
+				type="radio"
+				class="btn-group"
+				default="1" 
+				label="COM_PHOCAGUESTBOOK_FIELD_REVIEW_ITEM_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_REVIEW_ITEM_DESC">
+			<option value="0">COM_PHOCAGUESTBOOK_YES</option>
+			<option value="1">COM_PHOCAGUESTBOOK_NO</option>
+		</field>
+					
+		<field 	name="send_super_email" 
+				type="user" 
+				section="com_phocaguestbook" 
+				default="" 
+				label="COM_PHOCAGUESTBOOK_FIELD_SEND_EMAIL_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_SEND_EMAIL_DESC"/>
+				
+		<field name="date_format" 
+				type="list" default="DATE_FORMAT_LC" 
+				label="COM_PHOCAGUESTBOOK_FIELD_DATE_FORMAT_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_DATE_FORMAT_DESC">
+			<option value="DATE_FORMAT_LC">DATE_FORMAT_LC</option>
+			<option value="DATE_FORMAT_LC1">DATE_FORMAT_LC1</option>
+			<option value="DATE_FORMAT_LC2">DATE_FORMAT_LC2</option>
+			<option value="DATE_FORMAT_LC3">DATE_FORMAT_LC3</option>
+			<option value="DATE_FORMAT_LC4">DATE_FORMAT_LC4</option>
+			<option value="1">d. F Y</option>
+			<option value="2">d/m/y</option>
+			<option value="3">d. m. Y</option>
+		</field>
+		
+		<field 	name="load_bootstrap" 
+				type="radio" 
+				class="btn-group"
+				default="0" 
+				label="COM_PHOCAGUESTBOOK_FIELD_LOAD_BOOTSTRAP_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_LOAD_BOOTSTRAP_DESC">
+			<option value="0">COM_PHOCAGUESTBOOK_NO</option>
+			<option value="1">COM_PHOCAGUESTBOOK_YES</option>
+		</field>
+		
+	</fieldset>
+
+	<fieldset 	name="post" 
+				label="COM_PHOCAGUESTBOOK_CONFIG_HEAD_POST_LABEL">
+		
+		<field 	name="display_posts" 
+				type="radio"
+				class="btn-group"
+				default="1" 
+				label="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_POSTS_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_POSTS_DESC">
+			<option value="0">COM_PHOCAGUESTBOOK_HIDE</option>
+			<option value="1">COM_PHOCAGUESTBOOK_DISPLAY</option>
+		</field>
+		
+		<field 	name="display_name" 
+				type="radio" 
+				class="btn-group"
+				default="1" 
+				label="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_NAME_MESSAGE_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_NAME_MESSAGE_DESC">
+			<option value="1">COM_PHOCAGUESTBOOK_YES</option>
+			<option value="0">COM_PHOCAGUESTBOOK_NO</option>
+		</field>
+		
+		<field 	name="display_email" 
+				type="radio" 
+				class="btn-group"
+				default="1" 
+				label="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_EMAIL_MESSAGE_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_EMAIL_MESSAGE_DESC">
+			<option value="1">COM_PHOCAGUESTBOOK_YES</option>
+			<option value="0">COM_PHOCAGUESTBOOK_NO</option>
+		</field>
+		
+		<field 	name="display_website" 
+				type="radio" 
+				class="btn-group"
+				default="1" 
+				label="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_WEBSITE_MESSAGE_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_WEBSITE_MESSAGE_DESC">
+			<option value="1">COM_PHOCAGUESTBOOK_YES</option>
+			<option value="0">COM_PHOCAGUESTBOOK_NO</option>
+		</field>
+			
+
+				
+		<field name="spacer3" type="spacer" hr="true" />
+	
+		<field 	name="display_comments" 
+				type="radio"
+				class="btn-group"
+				default="10" 
+				label="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_COMMENTS_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_COMMENTS_DESC">
+			<option value="1">COM_PHOCAGUESTBOOK_HIDE</option>
+			<option value="10">COM_PHOCAGUESTBOOK_DISPLAY</option>
+		</field>
+		
+		<field 	name="display_comment_name" 
+				type="radio" 
+				class="btn-group"
+				default="1" 
+				label="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_NAME_COMMENT_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_NAME_COMMENT_DESC">
+			<option value="1">COM_PHOCAGUESTBOOK_YES</option>
+			<option value="0">COM_PHOCAGUESTBOOK_NO</option>
+		</field>
+		
+		<field 	name="display_comment_subject" 
+				type="radio" 
+				class="btn-group"
+				default="1" 
+				label="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_SUBJECT_COMMENT_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_SUBJECT_COMMENT_DESC">
+			<option value="1">COM_PHOCAGUESTBOOK_YES</option>
+			<option value="0">COM_PHOCAGUESTBOOK_NO</option>
+		</field>
+		
+		<field 	name="display_comment_email" 
+				type="radio" 
+				class="btn-group"
+				default="1" 
+				label="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_EMAIL_COMMENT_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_EMAIL_COMMENT_DESC">
+			<option value="1">COM_PHOCAGUESTBOOK_YES</option>
+			<option value="0">COM_PHOCAGUESTBOOK_NO</option>
+		</field>
+		
+		<field 	name="display_comment_website" 
+				type="radio" 
+				class="btn-group"
+				default="1" 
+				label="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_WEBSITE_COMMENT_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_WEBSITE_COMMENT_DESC">
+			<option value="1">COM_PHOCAGUESTBOOK_YES</option>
+			<option value="0">COM_PHOCAGUESTBOOK_NO</option>
+		</field>
+		
+		<field 	name="display_comment_date" 
+				type="radio" 
+				default="1" 
+				class="btn-group"
+				label="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_DATE_COMMENT_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_DATE_COMMENT_DESC">
+			<option value="1">COM_PHOCAGUESTBOOK_YES</option>
+			<option value="0">COM_PHOCAGUESTBOOK_NO</option>
+		</field>
+			
+
+				
+		<field name="spacer30" type="spacer" hr="true" />
+		
+		<field name="show_pagination" 
+				type="radio" 
+				class="btn-group"
+				default="1" 
+				label="COM_PHOCAGUESTBOOK_FIELD_PAGINATION_SHOW_LABEL"
+				description="COM_PHOCAGUESTBOOK_FIELD_PAGINATION_SHOW_DESC">
+			<option value="1">COM_PHOCAGUESTBOOK_YES</option>
+			<option value="0">COM_PHOCAGUESTBOOK_NO</option>
+		</field>
+		
+		<field 	name="default_pagination" 
+				default="5"
+				type="text" 
+				label="COM_PHOCAGUESTBOOK_FIELD_DEFAULT_VALUE_PAGINATION_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_DEFAULT_VALUE_PAGINATION_DESC"/>
+				
+		<field name="pagination_posts" default="5,10,15,20" size="18" type="phocatext" label="COM_PHOCAGUESTBOOK_FIELD_PAGINATION_POSTS_LABEL" description="COM_PHOCAGUESTBOOK_FIELD_PAGINATION_POSTS_DESC"/>
+		
+		<field name="show_pagination_limit" 
+				type="radio" 
+				class="btn-group"
+				default="0" 
+				label="COM_PHOCAGUESTBOOK_FIELD_PAGINATION_CHANGE_LIMIT_LABEL"
+				description="COM_PHOCAGUESTBOOK_FIELD_PAGINATION_CHANGE_LIMIT_DESC">
+			<option value="1">COM_PHOCAGUESTBOOK_YES</option>
+			<option value="0">COM_PHOCAGUESTBOOK_NO</option>
+		</field>
+	
+		<field 	name="enable_cache" 
+				type="radio" 
+				class="btn-group" 
+				default="0" 
+				label="COM_PHOCAGUESTBOOK_FIELD_ENABLE_CACHE_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_ENABLE_CACHE_DESC">
+			<option value="1">COM_PHOCAGUESTBOOK_YES</option>
+			<option value="0">COM_PHOCAGUESTBOOK_NO</option>
+		</field>
+		
+	</fieldset>
+	<fieldset 	name="security" 
+				label="COM_PHOCAGUESTBOOK_CONFIG_HEAD_SECURITY_LABEL">
+
+		<field 	name="forbidden_word_filter" 
+				type="textarea" 
+				rows="3" cols="40" 
+				default="" 
+				label="COM_PHOCAGUESTBOOK_FIELD_FORBIDDEN_WORD_FILTER_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_FORBIDDEN_WORD_FILTER_DESC"/>
+				
+		<field 	name="forbidden_whole_word_filter" 
+				type="textarea" 
+				rows="3" cols="40" 
+				default="" 
+				label="COM_PHOCAGUESTBOOK_FIELD_FORBIDDEN_WHOLE_WORD_FILTER_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_FORBIDDEN_WHOLE_WORD_FILTER_DESC"/>
+		
+		
+		<field 	name="form_action_hidden_word" 
+				type="radio" 
+				class="btn-group"
+				default="2"
+				label="COM_PHOCAGUESTBOOK_FIELD_FORM_ACTION_FORBIDDEN_WORD_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_FORM_ACTION_FORBIDDEN_WORD_DESC">
+			<option value="2">COM_PHOCAGUESTBOOK_SAVE</option>
+			<option value="1">COM_PHOCAGUESTBOOK_REVIEW</option>
+			<option value="0">COM_PHOCAGUESTBOOK_REJECT</option>
+		</field>
+		
+		<field 	name="display_hidden_word" 
+				type="radio" 
+				class="btn-group"
+				default="0"
+				label="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_FORBIDDEN_WORD_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_FORBIDDEN_WORD_DESC">
+			<option value="1">COM_PHOCAGUESTBOOK_DISPLAY</option>
+			<option value="0">COM_PHOCAGUESTBOOK_CENSOR</option>
+		</field>
+
+		
+		<field 	name="spacer5" type="spacer" hr="true" />
+		
+		<field 	name="max_char" 
+				default="2000"
+				type="text" 
+				label="COM_PHOCAGUESTBOOK_FIELD_MAXIMUM_CHARACTERS_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_MAXIMUM_CHARACTERS_DESC"/>
+				
+		<field 	name="max_url" 
+				default="5"
+				type="text" 
+				label="COM_PHOCAGUESTBOOK_FIELD_MAXIMUM_URL_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_MAXIMUM_URL_DESC"/>
+		
+		<field 	name="deny_url_words" 
+				type="textarea" 
+				rows="2" cols="40" 
+				default="" 
+				label="COM_PHOCAGUESTBOOK_FIELD_URL_IDENTIFICATION_WORDS_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_URL_IDENTIFICATION_WORDS_DESC"/>
+		
+		<field 	name="form_action_denied_url" 
+				type="radio" 
+				class="btn-group"
+				default="0"
+				label="COM_PHOCAGUESTBOOK_FIELD_FORM_ACTION_DENIED_URL_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_FORM_ACTION_DENIED_URL_DESC">
+			<option value="2">COM_PHOCAGUESTBOOK_PUBLISH</option>
+			<option value="1">COM_PHOCAGUESTBOOK_REVIEW</option>
+			<option value="0">COM_PHOCAGUESTBOOK_REJECT</option>
+		</field>
+		
+		<field 	name="spacer10" type="spacer" hr="true" />
+		
+		<field 	name="enable_html_purifier" 
+				type="radio" 
+				class="btn-group" 
+				default="1" 
+				label="COM_PHOCAGUESTBOOK_FIELD_ENABLE_HTML_PURIFIER_LABEL"
+				description="COM_PHOCAGUESTBOOK_FIELD_ENABLE_HTML_PURIFIER_DESC">
+			<option value="0">COM_PHOCAGUESTBOOK_NO</option>
+			<option value="1">COM_PHOCAGUESTBOOK_YES</option>
+		</field>
+	
+		<field 	name="spacer8" type="spacer" hr="true" />
+		
+		<field 	name="session_suffix" 
+				default="" 
+				type="text" 
+				label="COM_PHOCAGUESTBOOK_FIELD_SESSION_SUFFIX_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_SESSION_SUFFIX_DESC" />
+				
+	</fieldset>
+	<fieldset 	name="contentcheck" 
+				label="COM_PHOCAGUESTBOOK_CONFIG_HEAD_CONTENTCHECK_LABEL" description="COM_PHOCAGUESTBOOK_CONFIG_HEAD_CONTENTCHECK_DESC">
+
+		<field 	name="spacer20" type="spacer" hr="true" />				
+		<field 	name="contentcheck_block_spam" 
+				type="radio" 
+				class="btn-group" 
+				default="0" 
+				label="COM_PHOCAGUESTBOOK_FIELD_BLOCK_SPAM_CONTENT_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_BLOCK_SPAM_CONTENT_DESC">
+			<option value="2">COM_PHOCAGUESTBOOK_DISABLED</option>
+			<option value="1">COM_PHOCAGUESTBOOK_REVIEW</option>
+			<option value="0">COM_PHOCAGUESTBOOK_REJECT</option>
+		</field>
+		
+		<field 	name="spacer15" type="spacer" hr="true" />
+		
+		<field 	name="enable_akismet" 
+				type="radio" 
+				class="btn-group"
+				default="0"
+				label="COM_PHOCAGUESTBOOK_FIELD_ENABLE_AKISMET_SPAM_PROTECTION_LABEL"
+				description="COM_PHOCAGUESTBOOK_FIELD_ENABLE_AKISMET_SPAM_PROTECTION_DESC">
+			<option value="0">COM_PHOCAGUESTBOOK_NO</option>
+			<option value="1">COM_PHOCAGUESTBOOK_YES</option>
+		</field>
+				
+		<field 	name="akismet_api_key" 
+				default=""
+				type="text" 
+				label="COM_PHOCAGUESTBOOK_FIELD_AKISMET_API_KEY_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_AKISMET_API_KEY_DESC" />
+				
+		<field 	name="akismet_url" 
+				default="" 
+				type="text" 
+				label="COM_PHOCAGUESTBOOK_FIELD_AKISMET_URL_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_AKISMET_URL_DESC" />
+				
+		<field 	name="spacer11" type="spacer" hr="true" />
+		
+		<field 	name="enable_mollom" 
+				type="radio" 
+				class="btn-group"
+				default="0"
+				label="COM_PHOCAGUESTBOOK_FIELD_ENABLE_MOLLOM_SPAM_PROTECTION_LABEL"
+				description="COM_PHOCAGUESTBOOK_FIELD_ENABLE_MOLLOM_SPAM_PROTECTION_DESC">
+			<option value="0">COM_PHOCAGUESTBOOK_NO</option>
+			<option value="1">COM_PHOCAGUESTBOOK_YES</option>
+		</field>
+		
+		<field 	name="mollom_publickey" 
+				default=""
+				type="text" 
+				label="COM_PHOCAGUESTBOOK_FIELD_MOLLOM_PUBLICKEY_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_MOLLOM_PUBLICKEY_DESC" />
+				
+		<field 	name="mollom_privatekey" 
+				default="" 
+				type="text" 
+				label="COM_PHOCAGUESTBOOK_FIELD_MOLLOM_PRIVATEKEY_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_MOLLOM_PRIVATEKEY_DESC" />
+		
+				
+	</fieldset>
+	<fieldset 	name="ipcheck" 
+				label="COM_PHOCAGUESTBOOK_CONFIG_HEAD_IPCHECK_LABEL" description="COM_PHOCAGUESTBOOK_CONFIG_HEAD_IPCHECK_DESC">
+			
+		<field 	name="spacer4" type="spacer" hr="true" />	
+		<field 	name="form_action_banned_ip" 
+				type="radio" 
+				class="btn-group"
+				default="0"
+				label="COM_PHOCAGUESTBOOK_FIELD_FORM_ACTION_BANNED_IP_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_FORM_ACTION_BANNED_IP_DESC">
+			<option value="2">COM_PHOCAGUESTBOOK_DISABLED</option>
+			<option value="1">COM_PHOCAGUESTBOOK_REVIEW</option>
+			<option value="0">COM_PHOCAGUESTBOOK_REJECT</option>
+		</field>
+		
+		<field 	name="spacer4" type="spacer" hr="true" />
+		
+		<field 	name="ip_ban" 
+				type="textarea" 
+				rows="2" cols="40" 
+				default="" 
+				label="COM_PHOCAGUESTBOOK_FIELD_IP_BAN_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_IP_BAN_DESC"/>
+				
+		<field 	name="spacer14" type="spacer" hr="true" />
+		
+		<field 	name="enable_stopforumspam" 
+				type="radio" 
+				class="btn-group" default="0" 
+				label="COM_PHOCAGUESTBOOK_FIELD_IP_STOPFORUM_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_IP_STOPFORUM_DESC">
+			<option value="0">COM_PHOCAGUESTBOOK_NO</option>
+			<option value="1">COM_PHOCAGUESTBOOK_YES</option>
+		</field>
+		
+		<field 	name="spacer16" type="spacer" hr="true" />
+		
+		<field 	name="enable_projecthoneypot" 
+				type="radio" 
+				class="btn-group" default="0" 
+				label="COM_PHOCAGUESTBOOK_FIELD_IP_HONEYPOT_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_IP_HONEYPOT_DESC">
+			<option value="0">COM_PHOCAGUESTBOOK_NO</option>
+			<option value="1">COM_PHOCAGUESTBOOK_YES</option>
+		</field>
+		
+		<field 	name="projecthoneypot_key"
+				type="text"
+				default=""
+				label="COM_PHOCAGUESTBOOK_FIELD_IP_HONEYPOT_KEY_LABEL"
+				description="COM_PHOCAGUESTBOOK_FIELD_IP_HONEYPOT_KEY_DESC"/>
+				
+		<field 	name="spacer17" type="spacer" hr="true" />
+		
+		<field 	name="enable_botscout" 
+				type="radio" 
+				class="btn-group" default="0" 
+				label="COM_PHOCAGUESTBOOK_FIELD_IP_BOTSCOUT_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_IP_BOTSCOUT_DESC">
+			<option value="0">COM_PHOCAGUESTBOOK_NO</option>
+			<option value="1">COM_PHOCAGUESTBOOK_YES</option>
+		</field>
+		
+		<field 	name="botscout_key"
+				type="text"
+				default=""
+				label="COM_PHOCAGUESTBOOK_FIELD_IP_BOTSCOUT_KEY_LABEL"
+				description="COM_PHOCAGUESTBOOK_FIELD_IP_BOTSCOUT_KEY_DESC"/>
+		
+		
+	</fieldset>
+	<fieldset 	name="captcha" 
+				label="COM_PHOCAGUESTBOOK_CONFIG_HEAD_CAPTCH_LABEL">
+		
+		<field 	name="enable_captcha" 
+				type="list" 
+				default=""
+				multiple="true"
+				label="COM_PHOCAGUESTBOOK_FIELD_ENABLE_CAPTCHA_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_ENABLE_CAPTCHA_DESC">
+			<option value="1">COM_PHOCAGUESTBOOK_JOOMLA_CAPTCHA</option>
+			<option value="2">COM_PHOCAGUESTBOOK_STANDARD_CAPTCHA</option>
+			<option value="3">COM_PHOCAGUESTBOOK_MATH_CAPTCHA</option>
+			<option value="4">COM_PHOCAGUESTBOOK_TTF_CAPTCHA</option>
+			<option value="5">COM_PHOCAGUESTBOOK_RECAPTCHA_CAPTCHA</option>
+			<option value="6">COM_PHOCAGUESTBOOK_EASYCALC_CAPTCHA</option>
+			<option value="7">COM_PHOCAGUESTBOOK_MOLLOM_CAPTCHA</option>
+			<option value="8">COM_PHOCAGUESTBOOK_HN_CAPTCHA</option>
+		</field>
+		
+		<field 	name="enable_captcha_users" 
+				type="radio" 
+				class="btn-group"
+				 default="0" 
+				 label="COM_PHOCAGUESTBOOK_FIELD_ENABLE_CAPTCHA_USERS_LABEL"
+				 description="COM_PHOCAGUESTBOOK_FIELD_ENABLE_CAPTCHA_USERS_DESC">
+			<option value="0">COM_PHOCAGUESTBOOK_ALL</option>
+			<option value="1">COM_PHOCAGUESTBOOK_NOT_REGISTERED</option>
+		</field>	
+		
+		<field 	name="captcha_url" 
+				type="list"
+				default="1" 
+				label="COM_PHOCAGUESTBOOK_FIELD_CAPTCHA_URL_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_CAPTCHA_URL_DESC">
+			<option value="1">COM_PHOCAGUESTBOOK_RELATIVE_PATH</option>
+			<option value="2">COM_PHOCAGUESTBOOK_FULL_PATH</option>
+			<option value="3">COM_PHOCAGUESTBOOK_FULL_PATCH_NO_ITEMID</option>
+			<option value="4">COM_PHOCAGUESTBOOK_RELATIVE_PATH_NO_LANG</option>
+			<option value="5">COM_PHOCAGUESTBOOK_FULL_PATH_NO_LANG</option>
+			<option value="6">COM_PHOCAGUESTBOOK_FULL_PATH_NO_LANG_NO_ITEMID</option>
+			<option value="7">COM_PHOCAGUESTBOOK_RELATIVE_PATH_NO_LANG_NO_ITEMID</option>
+		</field>
+		
+		<field 	name="spacer7" type="spacer" hr="true" />
+		
+		<field 	name="standard_captcha_chars" 
+				type="textarea" 
+				rows="3" cols="40" 
+				default="1,2,3,4,5,6,7,8,9, a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z, A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z" 
+				label="COM_PHOCAGUESTBOOK_FIELD_STANDARD_CAPTCHA_CHARACTERS_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_STANDARD_CAPTCHA_CHARACTERS_DESC"/>
+				
+		<field 	name="math_captcha_chars" 
+				type="textarea" 
+				rows="3" cols="40" 
+				default="1,2,3,4,5,6,7,8,9, a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z, A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z" 
+				label="COM_PHOCAGUESTBOOK_FIELD_MATH_CAPTCHA_CHARACTERS_LABEL"
+				description="COM_PHOCAGUESTBOOK_FIELD_MATH_CAPTCHA_CHARACTERS_DESC"/>
+				
+		<field 	name="ttf_captcha_chars" 
+				type="textarea" 
+				rows="3" cols="40" 
+				default="1,2,3,4,5,6,7,8,9, a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z, A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z" 
+				label="COM_PHOCAGUESTBOOK_FIELD_TTF_CAPTCHA_CHARACTERS_LABEL"
+				description="COM_PHOCAGUESTBOOK_FIELD_TTF_CAPTCHA_CHARACTERS_DESC"/>
+				
+		<field 	name="hn_captcha_chars" 
+				type="textarea" 
+				rows="3" cols="40" 
+				default="1,2,3,4,5,6,7,8,9, A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z" 
+				label="COM_PHOCAGUESTBOOK_FIELD_HN_CAPTCHA_CHARACTERS_LABEL"
+				description="COM_PHOCAGUESTBOOK_FIELD_HN_CAPTCHA_CHARACTERS_DESC"/>
+		
+		<field 	name="hn_noise" 
+				type="radio" 
+				class="btn-group" default="1" 
+				label="COM_PHOCAGUESTBOOK_FIELD_HN_CAPTCHA_STYLE_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_HN_CAPTCHA_STYLE_DESC">
+			<option value="1">COM_PHOCAGUESTBOOK_HNCAPTCHA_NOISE</option>
+			<option value="0">COM_PHOCAGUESTBOOK_HNCAPTCHA_GRID</option>
+		</field>
+
+
+		<field 	name="spacer12" type="spacer" hr="true" />
+		
+		<field 	name="recaptcha_publickey"
+				type="text"
+				default=""
+				label="COM_PHOCAGUESTBOOK_FIELD_RECAPTCHA_PUBLICKEY_LABEL"
+				 description="COM_PHOCAGUESTBOOK_FIELD_RECAPTCHA_PUBLICKEY_DESC"/>
+				 
+		<field 	name="recaptcha_privatekey"
+				type="text"
+				default=""
+				label="COM_PHOCAGUESTBOOK_FIELD_RECAPTCHA_PRIVATEKEY_LABEL"
+				description="COM_PHOCAGUESTBOOK_FIELD_RECAPTCHA_PRIVATEKEY_DESC"/>
+
+		<field 	name="recaptcha_theme" 
+				type="list" default="red" 
+				label="COM_PHOCAGUESTBOOK_FIELD_RECAPTCHA_THEME_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_RECAPTCHA_THEME_DESC">
+			<option value="red">COM_PHOCAGUESTBOOK_RECAPTCHA_THEME_RED</option>
+			<option value="white">COM_PHOCAGUESTBOOK_RECAPTCHA_THEME_WHITE</option>
+			<option value="blackglass">COM_PHOCAGUESTBOOK_RECAPTCHA_THEME_BLACK</option>
+			<option value="clean">COM_PHOCAGUESTBOOK_RECAPTCHA_THEME_CLEAN</option>
+		</field>
+
+		<field 	name="spacer13" type="spacer" hr="true" />
+			
+		<field 	name="calc_opertor" 
+				type="radio" 
+				class="btn-group" default="0" 
+				label="COM_PHOCAGUESTBOOK_FIELD_CALC_OPERATOR_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_CALC_OPERATOR_DESC">
+			<option value="0">COM_PHOCAGUESTBOOK_FIELD_CALC_OPERATOR_PLUS</option>
+			<option value="1">COM_PHOCAGUESTBOOK_FIELD_CALC_OPERATOR_MINUS</option>
+			<option value="2">COM_PHOCAGUESTBOOK_RANDOM</option>
+		</field>
+		
+		<field 	name="calc_operand" 
+				type="radio" 
+				class="btn-group" default="2" 
+				label="COM_PHOCAGUESTBOOK_FIELD_CALC_OPERAND_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_CALC_OPERAND_DESC">
+			<option value="2">2</option>
+			<option value="3">3</option>
+			<option value="0">COM_PHOCAGUESTBOOK_RANDOM</option>
+		</field>
+		
+		<field 	name="calc_max_value"
+				type="text"
+				default="20"
+				filter="integer"
+				label="COM_PHOCAGUESTBOOK_FIELD_CALC_MAXVALUE_LABEL"
+				description="COM_PHOCAGUESTBOOK_FIELD_CALC_MAXVALUE_DESC"/>
+		
+		<field 	name="calc_negativ" 
+				type="radio" 
+				class="btn-group" default="0" 
+				label="COM_PHOCAGUESTBOOK_FIELD_CALC_NEGATIVE_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_CALC_NEGATIVE_DESC">
+			<option value="0">COM_PHOCAGUESTBOOK_NO</option>
+			<option value="1">COM_PHOCAGUESTBOOK_YES</option>
+		</field>
+			
+		<field 	name="calc_string" 
+				type="radio" 
+				class="btn-group" default="0" 
+				label="COM_PHOCAGUESTBOOK_FIELD_CALC_TOSTRING_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_CALC_TOSTRING_DESC">
+			<option value="0">COM_PHOCAGUESTBOOK_NO</option>
+			<option value="1">COM_PHOCAGUESTBOOK_YES</option>
+			<option value="2">COM_PHOCAGUESTBOOK_RANDOM</option>
+		</field>
+			
+		<field 	name="spacer9" type="spacer" hr="true" />
+		
+		<field 	name="enable_hidden_field" 
+				type="radio" 
+				class="btn-group" default="0" 
+				label="COM_PHOCAGUESTBOOK_FIELD_ENABLE_HIDDEN_FIELD_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_ENABLE_HIDDEN_FIELD_DESC">
+			<option value="0">COM_PHOCAGUESTBOOK_NO</option>
+			<option value="1">COM_PHOCAGUESTBOOK_YES</option>
+		</field>
+		
+		<field 	name="spacer18" type="spacer" hr="true" />
+		
+		<field 	name="enable_time_check" 
+				type="radio" 
+				class="btn-group" default="0" 
+				label="COM_PHOCAGUESTBOOK_FIELD_ENABLE_TIME_CHECK_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_ENABLE_TIME_CHECK_DESC">
+			<option value="0">COM_PHOCAGUESTBOOK_NO</option>
+			<option value="1">COM_PHOCAGUESTBOOK_YES</option>
+		</field>
+		
+		<field 	name="time_check_s" 
+				type="integer" 
+				default="10" 
+				first="1" last="100" step="1"
+				label="COM_PHOCAGUESTBOOK_FIELD_ENABLE_TIME_CHECK_TIME_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_ENABLE_TIME_CHECK_TIME_DESC">
+		</field>
+		
+	</fieldset>
+	<fieldset 	name="logging" 
+				label="COM_PHOCAGUESTBOOK_CONFIG_HEAD_LOGGING_LABEL"
+				description="COM_PHOCAGUESTBOOK_CONFIG_HEAD_LOGGING_DESC">
+
+		<field 	name="enable_logging" 
+				type="radio" 
+				class="btn-group" default="0" 
+				label="COM_PHOCAGUESTBOOK_FIELD_ENABLE_LOGGING_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_ENABLE_LOGGING_DESC">
+			<option value="0">COM_PHOCAGUESTBOOK_NO</option>
+			<option value="1">COM_PHOCAGUESTBOOK_YES</option>
+		</field>
+
+		<field 	name="logging_failed" 
+				type="radio" 
+				class="btn-group" default="0" 
+				label="COM_PHOCAGUESTBOOK_FIELD_LOGGING_FAILED_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_LOGGING_FAILED_DESC">
+			<option value="0">COM_PHOCAGUESTBOOK_NO</option>
+			<option value="1">COM_PHOCAGUESTBOOK_YES</option>
+		</field>
+		
+	</fieldset>
+    <fieldset
+            name="permissions"
+            label="JCONFIG_PERMISSIONS_LABEL"
+            description="JCONFIG_PERMISSIONS_DESC"
+            >
+
+        <field
+                name="rules"
+                type="rules"
+                label="JCONFIG_PERMISSIONS_LABEL"
+                class="inputbox"
+                filter="rules"
+                validate="rules"
+                component="com_phocaguestbook"
+                section="component"/>
+    </fieldset>
+</config>

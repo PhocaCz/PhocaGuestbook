@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form>
+    <fieldset name="guestbook" 	addrulepath="components/com_phocaguestbook/models/rules" 
+								addfieldpath="components/com_phocaguestbook/models/fields" label="COM_PHOCAGUESTBOOK_FORM_LABEL">
+		<field name="title" 				type="phocatext" 	class="input-xlarge" label="COM_PHOCAGUESTBOOK_SUBJECT"
+			id="guestbook-title" 			validate="phocaguestbooktitle"	preicon="glyphicon glyphicon-pencil icon-pencil"
+			description="COM_PHOCAGUESTBOOK_FIELD_SUBJECT_DESC"/>
+			
+		<field name="username"				type="phocatext"	class="input-xlarge"	label="COM_PHOCAGUESTBOOK_NAME"
+			id="guestbook-username" 		validate="phocaguestbookusername"	preicon="glyphicon glyphicon-user icon-user"
+			description="COM_PHOCAGUESTBOOK_FIELD_NAME_DESC"/>
+			
+		<field name="email" 				type="phocaemail"	class="input-xlarge"	label="COM_PHOCAGUESTBOOK_EMAIL"
+			id="guestbook-email" 		validate="phocaguestbookemail"	preicon="glyphicon glyphicon-envelope icon-envelope"
+			description="COM_PHOCAGUESTBOOK_FIELD_EMAIL_DESC"  />
+		
+		<field name="homesite"		 		type="phocaurl"	class="input-xlarge"	label="COM_PHOCAGUESTBOOK_WEBSITE"
+			id="guestbook-website" 		validate="phocaguestbookhomesite"	preicon="glyphicon glyphicon-home icon-home"
+			description="COM_PHOCAGUESTBOOK_FIELD_WEBSITE_DESC"  />
+
+		<field name="content" type="phocaeditor" label="COM_PHOCAGUESTBOOK_CONTENT" id="guestbook-content" 	validate="phocaguestbookcontent" rows="10" description="COM_PHOCAGUESTBOOK_FIELD_CONTENT_DESC" class="inputbox input-xxlarge" filter="safehtml" buttons="false" editor="tinymce"/>
+
+
+			
+		<field
+			name="captcha"
+			id="guestbook-captcha"
+			type="captcha"
+			required="true"
+			label="COM_PHOCAGUESTBOOK_IMG_VERIFICATION"
+			description="COM_PHOCAGUESTBOOK_IMG_VERIFICATION"
+			validate="captcha"
+			preicon="glyphicon glyphicon-lock icon-lock"
+			posticon="glyphicon glyphicon-refresh icon-refresh"
+			posthref="javascript:reloadCaptcha();"
+			class="input-sm"
+		/>
+
+		
+	</fieldset>
+	
+	<fieldset name="hidden">
+		<field	name="language"		type="hidden" 
+				id="guestbook-language" />
+				
+		<field	name="hidden_field"		type="phocatext"   preicon="icon-flag"
+				id="guestbook-hidden" 		validate="phocaguestbookhidden"/>
+				
+		<field	name="version"		type="hidden" 
+				id="guestbook-version" />
+			
+	</fieldset>
+</form>

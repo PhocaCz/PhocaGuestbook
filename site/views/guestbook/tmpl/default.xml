@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="COM_PHOCAGUESTBOOK_GUESTBOOK_LAYOUT">
+		<message><![CDATA[COM_PHOCAGUESTBOOK_GUESTBOOK_LAYOUT_DESC]]></message>
+	</layout>
+
+	<name>COM_PHOCAGUESTBOOK_GUESTBOOK_LAYOUT</name>
+	<description>COM_PHOCAGUESTBOOK_GUESTBOOK_LAYOUT_DESC</description>
+	
+	
+	<fields name="request">
+		<fieldset name="request">
+            <field name="cid" type="category"
+                   description="COM_PHOCAGUESTBOOK_FIELD_SELECT_GUESTBOOK_DESC"
+                   extension="com_phocaguestbook"
+                   label="COM_PHOCAGUESTBOOK_FIELD_SELECT_GUESTBOOK_LAYOUT"
+                   required="true"
+                    />
+        </fieldset>
+	</fields>
+	
+	<fields name="params">
+	<fieldset name="basic"><!-- addfieldpath="/administrator/components/com_phocaguestbook/models/fields" -->
+	
+		<field 	name="display_form" 
+				type="radio" 
+				class="btn-group"
+				label="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_FORM_LABEL"
+				description="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_FORM_DESC">
+			<option value="">COM_PHOCAGUESTBOOK_USE_GLOBAL</option>
+			<option value="0">COM_PHOCAGUESTBOOK_HIDE</option>
+			<option value="1">COM_PHOCAGUESTBOOK_DISPLAY</option>
+		</field>
+		
+		<field 	name="display_posts" 
+				type="radio"
+				class="btn-group"
+				label="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_POSTS_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_POSTS_DESC">
+			<option value="">COM_PHOCAGUESTBOOK_USE_GLOBAL</option>
+			<option value="0">COM_PHOCAGUESTBOOK_HIDE</option>
+			<option value="1">COM_PHOCAGUESTBOOK_DISPLAY</option>
+		</field>
+
+		<field 	name="display_comments" 
+				type="radio"
+				class="btn-group"
+				label="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_COMMENTS_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_COMMENTS_DESC">
+			<option value="">COM_PHOCAGUESTBOOK_USE_GLOBAL</option>
+			<option value="1">COM_PHOCAGUESTBOOK_HIDE</option>
+			<option value="10">COM_PHOCAGUESTBOOK_DISPLAY</option>
+		</field>
+		
+		<field	name="show_pagination" 
+				type="radio"
+				class="btn-group"
+				label="COM_PHOCAGUESTBOOK_FIELD_PAGINATION_SHOW_LABEL"
+				description="COM_PHOCAGUESTBOOK_FIELD_PAGINATION_SHOW_DESC">
+			<option value="">COM_PHOCAGUESTBOOK_USE_GLOBAL</option>
+			<option value="0">COM_PHOCAGUESTBOOK_HIDE</option>
+			<option value="1">COM_PHOCAGUESTBOOK_DISPLAY</option>
+		</field>
+		
+		<field 	name="form_position" 
+				type="list" 
+				label="COM_PHOCAGUESTBOOK_FIELD_FORM_POSITION_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_FORM_POSITION_DESC">
+			<option value="">COM_PHOCAGUESTBOOK_USE_GLOBAL</option>
+			<option value="0">COM_PHOCAGUESTBOOK_TOP</option>
+			<option value="1">COM_PHOCAGUESTBOOK_BOTTOM</option>
+			<option value="2">COM_PHOCAGUESTBOOK_TAB</option>
+		</field>
+		
+		<field 	name="form_style" 
+				type="radio" 
+				class="btn-group"
+				label="COM_PHOCAGUESTBOOK_FIELD_FORM_STYLE_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_FORM_STYLE_DESC">
+			<option value="">COM_PHOCAGUESTBOOK_USE_GLOBAL</option>
+			<option value="0">COM_PHOCAGUESTBOOK_STYLE_CLASSIC</option>
+			<option value="1">COM_PHOCAGUESTBOOK_STYLE_ICONS</option>
+		</field>
+		
+		<field name="items_orderby" type="list" default="ordering"
+				description="COM_PHOCAGUESTBOOK_ORDERBY_DESC"
+				label="COM_PHOCAGUESTBOOK_ORDERBY_LABEL">
+				<option value="ordering">COM_PHOCAGUESTBOOK_ORDERBY_ORDERING</option>
+				<option value="date">COM_PHOCAGUESTBOOK_ORDERBY_DATE</option>
+				<option value="username">COM_PHOCAGUESTBOOK_ORDERBY_USERNAME</option>
+			</field>
+			
+		<field name="items_orderdir" type="list" default="DESC"
+				description="COM_PHOCAGUESTBOOK_ORDERDIR_DESC"
+				label="COM_PHOCAGUESTBOOK_ORDERDIR_LABEL">
+				<option value="DESC">COM_PHOCAGUESTBOOK_ORDERDIR_DSC</option>
+				<option value="ASC">COM_PHOCAGUESTBOOK_ORDERDIR_ASC</option>
+		</field>
+
+		<field name="items_commentdir" type="list" default="ASC"
+			description="COM_PHOCAGUESTBOOK_ORDERDIR_COMMENT_DESC"
+			label="COM_PHOCAGUESTBOOK_ORDERDIR_COMMENT_LABEL">
+			<option value="DESC">COM_PHOCAGUESTBOOK_ORDERDIR_DSC</option>
+			<option value="ASC">COM_PHOCAGUESTBOOK_ORDERDIR_ASC</option>
+		</field>
+	</fieldset>
+	
+	<fieldset name="advanced"><!-- addfieldpath="/administrator/components/com_phocaguestbook/models/fields" -->
+	
+		<field 	name="predefined_name" 
+				default="" 
+				type="text" 
+				label="COM_PHOCAGUESTBOOK_FIELD_PREDEFINED_NAME_LABEL"
+				description="COM_PHOCAGUESTBOOK_FIELD_PREDEFINED_NAME_DESC"/>	
+					
+		<field 	name="review_item" 
+				type="radio"
+				class="btn-group"
+				label="COM_PHOCAGUESTBOOK_FIELD_REVIEW_ITEM_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_REVIEW_ITEM_DESC">
+			<option value="">COM_PHOCAGUESTBOOK_USE_GLOBAL</option>
+			<option value="0">COM_PHOCAGUESTBOOK_YES</option>
+			<option value="1">COM_PHOCAGUESTBOOK_NO</option>
+		</field>
+			
+		<field 	name="send_email" 
+				type="user" 
+				section="com_phocaguestbook" 
+				label="COM_PHOCAGUESTBOOK_FIELD_SEND_EMAIL_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_SEND_EMAIL_DESC"/>
+				
+		
+	<field name="spacer1" type="spacer" hr="true" />
+	
+		<field 	name="custom_color" 
+				type="radio"
+				class="btn-group"
+				default="0"
+				label="COM_PHOCAGUESTBOOK_FIELD_USE_CUSTOM_COLOR_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_USE_CUSTOM_COLOR_DESC">
+			<option value="1">COM_PHOCAGUESTBOOK_YES</option>
+			<option value="0">COM_PHOCAGUESTBOOK_NO</option>
+		</field>
+		
+		<field 	name="font_color" 
+				default="#000000" 
+				type="color"
+				class="input-colorpicker"
+				label="COM_PHOCAGUESTBOOK_FIELD_FONT_COLOR_LABEL"
+				description="COM_PHOCAGUESTBOOK_FIELD_FONT_COLOR_DESC"/>
+				
+		<field 	name="second_font_color" 
+				default="#222222"
+				type="color" 
+				class="input-colorpicker"
+				label="COM_PHOCAGUESTBOOK_FIELD_FONT_COLOR_SECOND_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_FONT_COLOR_SECOND_DESC"/>
+				
+		<field 	name="third_font_color" 
+				default="#dddddd"
+				type="color" 
+				class="input-colorpicker"
+				label="COM_PHOCAGUESTBOOK_FIELD_FONT_COLOR_THIRD_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_FONT_COLOR_THIRD_DESC"/>
+				
+		<field 	name="background_color" 
+				default="#C8DFF9"
+				type="color" 
+				class="input-colorpicker"
+				label="COM_PHOCAGUESTBOOK_FIELD_BACKGROUND_COLOR_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_BACKGROUND_COLOR_DESC"/>
+				
+		<field 	name="border_color" 
+				default="#E6E6E6"
+				type="color" 
+				class="input-colorpicker"
+				label="COM_PHOCAGUESTBOOK_FIELD_BORDER_COLOR_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_BORDER_COLOR_DESC"/>
+	
+				
+		
+	</fieldset>
+	
+    <fieldset name="form"
+              label="COM_PHOCAGUESTBOOK_CONFIG_HEAD_FORM_LABEL">
+	
+		<field 	name="display_title_form" 
+				type="radio" 
+				class="btn-group"
+				label="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_SUBJECT_FORM_LABEL"
+				description="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_SUBJECT_FORM_DESC">
+			<option value="">COM_PHOCAGUESTBOOK_USE_GLOBAL</option>
+			<option value="1">COM_PHOCAGUESTBOOK_YES</option>
+			<option value="2">COM_PHOCAGUESTBOOK_YES_REQUIRED</option>
+			<option value="0">COM_PHOCAGUESTBOOK_NO</option>
+		</field>
+	
+		<field 	name="display_name_form"
+				class="btn-group"
+				type="radio" 
+				label="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_NAME_FORM_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_NAME_FORM_DESC">
+			<option value="">COM_PHOCAGUESTBOOK_USE_GLOBAL</option>
+			<option value="1">COM_PHOCAGUESTBOOK_YES</option>
+			<option value="2">COM_PHOCAGUESTBOOK_YES_REQUIRED</option>
+			<option value="0">COM_PHOCAGUESTBOOK_NO</option>
+		</field>
+		
+		<field 	name="display_email_form" 
+				type="radio"
+				class="btn-group"
+				label="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_EMAIL_FORM_LABEL"
+				description="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_EMAIL_FORM_DESC">
+			<option value="">COM_PHOCAGUESTBOOK_USE_GLOBAL</option>
+			<option value="1">COM_PHOCAGUESTBOOK_YES</option>
+			<option value="2">COM_PHOCAGUESTBOOK_YES_REQUIRED</option>
+			<option value="0">COM_PHOCAGUESTBOOK_NO</option>
+		</field>
+		
+		<field 	name="display_website_form" 
+				type="radio"
+				class="btn-group"
+				label="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_WEBSITE_FORM_LABEL"
+				description="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_WEBSITE_FORM_DESC">
+			<option value="">COM_PHOCAGUESTBOOK_USE_GLOBAL</option>
+			<option value="1">COM_PHOCAGUESTBOOK_YES</option>
+			<option value="2">COM_PHOCAGUESTBOOK_YES_REQUIRED</option>
+			<option value="0">COM_PHOCAGUESTBOOK_NO</option>
+		</field>
+	
+		<field 	name="display_content_form" 
+				type="radio"
+				class="btn-group"
+				label="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_CONTENT_FORM_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_CONTENT_FORM_DESC">
+			<option value="">COM_PHOCAGUESTBOOK_USE_GLOBAL</option>
+			<option value="1">COM_PHOCAGUESTBOOK_YES</option>
+			<option value="2">COM_PHOCAGUESTBOOK_YES_REQUIRED</option>
+			<option value="0">COM_PHOCAGUESTBOOK_NO</option>
+		</field>
+		
+		<field name="spacer2" type="spacer" hr="true" />
+		
+		<field 	name="enable_editor" 
+				type="radio" 
+				class="btn-group"
+				label="COM_PHOCAGUESTBOOK_FIELD_ENABLE_JAVASCRIPT_EDITOR_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_ENABLE_JAVASCRIPT_EDITOR_DESC">
+			<option value="">COM_PHOCAGUESTBOOK_USE_GLOBAL</option>
+			<option value="1">COM_PHOCAGUESTBOOK_YES</option>
+			<option value="0">COM_PHOCAGUESTBOOK_NO</option>
+		</field>
+		
+		<field name="spacer3" type="spacer" hr="true" />
+		
+		<field 	name="form_action_hidden_word" 
+				type="radio" 
+				class="btn-group"
+				label="COM_PHOCAGUESTBOOK_FIELD_FORM_ACTION_FORBIDDEN_WORD_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_FORM_ACTION_FORBIDDEN_WORD_DESC">
+			<option value="">COM_PHOCAGUESTBOOK_USE_GLOBAL</option>
+			<option value="2">COM_PHOCAGUESTBOOK_PUBLISH</option>
+			<option value="1">COM_PHOCAGUESTBOOK_REVIEW</option>
+			<option value="0">COM_PHOCAGUESTBOOK_REJECT</option>
+		</field>
+		<field 	name="form_action_banned_ip" 
+				type="radio" 
+				class="btn-group"
+				label="COM_PHOCAGUESTBOOK_FIELD_FORM_ACTION_BANNED_IP_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_FORM_ACTION_BANNED_IP_DESC">
+			<option value="">COM_PHOCAGUESTBOOK_USE_GLOBAL</option>
+			<option value="2">COM_PHOCAGUESTBOOK_PUBLISH</option>
+			<option value="1">COM_PHOCAGUESTBOOK_REVIEW</option>
+			<option value="0">COM_PHOCAGUESTBOOK_REJECT</option>
+		</field>
+		
+		<field 	name="contentcheck_block_spam" 
+				type="radio" 
+				class="btn-group" 
+				label="COM_PHOCAGUESTBOOK_FIELD_BLOCK_SPAM_CONTENT_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_BLOCK_SPAM_CONTENT_DESC">
+			<option value="">COM_PHOCAGUESTBOOK_USE_GLOBAL</option>
+			<option value="2">COM_PHOCAGUESTBOOK_DISABLED</option>
+			<option value="1">COM_PHOCAGUESTBOOK_REVIEW</option>
+			<option value="0">COM_PHOCAGUESTBOOK_REJECT</option>
+		</field>
+						
+					
+	</fieldset>
+	<fieldset 	name="post" 
+				label="COM_PHOCAGUESTBOOK_CONFIG_HEAD_POST_LABEL">
+	
+		<field 	name="display_name" 
+				type="radio" 
+				class="btn-group"
+				label="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_NAME_MESSAGE_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_NAME_MESSAGE_DESC">
+			<option value="">COM_PHOCAGUESTBOOK_USE_GLOBAL</option>
+			<option value="1">COM_PHOCAGUESTBOOK_YES</option>
+			<option value="0">COM_PHOCAGUESTBOOK_NO</option>
+		</field>
+		
+		<field 	name="display_email" 
+				type="radio" 
+				class="btn-group"
+				label="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_EMAIL_MESSAGE_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_EMAIL_MESSAGE_DESC">
+			<option value="">COM_PHOCAGUESTBOOK_USE_GLOBAL</option>
+			<option value="1">COM_PHOCAGUESTBOOK_YES</option>
+			<option value="0">COM_PHOCAGUESTBOOK_NO</option>
+		</field>
+		
+		<field 	name="display_website" 
+				type="radio" 
+				class="btn-group"
+				label="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_WEBSITE_MESSAGE_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_WEBSITE_MESSAGE_DESC">
+			<option value="">COM_PHOCAGUESTBOOK_USE_GLOBAL</option>
+			<option value="1">COM_PHOCAGUESTBOOK_YES</option>
+			<option value="0">COM_PHOCAGUESTBOOK_NO</option>
+		</field>
+		
+		<field name="spacer4" type="spacer" hr="true" />
+		
+		<field 	name="display_hidden_word" 
+				type="radio" 
+				class="btn-group"
+				label="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_FORBIDDEN_WORD_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_FORBIDDEN_WORD_DESC">
+			<option value="">COM_PHOCAGUESTBOOK_USE_GLOBAL</option>
+			<option value="2">COM_PHOCAGUESTBOOK_DISPLAY</option>
+			<option value="1">COM_PHOCAGUESTBOOK_CENSOR</option>
+			<option value="0">COM_PHOCAGUESTBOOK_HIDE</option>
+		</field>
+					
+					
+		
+		<field name="spacer30" type="spacer" hr="true" />	
+
+		
+		<field 	name="display_comment_name" 
+				type="radio" 
+				class="btn-group"
+				label="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_NAME_COMMENT_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_NAME_COMMENT_DESC">
+			<option value="">COM_PHOCAGUESTBOOK_USE_GLOBAL</option>
+			<option value="1">COM_PHOCAGUESTBOOK_YES</option>
+			<option value="0">COM_PHOCAGUESTBOOK_NO</option>
+		</field>
+		
+		<field 	name="display_comment_subject" 
+				type="radio" 
+				class="btn-group"
+				label="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_SUBJECT_COMMENT_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_SUBJECT_COMMENT_DESC">
+			<option value="">COM_PHOCAGUESTBOOK_USE_GLOBAL</option>
+			<option value="1">COM_PHOCAGUESTBOOK_YES</option>
+			<option value="0">COM_PHOCAGUESTBOOK_NO</option>
+		</field>
+		
+		<field 	name="display_comment_email" 
+				type="radio" 
+				class="btn-group"
+				label="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_EMAIL_COMMENT_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_EMAIL_COMMENT_DESC">
+			<option value="">COM_PHOCAGUESTBOOK_USE_GLOBAL</option>
+			<option value="1">COM_PHOCAGUESTBOOK_YES</option>
+			<option value="0">COM_PHOCAGUESTBOOK_NO</option>
+		</field>
+		
+		<field 	name="display_comment_website" 
+				type="radio" 
+				class="btn-group"
+				label="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_WEBSITE_COMMENT_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_WEBSITE_COMMENT_DESC">
+			<option value="">COM_PHOCAGUESTBOOK_USE_GLOBAL</option>
+			<option value="1">COM_PHOCAGUESTBOOK_YES</option>
+			<option value="0">COM_PHOCAGUESTBOOK_NO</option>
+		</field>
+			
+		<field 	name="display_comment_date" 
+				type="radio" 
+				class="btn-group"
+				label="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_DATE_COMMENT_LABEL" 
+				description="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_DATE_COMMENT_DESC">
+			<option value="">COM_PHOCAGUESTBOOK_USE_GLOBAL</option>
+			<option value="1">COM_PHOCAGUESTBOOK_YES</option>
+			<option value="0">COM_PHOCAGUESTBOOK_NO</option>
+		</field>
+		
+	</fieldset>
+	
+	</fields>
+</metadata>

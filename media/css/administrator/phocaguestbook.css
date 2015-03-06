@@ -1,0 +1,156 @@
+#adminForm {
+	margin: 0 0 0 0 !important;
+}
+
+/* Columns*/
+.ph-image {
+	text-align:center;
+	width: 10%;
+}
+.ph-title {
+	width: 60%;
+}
+.ph-title-short {
+	width: 30%;
+}
+.ph-filename-long {
+	width: 30%;
+}
+.ph-functions,
+.ph-id,
+.ph-check,
+.ph-ordering {
+	width: 1%;
+}
+.ph-uploaduser {
+	width: 7%;
+	white-space: nowrap;
+}
+.ph-owner,
+.ph-rating,
+.ph-hits,
+.ph-language,
+.ph-published,
+.ph-approved {
+	width: 5%;
+}
+.ph-user,
+.ph-parentcattitle {
+	width: 15%;
+}
+.ph-filename,
+.ph-access {
+	width: 10%;
+}
+
+
+.ph-multiple-table tr td.ph-img-table {
+	text-align: center;
+	padding-top: 4px;
+}
+.ph-icon {
+	margin: 0;
+	padding: 5px;
+	float: left;
+	margin: 0 auto;
+	text-align: center;
+}
+.ph-icon-inside.thumbnail {
+	width: 100px;
+	height: 100px;
+	-webkit-border-radius: 0px;  
+    border-radius: 0px;
+	background: #fdfdfd;
+}
+.ph-icon-inside.thumbnail img {
+	margin-top: 10px;
+	margin-bottom: -12px;
+}
+.ph-icon-inside.thumbnail span {
+}
+
+.ph-head-form-small,
+.ph-head-form {
+	font-weight: bold;
+}
+.ph-head-form {
+		margin-bottom: 10px;
+}
+.ph-in {
+	padding: 5px;
+}
+
+.ph-w80 {
+	width: 80%;
+}
+
+.dl-horizontal.ph-input dt {
+	float: left;
+	clear: left;
+	margin-right: 20px;
+	text-align: left;
+	width: auto;
+}
+.dl-horizontal.ph-input dd{
+}
+
+.ph-cpanel-left {
+	float: left;
+	width: 50%;
+}
+.ph-cpanel-right {
+	float: right;
+	width: 50%;
+}
+
+
+
+
+div.icon-48-info {
+	background: url('/media/com_phocaguestbook/images/administrator/icon-48-pgu-info.png') no-repeat left;
+}
+div.icon-48-phoca {
+	background: url('/media/com_phocaguestbook/images/administrator/icon-48-pgu-phoca.png') no-repeat left;
+}
+
+div.icon-48-item {
+	background: url('/media/com_phocaguestbook/images/administrator/icon-48-pgu-item.png') no-repeat left;
+}
+
+div.icon-48-guestbook {
+	background: url('/media/com_phocaguestbook/images/administrator/icon-48-pgu-guestbook.png') no-repeat left;
+}
+
+.pgadminicon {
+	/*add code*/
+	/*display: block;
+	width: 10em;
+	background-color: #555;
+	border: solid 1px #d5d5d5;*/
+}
+
+.license {
+	text-align:justify;
+	font-size: 9px;
+}
+
+.phoca-adminform {
+	background-color: #fff;
+	border: solid 1px #d5d5d5;
+	padding:10px;
+	color: #777;
+}
+
+
+.pgb-tableinfo .error {
+	background-color: #ff0000;
+}
+.pgb-tableinfo .info {
+	background-color: #ffe28e;
+}
+.pgb-tableinfo .success {
+	background-color: #75cb63;
+}
+
+
+

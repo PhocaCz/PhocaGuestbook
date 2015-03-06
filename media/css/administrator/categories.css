@@ -1,0 +1,24 @@
+@CHARSET "UTF-8";
+/**
+ * @package    phocaguestbook
+ * @subpackage CSS
+ * @author      {@link }
+ * @author     Created on 01-Nov-2012
+ * @license    GNU/GPL
+ */
+
+
+.icon-48-phocaguestbook-categories.icon-48-categories {
+    background-image:
+        url(../../images/administrator/icon-48-com_phocaguestbook-categories.png);
+}
+
+.icon-48-phocaguestbook-category-edit.icon-48-category-edit {
+    background-image:
+        url(../../images/administrator/icon-48-com_phocaguestbook-category-edit.png);
+}
+
+.icon-48-phocaguestbook-category-add.icon-48-category-add {
+    background-image:
+        url(../../images/administrator/icon-48-com_phocaguestbook-category-add.png);
+}

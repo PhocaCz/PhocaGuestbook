@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension method="upgrade" type="component" version="3">
+	<name>com_phocaguestbook</name>
+	<author>Jan Pavelka (www.phoca.cz), Daniel Huber</author>
+	<creationDate>27/04/2014</creationDate>
+	<authorEmail></authorEmail>
+	<authorUrl>www.phoca.cz</authorUrl>
+	<copyright>Jan Pavelka</copyright>
+	<license>GNU/GPL</license>
+	<version>3.0.2</version>
+	<description>Phoca Guestbook</description>
+	<scriptfile>install/script.php</scriptfile>
+
+	<install>
+		<sql>
+			<file driver="mysql" charset="utf8">install/sql/mysql/install.utf8.sql</file>
+		</sql>
+	</install>
+
+	<uninstall>
+		<sql>
+			<file driver="mysql" charset="utf8">install/sql/mysql/uninstall.utf8.sql</file>
+		</sql>
+	</uninstall>
+
+	<update>
+		<schemas/>
+	</update>
+
+	<files folder="site">
+		<filename>controller.php</filename>
+		<filename>index.html</filename>
+		<filename>phocaguestbook.php</filename>
+		<filename>router.php</filename>
+		<folder>assets</folder>
+		<folder>controllers</folder>
+		<folder>helpers</folder>
+		<folder>language</folder>
+		<folder>models</folder>
+		<folder>views</folder>
+	</files>
+
+	<media destination="com_phocaguestbook" folder="media">
+		<filename>index.html</filename>
+		<folder>css</folder>
+		<folder>images</folder>
+	</media>
+
+	<languages>
+		<language tag="en-GB" client="site">language/en-GB/en-GB.com_phocaguestbook.ini</language>
+		<language tag="en-GB" client="site">language/en-GB/en-GB.com_phocaguestbook.sys.ini</language>
+	</languages>
+
+	<administration>
+		<menu img="components/com_phocaguestbook/assets/images/icon-16-pgb-menu.png" link="option=com_phocaguestbook">COM_PHOCAGUESTBOOK</menu>
+		<submenu>
+			<menu img="components/com_phocaguestbook/assets/images/icon-16-pgb-menu-cp.png" alt="COM_PHOCAGUESTBOOK_CONTROLPANEL" view="phocaguestbookcp" link="option=com_phocaguestbook">COM_PHOCAGUESTBOOK_CONTROLPANEL</menu>
+			<menu img="components/com_phocaguestbook/assets/images/icon-16-pgb-menu-item.png" alt="COM_PHOCAGUESTBOOK_ITEMS" view="phocaguestbooks" link="option=com_phocaguestbook&amp;amp;view=phocaguestbooks">COM_PHOCAGUESTBOOK_ITEMS</menu>
+			<menu img="components/com_phocaguestbook/assets/images/icon-16-pgb-menu-guestbook.png" alt="COM_PHOCAGUESTBOOK_GUESTBOOKS" view="phocaguestbookbs" link="option=com_categories&amp;amp;extension=com_phocaguestbook">COM_PHOCAGUESTBOOK_GUESTBOOKS</menu>
+			<menu img="components/com_phocaguestbook/assets/images/icon-16-pgb-menu-logs.png" alt="COM_PHOCAGUESTBOOK_LOGGING" view="phocaguestlogs" link="option=com_phocaguestbook&amp;amp;view=phocaguestbooklogs">COM_PHOCAGUESTBOOK_LOGGING</menu>
+			<menu img="components/com_phocaguestbook/assets/images/icon-16-pgb-menu-info.png" alt="COM_PHOCAGUESTBOOK_INFO" view="phocaguestbookin" link="option=com_phocaguestbook&amp;amp;view=phocaguestbookin">COM_PHOCAGUESTBOOK_INFO</menu>
+		</submenu>
+
+		<files folder="admin">
+			<filename>access.xml</filename>
+			<filename>config.xml</filename>
+			<filename>controller.php</filename>
+			<filename>index.html</filename>
+			<filename>phocaguestbook.php</filename>
+			<filename>phocaguestbook.xml</filename>
+			<folder>controllers</folder>
+			<folder>help</folder>
+			<folder>helpers</folder>
+			<folder>install</folder>
+			<folder>models</folder>
+			<folder>tables</folder>
+			<folder>views</folder>
+		</files>
+
+		<languages>
+			<language tag="en-GB">language/en-GB/en-GB.com_phocaguestbook.ini</language>
+			<language tag="en-GB">language/en-GB/en-GB.com_phocaguestbook.sys.ini</language>
+		</languages>
+
+	</administration>
+</extension>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<access component="com_phocaguestbook">
+	<section name="component">
+		<action name="core.admin" title="JACTION_ADMIN" description="JACTION_ADMIN_COMPONENT_DESC" />
+		<action name="core.manage" title="JACTION_MANAGE" description="JACTION_MANAGE_COMPONENT_DESC" />
+		<action name="core.create" title="JACTION_CREATE" description="JACTION_CREATE_COMPONENT_DESC" />
+		<action name="core.delete" title="JACTION_DELETE" description="JACTION_DELETE_COMPONENT_DESC" />
+		<action name="core.edit" title="JACTION_EDIT" description="JACTION_EDIT_COMPONENT_DESC" />
+		<action name="core.edit.state" title="JACTION_EDITSTATE" description="JACTION_EDITSTATE_COMPONENT_DESC" />
+	</section>
+	<section name="category">
+		<action name="core.create.post" title="COM_PHOCAGUESTBOOK_ACTION_POST" description="COM_PHOCAGUESTBOOK_ACCESS_POST_DESC" />
+		<action name="core.create.reply" title="COM_PHOCAGUESTBOOK_ACTION_REPLY" description="COM_PHOCAGUESTBOOK_ACCESS_REPLY_DESC" />
+		<action name="core.delete" title="COM_PHOCAGUESTBOOK_ACTION_DELETE" description="COM_PHOCAGUESTBOOK_ACCESS_DELETE_DESC" />
+		<action name="core.edit" title="COM_PHOCAGUESTBOOK_ACTION_EDIT" description="COM_PHOCAGUESTBOOK_ACCESS_EDIT_DESC" />
+		<action name="core.edit.own" title="COM_PHOCAGUESTBOOK_ACTION_EDITOWN" description="COM_PHOCAGUESTBOOK_ACCESS_EDITOWN_DESC" />
+		<action name="core.edit.state" title="COM_PHOCAGUESTBOOK_ACTION_STATE" description="COM_PHOCAGUESTBOOK_ACCESS_STATE_DESC" />
+	</section>
+</access>
