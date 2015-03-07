@@ -33,7 +33,7 @@ class PhocaguestbookController extends JControllerLegacy
 		$id     = JFactory::getApplication()->input->getInt('id');
 	
 		phocaguestbookHelper::addSubmenu($view);
-        parent::display();
+        parent::display($cachable, $urlparams);
         
         return $this;
     }

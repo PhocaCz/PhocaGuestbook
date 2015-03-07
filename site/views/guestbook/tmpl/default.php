@@ -53,23 +53,26 @@ if ($this->params->get('show_form')) : ?>
 // Header
 // - - - - - - - - - - -
 if ( $this->params->get( 'show_page_heading' ) ) : ?>
-	<div class="page-header">
-		<h1>
-			<?php echo $this->escape($this->params->get('page_heading')); ?>
-		</h1>
-	</div>
-<?php 
-	//image not supported yet -> add "image" to xml file
-	if ( @$this->image || @$this->guestbooks->description ) : ?>
-	<div class="well pgb_background guestbook-description">
-	<?php
-	/*if ( isset($this->tmpl['image']) ) {
-		echo $this->tmpl['image'];
-	}*/
-	echo $this->guestbooks->description;
-	?>
-	</div>
-<?php endif; endif;
+   <div class="page-header">
+	  <h1>
+		 <?php echo $this->escape($this->params->get('page_heading')); ?>
+	  </h1>
+   </div>
+<?php endif;
+   //image not supported yet -> add "image" to xml file
+   if ( @$this->image || @$this->guestbooks->description ) : ?>
+   <div class=" pgb_background guestbook-description">
+   <?php
+   /*if ( isset($this->tmpl['image']) ) {
+	  echo $this->tmpl['image'];
+   }*/
+   echo $this->guestbooks->description;
+   ?>
+   </div>
+<?php endif;
+
+
+
 
 // - - - - - - - - - - -
 // Page / Different positions

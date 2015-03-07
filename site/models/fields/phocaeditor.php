@@ -51,14 +51,53 @@ class JFormFieldPhocaEditor extends JFormField
 
 		$hide = ((string) $this->element['hide']) ? explode(',', (string) $this->element['hide']) : array();
 		
+		
+		
+		
+		
 		// We search for defined editor (tinymce)
 		$editor = $this->getEditor();
 		if ($editor) {
+			
+			// EDITOR PARAMS
+			$plugin 	= JPluginHelper::getPlugin('editors', 'tinymce');
+			$paramsE 	= new JRegistry($plugin->params);
+			$language 		 = JFactory::getLanguage();
+			//$entity_encoding = $this->params->get('entity_encoding', 'raw');
+			$langMode        = $paramsE->get('lang_mode', 0);
+			$langPrefix      = $paramsE->get('lang_code', 'en');
+
+			if ($langMode)
+			{
+				if (file_exists(JPATH_ROOT . "/media/editors/tinymce/langs/" . $language->getTag() . ".js"))
+				{
+					$langPrefix = $language->getTag();
+				}
+				elseif (file_exists(JPATH_ROOT . "/media/editors/tinymce/langs/" . substr($language->getTag(), 0, strpos($language->getTag(), '-')) . ".js"))
+				{
+					$langPrefix = substr($language->getTag(), 0, strpos($language->getTag(), '-'));
+				}
+				else
+				{
+					$langPrefix = "en";
+				}
+			}
+
+			$text_direction = 'ltr';
+
+			if ($language->isRTL())
+			{
+				$text_direction = 'rtl';
+			}
+		
+		
+		
 			$js =	'<script type="text/javascript">' . "\n";
 			$js .= 	 'tinyMCE.init({'. "\n"
 						.'mode : "textareas",'. "\n"
 						.'theme : "advanced",'. "\n"
-						.'language : "en",'. "\n"
+						.'directionality: "'.$text_direction.'",'. "\n"
+						.'language : "'.$langPrefix.'",'. "\n"
 						.'plugins : "emotions",'. "\n"
 						.'editor_selector : "mceEditor",'. "\n"					
 						.'theme_advanced_buttons1 : "bold, italic, underline, separator, strikethrough, justifyleft, justifycenter, justifyright, justifyfull, bullist, numlist, undo, redo, link, unlink, separator, emotions",'. "\n"
@@ -79,8 +118,8 @@ class JFormFieldPhocaEditor extends JFormField
 			$js = '<script type="text/javascript">
 				tinyMCE.init({
 					// General
-					//directionality: "ltr",
-					//language : "en",
+					directionality: "'.$text_direction.'",
+					language : "'.$langPrefix.'",
 					menubar:false,
 					statusbar: false,
 					mode : "specific_textareas",
@@ -97,9 +136,9 @@ class JFormFieldPhocaEditor extends JFormField
 					toolbar_items_size: "small",
 					invalid_elements : "script,applet,iframe",
 					// Plugins
-					plugins : "link image autolink lists",
+					plugins : "link image autolink lists emoticons",
 					// Toolbar
-					toolbar1: "bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist | undo redo | link unlink anchor image",
+					toolbar1: "bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist | undo redo | link unlink anchor image emoticons",
 					removed_menuitems: "newdocument",
 					// URL
 					relative_urls : true,
@@ -203,6 +242,7 @@ class JFormFieldPhocaEditor extends JFormField
 			// END PHOCAEDIT
 			
 			$this->editor = JEditor::getInstance($editor);
+		
 		}
 
 		return $this->editor;

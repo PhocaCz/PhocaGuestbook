@@ -25,12 +25,14 @@ $params = $params->toArray();
 <script type="text/javascript">
 	Joomla.submitbutton = function(task) {
 		if (task != 'phocaguestbook.cancel' && document.id('jform_catid').value == '') {
-			alert('<?php echo $this->escape(JText::_('JGLOBAL_VALIDATION_FORM_FAILED')) . ' - '. $this->escape(JText::_('COM_PHOCAGUESTBOOK_CATEGORY_NOT_SELECTED'));?>');
+			
+			alert('<?php echo JText::_('JGLOBAL_VALIDATION_FORM_FAILED', true) . ' - ' . JText::_('COM_PHOCAGUESTBOOK_CATEGORY_NOT_SELECTED', true) ;?>');
 		} else if (task == 'phocaguestbook.cancel' || document.formvalidator.isValid(document.id('item-form'))) {
+			<?php echo $this->form->getField('content')->save(); ?>
 			Joomla.submitform(task, document.getElementById('item-form'));
 		}
 		else {
-			alert('<?php echo $this->escape(JText::_('JGLOBAL_VALIDATION_FORM_FAILED'));?>');
+			alert('<?php echo JText::_('JGLOBAL_VALIDATION_FORM_FAILED', true);?>');
 		}
 	}
 </script>

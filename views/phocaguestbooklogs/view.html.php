@@ -66,7 +66,7 @@ class PhocaguestbookViewPhocaguestbooklogs extends JViewLegacy
 		$user  = JFactory::getUser();
 		
 		//TOOLBAR
-        JToolBarHelper::title(JText::_('COM_PHOCAGUESTBOOK_ITEMS'), 'file-2');
+        JToolBarHelper::title(JText::_('COM_PHOCAGUESTBOOK_LOGGING'), 'file-2');
    
         if ($canDo->get('core.admin')) {
 			JToolBarHelper::deleteList('COM_PHOCAGUESTBOOK_WARNING_DELETE_ITEMS', 'phocaguestbooklogs.delete', 'COM_PHOCAGUESTBOOK_DELETE');

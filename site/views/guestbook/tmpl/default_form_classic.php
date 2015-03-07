@@ -86,7 +86,7 @@ if ($this->params->get('show_form') == 1) : ?>
 		</div>
 		<div class="btn-group">
 			<button type="button" class="btn" onclick="Joomla.submitbutton('phocaguestbook.cancel')">
-				<i class="glyphicon glyphicon-cancel icon-cancel"></i><?php echo JText::_('COM_PHOCAGUESTBOOK_RESET');?>	</button>
+				<i class="glyphicon glyphicon-remove icon-remove"></i><?php echo JText::_('COM_PHOCAGUESTBOOK_RESET');?>	</button>
 		</div>
 	</div>		
 

@@ -281,10 +281,26 @@ class PhocaguestbookModelGuestbook extends JModelForm
 		// Get pagination request variables
 		$params = $this->getState('params');
 
-		$start  = JRequest::getInt('start', $this->getState('list.start', 0));
+		//$start  = JRequest::getInt('start', $this->getState('list.start', 0));
+		/*$start  = JRequest::getInt('limitstart', $this->getState('list.limitstart', 0));
 		$limit  = JRequest::getInt('limit', $this->getState('list.limit', $params->get('default_pagination')));
+		
+		//$this->setState('limitstart', ($this->getState('limit') != 0 ? (floor($this->getState('limitstart') / $this->getState('limit')) * $this->getState('limit')) : 0));
+	
 		$this->setState('list.start', $start);
+		$this->setState('list.limit', $limit);*/
+		$context			= 'com_phocaguestbook.guestbook.';
+		$app				= JFactory::getApplication();
+		
+		$limit = $app->getUserStateFromRequest('list.limit', 'limit', $params->get('default_pagination'), 'int');
+		$start = $app->input->get('limitstart', $this->getState('list.limitstart', 0), 'int');
+		
 		$this->setState('list.limit', $limit);
+		$this->setState('list.start', $start);
+		// In case limit has been changed, adjust limitstart accordingly
+		//$this->setState('list.start', ($this->getState('limit') != 0 ? (floor($this->getState('limitstart') / $this->getState('limit')) * $this->getState('limit')) : 0));
+		
+
 	
 		$order  = $params->get('items_order', 'ordering');	
 		$dir    = $params->get('items_orderdir', 'ASC');
@@ -306,6 +322,7 @@ class PhocaguestbookModelGuestbook extends JModelForm
 			$level =  $params->get('display_comments', 1);
 			$query = $this->_buildAllQuery($level, $start, $limit);
 			$this->_data = $this->_getList($query);
+			
 		}
 		
 		return $this->_data;
@@ -332,7 +349,7 @@ class PhocaguestbookModelGuestbook extends JModelForm
 			//$this->_pagination = new JPagination($this->getTotal(), $this->getState('list.start'), $this->getState('list.limit') );
 			$this->_pagination = new PhocaGuestbookPaginationPosts( $this->getTotal(), $this->getState('list.start'), $this->getState('list.limit') );
 		}
-				
+
 		return $this->_pagination;
 	}
 	
@@ -465,8 +482,14 @@ class PhocaguestbookModelGuestbook extends JModelForm
 		}
 		
 		$where[] = 'level = 1';
+		
+		if ((int)$limit > 0) {
+			$setLimit = 'LIMIT '.$start.','.$limit;
+		} else {
+			$setLimit = '';
+		}
 				
-		$queryL1 = '	SELECT *, '.$filter_order.' AS mainOrd FROM '.$this->_db->quoteName('#__phocaguestbook_items').' WHERE '.implode(' AND ', $where).' ORDER BY '.$filter_order.' '.$filter_order_dir.' LIMIT '.$start.','.$limit.' ';
+		$queryL1 = '	SELECT *, '.$filter_order.' AS mainOrd FROM '.$this->_db->quoteName('#__phocaguestbook_items').' WHERE '.implode(' AND ', $where).' ORDER BY '.$filter_order.' '.$filter_order_dir.' '.$setLimit.' ';
 		$orderL1 = '';
 		$queryL2 = '    SELECT mainOrd AS aOrd, b.'.$subfilter_order.' AS bOrd, b.*FROM ('. $queryL1 .')  AS a JOIN '.$this->_db->quoteName('#__phocaguestbook_items').' AS b ON (a.id=b.parent_id AND b.level=2) OR a.id=b.id WHERE '.implode(' AND ', $whereb).' ';
 		$orderL2 = '     ORDER BY aOrd '.$filter_order_dir.', bOrd '.$subfilter_dir;

@@ -17,6 +17,8 @@ defined('_JEXEC') || die('=;)');
 class PhocaguestbookModelPhocaguestbookLog extends JModelAdmin
 {
 	
+	public $typeAlias 			= 'com_phocaguestbook.phocaguestbooklog';
+	
     /**
      * Returns a reference to the a Table object, always creating it.
      * @internal param \The $type table type to instantiate

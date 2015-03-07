@@ -17,6 +17,7 @@ defined('_JEXEC') || die('=;)');
 class PhocaguestbookModelPhocaguestbook extends JModelAdmin
 {
 	protected $_data;
+	public $typeAlias 			= 'com_phocaguestbook.phocaguestbook';
 	
 	/**
 	 * Prepare and sanitise the table data prior to saving.
