@@ -47,7 +47,7 @@ function PhocaGuestbookBuildRoute(&$query) {
 	}
 
 	if (isset($view) and ($view == 'guestbook' or $view == 'guestbooki')) {
-		if ($mId != intval($query['cid']) || $mView != $view) {
+		if ((isset($query['cid']) && $mId != intval($query['cid'])) || $mView != $view) {
 			
 			if($view == 'guestbook')
 			{

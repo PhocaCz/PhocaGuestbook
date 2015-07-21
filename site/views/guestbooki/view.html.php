@@ -16,7 +16,7 @@ class PhocaguestbookViewGuestbooki extends JViewLegacy
 		PhocaGuestbookHelperFront::checkSpecificId(1);
 		$image_data = $this->get('Data');
 
-		$session 	=& JFactory::getSession();
+		$session 	= JFactory::getSession();
 		$app 		= JFactory::getApplication();
 		$params		= JComponentHelper::getParams('com_phocaguestbook') ;
 		$namespace	= 'pgb'.$params->get('session_suffix');

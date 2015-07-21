@@ -17,8 +17,8 @@ class PhocaguestbookModelGuestbooki extends JModelLegacy
 	function &getData()
 	{
 		//reuse old captcha id		
-		$paramsC 		= JComponentHelper::getParams('com_phocaguestbook') ;
-		$session 	=& JFactory::getSession();
+		$paramsC 	= JComponentHelper::getParams('com_phocaguestbook') ;
+		$session 	= JFactory::getSession();
 		$captchaId = $session->get('captcha_id','', 'pgb'.$paramsC->get('session_suffix'));//Get captcha type
 
 		/*

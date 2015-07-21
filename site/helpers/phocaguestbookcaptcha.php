@@ -9,7 +9,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 class PhocaguestbookHelperCaptchaTTF
 {
-	function createImageData()
+	public static function createImageData()
 	{
 		$rand_char 			= PhocaguestbookHelperCaptchaTTF::generateRandomChar(6);
 		$image_name 		= PhocaguestbookHelperCaptchaTTF::getRandomImage();
@@ -41,7 +41,7 @@ class PhocaguestbookHelperCaptchaTTF
 		return $image_data;
 	}
 	
-	function generateRandomChar($length=6)
+	public static function generateRandomChar($length=6)
 	{	
 	
 		$paramsC 	= JComponentHelper::getParams('com_phocaguestbook') ;
@@ -66,14 +66,14 @@ class PhocaguestbookHelperCaptchaTTF
 		return $random_array;
 	}
 
-	function getRandomImage() {
+	public static function getRandomImage() {
 		$rand 	= mt_rand(5,8);
 		$image 	= '0'.$rand.'.jpg';
 		$image 	= JPATH_ROOT.'/components/com_phocaguestbook/assets/captcha/'. $image;
 		return $image;
 	}
 
-	function getRandomPositionX($i) {
+	public static function getRandomPositionX($i) {
 		$rand_2 = mt_rand(-2,3);
 		$rand_3 = $i + ($rand_2);
 		
@@ -85,7 +85,7 @@ class PhocaguestbookHelperCaptchaTTF
 		return $rand;
 	}	
 
-	function getRandomFontColor() {
+	public static function getRandomFontColor() {
 		$rand = mt_rand(1,6);
 		if ($rand == 1) {$font_color[0] = 0; $font_color[1] = 20; $font_color[2] = 0;}
 		if ($rand == 2) {$font_color[0] = 0; $font_color[1] = 0; $font_color[2] = 143;}
@@ -103,7 +103,7 @@ class PhocaguestbookHelperCaptchaTTF
 
 class PhocaguestbookHelperCaptchaMath
 {	
-	function createImageItem($item)
+	public static function createImageItem($item)
 	{
 		switch ($item)
 		{
@@ -324,7 +324,7 @@ $ch[5].$ch[6].$ch[7].$ch[8].$ch[9],
 	}
 
 
-	function createImageData()
+	public static function createImageData()
 	{
 		$image_name 		= PhocaguestbookHelperCaptchaMath::getRandomImage();
 		$image 				= @imagecreatefromjpeg($image_name);
@@ -377,7 +377,7 @@ $ch[5].$ch[6].$ch[7].$ch[8].$ch[9],
 		return $image_data;
 	}
 	
-	function generateRandomChar($length=6)
+	public static function generateRandomChar($length=6)
 	{	
 	
 		$paramsC 	= JComponentHelper::getParams('com_phocaguestbook') ;
@@ -402,7 +402,7 @@ $ch[5].$ch[6].$ch[7].$ch[8].$ch[9],
 		return $random_string;
 	}
 
-	function getRandomImage()
+	public static function getRandomImage()
 	{
 		$rand = mt_rand(10,13);
 		$image = ''.$rand.'.jpg';
@@ -411,7 +411,7 @@ $ch[5].$ch[6].$ch[7].$ch[8].$ch[9],
 	}
 
 
-	function getRandomFontColor()
+	public static function getRandomFontColor()
 	{
 		$rand = mt_rand(1,6);
 		if ($rand == 1) {$font_color[0] = 0; $font_color[1] = 0; $font_color[2] = 0;}
@@ -423,7 +423,7 @@ $ch[5].$ch[6].$ch[7].$ch[8].$ch[9],
 		return $font_color;
 	}
 	
-	function getMath()
+	public static function getMath()
 	{
 		$math['first'] 		= mt_rand(1,9);
 		$math['second']		= mt_rand(1,9);
@@ -498,7 +498,7 @@ $ch[5].$ch[6].$ch[7].$ch[8].$ch[9],
 // ================================================
 class PhocaguestbookHelperCaptchaStd
 {
-	function createImageData()
+	public static function createImageData()
 	{
 		$rand_char 			 = PhocaguestbookHelperCaptchaStd::generateRandomChar(6);
 		$rand_char_array 	 = array (			$rand_char[0]."          ",
@@ -527,7 +527,7 @@ class PhocaguestbookHelperCaptchaStd
 		return $image_data;
 	}
 	
-	function generateRandomChar($length=6)
+	public static function generateRandomChar($length=6)
 	{	
 	
 		$paramsC 	= JComponentHelper::getParams('com_phocaguestbook') ;
@@ -552,7 +552,7 @@ class PhocaguestbookHelperCaptchaStd
 		return $random_string;
 	}
 
-	function getRandomImage()
+	public static function getRandomImage()
 	{
 		$rand = mt_rand(1,4);
 		$image = '0'.$rand.'.jpg';
@@ -561,7 +561,7 @@ class PhocaguestbookHelperCaptchaStd
 	}
 
 
-	function getRandomFontColor()
+	public static function getRandomFontColor()
 	{
 		$rand = mt_rand(1,6);
 		if ($rand == 1) {$font_color[0] = 0; $font_color[1] = 0; $font_color[2] = 0;}

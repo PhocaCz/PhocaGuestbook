@@ -148,9 +148,10 @@ class PhocaguestbookViewGuestbook extends JViewLegacy
 		//Don't show form, if IP Ban is wrong
 		if ($params->get('form_action_banned_ip') == 2) {
 			$ipAddr = $_SERVER["REMOTE_ADDR"];
-			//$ipAddr = "87.103.128.199";
 			
-			$isSpam = PhocaguestbookOnlineCheckHelper::checkIpAddress($ipAddr, $params);
+			$logging = new stdClass();
+			$isSpam = PhocaguestbookOnlineCheckHelper::checkIpAddress($ipAddr, $params, $logging);
+
 			if ($isSpam) {
 				// Banned Client
 				$params->set('show_form', 0);

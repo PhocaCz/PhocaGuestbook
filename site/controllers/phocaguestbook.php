@@ -100,7 +100,7 @@ class PhocaguestbookControllerPhocaguestbook extends JControllerForm
 			$data['userip']  = getenv('HTTP_X_FORWARDED_FOR');
 		}
 		$logging->ip = $data['userip'];
-		// SPAM IP = "88.180.52.46";
+	
 		//captcha
 		switch ($params->get('captcha_id')) {
 			case 1: //COM_PHOCAGUESTBOOK_JOOMLA_CAPTCHA -> use diffent fields
@@ -197,7 +197,7 @@ class PhocaguestbookControllerPhocaguestbook extends JControllerForm
 			if ($isSpam) {
 				if ($params->get('form_action_banned_ip') == 1){
 					$data['published'] = 0;
-					break;
+					//break;
 				} else {
 					$session->clear('time', 'pgb'.$params->get('session_suffix'));
 					$model->doLog($logging,false);
@@ -259,8 +259,8 @@ class PhocaguestbookControllerPhocaguestbook extends JControllerForm
 		//FORBIDDEN URL identication
 		foreach ($ffa as $word) {
 			if ($word != '') {
-				if ((strpos($data['content'], $word) !== false)  &&
-					(strpos($data['title'], $word) !== false) &&
+				if ((strpos($data['content'], $word) !== false)  ||
+					(strpos($data['title'], $word) !== false) ||
 					(strpos($data['username'], $word) !== false)) {
 						
 					$logging->forbidden_word = 2;
