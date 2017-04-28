@@ -17,7 +17,8 @@ class JFormRulePhocaguestbookContent extends JFormRule
 		$info = array();
 		$info['field'] = 'guestbook_content';
 		
-		$params = JComponentHelper::getParams('com_phocaguestbook');
+		$app		= JFactory::getApplication();
+		$params 	= $app->getParams();
 
 		//Maximum of character, they will be saved in database
 		$value	= substr($value, 0, $params->get('max_char'));

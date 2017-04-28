@@ -104,7 +104,7 @@ class PhocaguestbookHelper
 			}
 		}
 
-		$xml_items = '';
+		$xml_items = array();
 		if (count($xmlFilesInDir)) {
 			foreach ($xmlFilesInDir as $xmlfile) {
 				if ($data = JApplicationHelper::parseXMLInstallFile($folder.'/'.$xmlfile)) {

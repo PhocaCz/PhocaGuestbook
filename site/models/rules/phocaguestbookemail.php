@@ -18,7 +18,8 @@ class JFormRulePhocaguestbookEmail extends JFormRuleEmail
 		//E_ERROR, E_WARNING, E_NOTICE, E_USER_ERROR, E_USER_WARNING, E_USER_NOTICE.
 		$info = array();
 		$info['field'] = 'guestbook_email';
-		$params = JComponentHelper::getParams('com_phocaguestbook');	
+		$app		= JFactory::getApplication();
+		$params 	= $app->getParams();	
 		
 		//EMAIL FORMAT
 		if(!parent::test($element, $value, $group, $input, $form)){

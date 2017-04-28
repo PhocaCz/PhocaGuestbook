@@ -20,6 +20,17 @@ class com_phocaguestbookInstallerScript
     public function update($parent){
 		$msg 	=  JText::_('COM_PHOCAGUESTBOOK_UPDATE_TEXT');
 		$app	= JFactory::getApplication();
+		
+		
+		// In newest Joomla! versions root must be published
+		$db = JFactory::getDbo();
+		$db->setQuery('SELECT id FROM #__phocaguestbook_items WHERE level = 0 AND alias = '.$db->quote('root'));
+		$root = $db->loadResult();
+		if ($root > 0) {
+			$query = 'UPDATE #__phocaguestbook_items SET published = 1 WHERE id = '.(int)$root;
+			$db->setQuery($query);
+			$db->execute();
+		}
 		$app->enqueueMessage($msg, 'message');
 		$app->redirect(JRoute::_('index.php?option=com_phocaguestbook'));
     }

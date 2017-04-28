@@ -19,13 +19,24 @@ JHTML::_('behavior.modal');
 if ($this->params->get('show_form') == 1) : ?>
 <div class="well pgwell pgb_background pgb_sec_font">
 	<h4 class="pgb_font"><?php echo JText::_('COM_phocaguestbook_POST_MESSAGE');?></h4>
-	<form action="<?php echo JRoute::_('index.php'); ?>" method="post" name="adminForm" id="adminForm" class="form-validate form-horizontal">
+	<form action="<?php echo $this->t['actionurl']; ?>" method="post" name="adminForm" id="adminForm" class="form-validate form-horizontal">
 	
 	<?php if ($this->params->get('display_title_form')) : ?>
 		<div class="control-group">
 			<div class="control-label"><?php echo $this->form->getLabel('title'); ?></div>
-			<div class="controls"><?php echo $this->form->getInput('title');  
-				if($this->params->get('hidden_field_position')==1){echo $this->form->getInput($this->params->get('hidden_field_name'));}  ?></div>
+			<div class="controls"><?php 
+
+				$app				= JFactory::getApplication();
+				$reportTitle 		= $app->input->get('reporttitle', '', 'string');
+				$formTitle			= $this->form->getInput('title');
+				if ($reportTitle != '') {
+					$formTitle = str_replace('value=""', 'value="'.urldecode(strip_tags($reportTitle)).'"', $this->form->getInput('title'));
+				}
+				echo $formTitle;
+			
+				if($this->params->get('hidden_field_position')==1){
+					echo $this->form->getInput($this->params->get('hidden_field_name'));
+				}  ?></div>
 		</div>	
 	<?php	endif;
 	if ($this->params->get('display_name_form')) :?>

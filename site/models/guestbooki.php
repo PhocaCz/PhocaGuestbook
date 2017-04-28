@@ -17,12 +17,14 @@ class PhocaguestbookModelGuestbooki extends JModelLegacy
 	function &getData()
 	{
 		//reuse old captcha id		
-		$paramsC 	= JComponentHelper::getParams('com_phocaguestbook') ;
+		$app		= JFactory::getApplication();
+		$paramsC 	= $app->getParams();
 		$session 	= JFactory::getSession();
 		$captchaId = $session->get('captcha_id','', 'pgb'.$paramsC->get('session_suffix'));//Get captcha type
 
 		/*
-		$paramsC 		= JComponentHelper::getParams('com_phocaguestbook') ;
+		$app		= JFactory::getApplication();
+		$paramsC 	= $app->getParams();
 		$enable_captcha = $paramsC->get( 'enable_captcha', 1 );
 
 		// no recaptcha/joomla captcha!

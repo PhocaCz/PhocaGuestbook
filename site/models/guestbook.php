@@ -281,14 +281,7 @@ class PhocaguestbookModelGuestbook extends JModelForm
 		// Get pagination request variables
 		$params = $this->getState('params');
 
-		//$start  = JRequest::getInt('start', $this->getState('list.start', 0));
-		/*$start  = JRequest::getInt('limitstart', $this->getState('list.limitstart', 0));
-		$limit  = JRequest::getInt('limit', $this->getState('list.limit', $params->get('default_pagination')));
-		
-		//$this->setState('limitstart', ($this->getState('limit') != 0 ? (floor($this->getState('limitstart') / $this->getState('limit')) * $this->getState('limit')) : 0));
 	
-		$this->setState('list.start', $start);
-		$this->setState('list.limit', $limit);*/
 		$context			= 'com_phocaguestbook.guestbook.';
 		$app				= JFactory::getApplication();
 		
@@ -302,7 +295,8 @@ class PhocaguestbookModelGuestbook extends JModelForm
 		
 
 	
-		$order  = $params->get('items_order', 'ordering');	
+		//$order  = $params->get('items_order', 'ordering');
+		$order 	= $params->get('items_orderby', 'ordering');
 		$dir    = $params->get('items_orderdir', 'ASC');
 		$subdir = $params->get('items_commentdir', 'ASC'); //comments
 		if ($order == 'ordering'){

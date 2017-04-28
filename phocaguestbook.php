@@ -10,7 +10,8 @@ defined('_JEXEC') || die('=;)');
 
 if( ! JFactory::getUser()->authorise('core.manage', 'com_phocaguestbook'))
 {
-	return JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
+	throw new Exception(JText::_('COM_PHOCAGUESTBOOK_ALERTNOAUTHOR'), 404);
+	return false;
 }
 
 JLoader::register('phocaguestbookHelper', JPATH_COMPONENT.'/helpers/phocaguestbook.php');

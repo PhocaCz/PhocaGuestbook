@@ -75,6 +75,7 @@ class PhocaGuestbookCpHelper
 		
 		$banners	= array();
 		$banners[]	= array('Phoca Restaurant Menu','phocamenu', 'prm');
+		$banners[]	= array('Phoca Cart','phocacart', 'pc');
 		
 		$o = '';
 		$o .= '<p>&nbsp;</p>';
@@ -90,7 +91,7 @@ class PhocaGuestbookCpHelper
 		$o .= '<h4 style="margin-bottom:5px;">'.JText::_($oT.'_USEFUL_TIPS'). '</h4>';
 		
 		$m = mt_rand(0, 10);
-		if ((int)$m > 0) {
+		if ((int)$m > 1) {
 			$o .= '<div>';
 			$num = range(0,(count($components) - 1 )); 
 			shuffle($num);

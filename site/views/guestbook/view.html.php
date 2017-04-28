@@ -33,10 +33,20 @@ class PhocaguestbookViewGuestbook extends JViewLegacy
 		// Get constant data from model
 		$state		= $this->get('State');
 		$guestbooks	= $this->get('Guestbook'); // = getCategory
+		
+		$tmplGet 		= $app->input->get('tmpl', '', 'string');
+		$url			= 'index.php';
+		$url			= JRoute::_($url);
+		$uri 			= JURI::getInstance($url);
+		if ($tmplGet != '') {
+			$uri->setVar( 'tmpl', $tmplGet );
+		}
+		$this->t['actionurl'] = $uri->toString();
 
 		// Check for errors.
 		if ($guestbooks == false) {
-			return JError::raiseError(404, JText::_('COM_PHOCAGUESTBOOK_GUESTBOOK_NOT_FOUND'));
+			throw new Exception(JText::_('COM_PHOCAGUESTBOOK_GUESTBOOK_NOT_FOUND'), 404);
+			return false;
 		}
 
 		// Load the parameters. 
@@ -60,7 +70,7 @@ class PhocaguestbookViewGuestbook extends JViewLegacy
 
 		// Check whether category access level allows access.
 		if (!$params->get('access-view')) {
-			//return JError::raiseError(403, JText::_('JERROR_ALERTNOAUTHOR'));
+			
 			$uri = JFactory::getURI();
 			$app->redirect('index.php?option=com_users&view=login&return=' . base64_encode($uri), JText::_('COM_PHOCAGUESTBOOK_NOT_AUTHORIZED_DO_ACTION'));
 			return;
@@ -105,7 +115,7 @@ class PhocaguestbookViewGuestbook extends JViewLegacy
 		
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {
-			JError::raiseWarning(500, implode("\n", $errors));
+			throw new Exception(implode("\n", $errors), 500);
 			return false;
 		}
 		

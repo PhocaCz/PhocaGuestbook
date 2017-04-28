@@ -21,12 +21,20 @@ $hiddenfield =	' 		<div class="control-group '.$this->params->get('hidden_field_
 if ($this->params->get('show_form') == 1) :?>
 <div class="well pgwell pgb_background pgb_sec_font">
 	<h4 class="pgb_font"><?php echo JText::_('COM_PHOCAGUESTBOOK_POST_MESSAGE');?><br/>&nbsp;</h4>
-	<form action="<?php echo JRoute::_('index.php'); ?>" method="post" name="adminForm" id="adminForm" class="form-validate">
+	<form action="<?php echo $this->t['actionurl']; ?>" method="post" name="adminForm" id="adminForm" class="form-validate">
 	
 	<?php if ($this->params->get('display_title_form')) : ?>
 		<div class="control-group">
 			<div class="controls input-prepend input-group">
-				<?php echo $this->form->getInput('title'); ?>
+				<?php 
+				
+				$app				= JFactory::getApplication();
+				$reportTitle 		= $app->input->get('reporttitle', '', 'string');
+				$formTitle			= $this->form->getInput('title');
+				if ($reportTitle != '') {
+					$formTitle = str_replace('value=""', 'value="'.urldecode(strip_tags($reportTitle)).'"', $this->form->getInput('title'));
+				}
+				echo $formTitle; ?>
 			</div>
 		</div>	
 	<?php

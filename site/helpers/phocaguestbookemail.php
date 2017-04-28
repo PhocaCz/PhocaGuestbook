@@ -12,10 +12,13 @@ class PhocaguestbookEmailHelper
 {
 	public static function sendPhocaGuestbookMail ($id, $post2, $url, $tmpl) {
 		
-		$app	= JFactory::getApplication();
-		$db 		= JFactory::getDBO();
-		$sitename 	= $app->getCfg( 'sitename' );
-		$title = $post2['title'];
+		$app			= JFactory::getApplication();
+		$db 			= JFactory::getDBO();
+		$sitename 		= $app->getCfg( 'sitename' );
+		$title 			= $post2['title'];
+		
+		$paramsC 	= $app->getParams();
+		$numCharEmail	= $paramsC->get( 'num_char_email', 400 );
 		
 		//get all selected users
 		$query = 'SELECT name, email, sendEmail' .
@@ -65,7 +68,7 @@ class PhocaguestbookEmailHelper
 							. JText::_( 'COM_PHOCAGUESTBOOK_SUBJECT' ) . ': '.$title."\n"
 							. JText::_( 'COM_PHOCAGUESTBOOK_CONTENT' ) . ': '."\n"
 							. "\n\n"
-							.PhocaguestbookHelperFront::wordDelete($post2['content'],400,'...')."\n\n"
+							.PhocaguestbookHelperFront::wordDelete($post2['content'], $numCharEmail, '...')."\n\n"
 							. "\n\n"
 							. JText::_( 'COM_PHOCAGUESTBOOK_CLICK_LINK' ) ."\n"
 							. $url."\n\n"
@@ -75,7 +78,9 @@ class PhocaguestbookEmailHelper
 		$subject = html_entity_decode($subject, ENT_QUOTES);
 		$message = html_entity_decode($message, ENT_QUOTES);
 				
-		return JFactory::getMailer()->sendMail($mailfrom, $fromname, $email, $subject, $message);
+		//return JFactory::getMailer()->sendMail($mailfrom, $fromname, $email, $subject, $message);
+		
+		return JFactory::getMailer()->sendMail($mailfrom, $fromname, $email, $subject, $message, false, null, null, null, $mailfrom, $fromname);
 	}
     
 }

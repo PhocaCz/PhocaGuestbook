@@ -6,7 +6,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined('_JEXEC') or die('Restricted access');
-
+$app				= JFactory::getApplication();
 $values = &$this->values;
 
 		//Maximum of links in the message
@@ -99,16 +99,16 @@ $values = &$this->values;
 		<div class="pull-right">
 		<?php 
 		if ($this->params->get('access-delete')) : ?>
-			<a href="<?php echo JRoute::_('index.php?option=com_phocaguestbook&task=phocaguestbook.delete&id='.$this->guestbooks->id.'&Itemid='.JRequest::getVar('Itemid', 0, '', 'int').'&controller=phocaguestbook&mid='.$values->id.'&start='.$this->pagination->limitstart)?>" onclick="return confirm(\'<?php echo JText::_( 'COM_PHOCAGUESTBOOK_WARNING_DELETE_ITEM' )?>\');" title="<?php echo JText::_('COM_PHOCAGUESTBOOK_DELETE');?>" class="btn">
+			<a href="<?php echo JRoute::_('index.php?option=com_phocaguestbook&task=phocaguestbook.delete&id='.$this->guestbooks->id.'&Itemid='.$app->input->get('Itemid', 0, 'int').'&controller=phocaguestbook&mid='.$values->id.'&start='.$this->pagination->limitstart)?>" onclick="return confirm(\'<?php echo JText::_( 'COM_PHOCAGUESTBOOK_WARNING_DELETE_ITEM' )?>\');" title="<?php echo JText::_('COM_PHOCAGUESTBOOK_DELETE');?>" class="btn">
 			<i class="glyphicon glyphicon-trash icon-trash"></i>
 			</a>
 		<?php endif;
 		if ($this->params->get('access-state')) : 
 			if ($values->published==1) :?>
-				<a href="<?php echo JRoute::_('index.php?option=com_phocaguestbook&task=phocaguestbook.unpublish&id='.$this->guestbooks->id.'&Itemid='.JRequest::getVar('Itemid', 0, '', 'int').'&controller=phocaguestbook&mid='.$values->id.'&start='.$this->pagination->limitstart)?>" title="<?php echo JText::_('COM_PHOCAGUESTBOOK_UNPUBLISH');?>" class="btn">
+				<a href="<?php echo JRoute::_('index.php?option=com_phocaguestbook&task=phocaguestbook.unpublish&id='.$this->guestbooks->id.'&Itemid='.$app->input->get('Itemid', 0, 'int').'&controller=phocaguestbook&mid='.$values->id.'&start='.$this->pagination->limitstart)?>" title="<?php echo JText::_('COM_PHOCAGUESTBOOK_UNPUBLISH');?>" class="btn">
 				<i class="glyphicon glyphicon-remove-sign icon-remove"></i></a>
 			<?php else:  ?>
-				<a href="<?php echo JRoute::_('index.php?option=com_phocaguestbook&task=phocaguestbook.publish&id='.$this->guestbooks->id.'&Itemid='.JRequest::getVar('Itemid', 0, '', 'int').'&controller=phocaguestbook&mid='.$values->id.'&start='.$this->pagination->limitstart)?>" title="<?php echo JText::_('COM_PHOCAGUESTBOOK_PUBLISH');?>" class="btn">
+				<a href="<?php echo JRoute::_('index.php?option=com_phocaguestbook&task=phocaguestbook.publish&id='.$this->guestbooks->id.'&Itemid='.$app->input->get('Itemid', 0, 'int').'&controller=phocaguestbook&mid='.$values->id.'&start='.$this->pagination->limitstart)?>" title="<?php echo JText::_('COM_PHOCAGUESTBOOK_PUBLISH');?>" class="btn">
 				<i class="glyphicon glyphicon-ok-sign icon-ok"></i></a>
 			<?php endif; ?>
 		<?php endif; ?>

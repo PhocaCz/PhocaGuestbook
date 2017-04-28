@@ -19,7 +19,8 @@ class PhocaguestbookController extends JControllerLegacy
 {
 	public function display($cachable = false, $urlparams = false)
 	{
-		$paramsC 	= JComponentHelper::getParams('com_phocaguestbook');
+		$app		= JFactory::getApplication();
+		$paramsC 	= $app->getParams();
 		$cache 		= $paramsC->get( 'enable_cache', 0 );
 		$cachable 	= false;
 		if ($cache == 1) {
@@ -36,7 +37,9 @@ class PhocaguestbookController extends JControllerLegacy
 		// Check for edit form.
 		if ($vName == 'form' && !$this->checkEditId('com_phocaguestbook.edit.guestbook', $id)) {
 			// Somehow the person just went to the form - we don't allow that.
-			return JError::raiseError(403, JText::sprintf('JLIB_APPLICATION_ERROR_UNHELD_ID', $id));
+			
+			throw new Exception( JText::sprintf('JLIB_APPLICATION_ERROR_UNHELD_ID', $id), 403);
+			return false;
 		}
 
 		parent::display($cachable,$safeurlparams);

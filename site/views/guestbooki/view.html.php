@@ -17,8 +17,8 @@ class PhocaguestbookViewGuestbooki extends JViewLegacy
 		$image_data = $this->get('Data');
 
 		$session 	= JFactory::getSession();
-		$app 		= JFactory::getApplication();
-		$params		= JComponentHelper::getParams('com_phocaguestbook') ;
+		$app		= JFactory::getApplication();
+		$params 	= $app->getParams();
 		$namespace	= 'pgb'.$params->get('session_suffix');
 		$captchaCnt = $session->get('captcha_cnt',  0, $namespace) + 1; 
 		

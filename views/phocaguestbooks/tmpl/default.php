@@ -78,6 +78,8 @@ $sortFields = $this->getSortFields();
 				</select>
 			</div>			
 		</div>
+		
+	
 		<div class="clearfix"></div>
 
 		<table class="table table-striped table-hover table-condensed" id="itemList">
@@ -144,7 +146,8 @@ $sortFields = $this->getSortFields();
 				$parentsStr = "";
 			}
 			?>
-			<tr class="row<?php echo $i % 2; ?>" sortable-group-id="<?php echo $item->parent_id;?>" item-id="<?php echo $item->id?>" parents="<?php echo $parentsStr?>" level="<?php echo $item->level?>">
+			<tr class="row<?php echo $i % 2; ?>" sortable-group-id="<?php echo $item->parent_id;?>">
+
 				<td class="order nowrap center hidden-phone">
 				<?php
 					$disableClassName = '';

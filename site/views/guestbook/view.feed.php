@@ -25,7 +25,9 @@ class PhocaguestbookViewguestbook extends JViewLegacy
 		$guestbooks	= $this->get('Guestbook'); // = getCategory
 		// Check for errors.
 		if ($guestbooks == false) {
-			return JError::raiseError(404, JText::_('COM_PHOCAGUESTBOOK_GUESTBOOK_NOT_FOUND'));
+			
+			throw new Exception(JText::_('COM_PHOCAGUESTBOOK_GUESTBOOK_NOT_FOUND'), 404);
+			return false;
 		}
 
 		// Load the parameters. 
@@ -45,7 +47,9 @@ class PhocaguestbookViewguestbook extends JViewLegacy
 
 		// Check whether category access level allows access.
 		if (!$params->get('access-view')) {
-			return JError::raiseError(403, JText::_('JERROR_ALERTNOAUTHOR'));
+		
+			throw new Exception(JText::_('COM_PHOCAGUESTBOOK_ALERTNOAUTHOR'), 403);
+			return false;
 		}
 
 		// - - - - - - - - - - -
@@ -53,12 +57,14 @@ class PhocaguestbookViewguestbook extends JViewLegacy
 		$items		= $this->get('Data');
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {
-			JError::raiseWarning(500, implode("\n", $errors));
+			
+			throw new Exception(implode("\n", $errors), 500);
 			return false;
 		}		
 		
+		$link = JRoute::_(PhocaguestbookHelperRoute::getCategoryRoute($guestbooks));
 		//SHOW ITEMS
-		$doc->link = JRoute::_(PhocaguestbookHelperRoute::getCategoryRoute($guestbooks->id+10));
+		//$doc->link = JRoute::_(PhocaguestbookHelperRoute::getCategoryRoute($guestbooks->id+10));
 		
 		if ($params->get('display_posts')) {
 			foreach ($items as $key => &$item) {

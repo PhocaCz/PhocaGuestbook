@@ -12,8 +12,8 @@ jimport('joomla.html.pagination');
 class PhocaGuestbookPaginationPosts extends JPagination
 {
 	function getLimitBox() {
-		$app	= JFactory::getApplication();
-		$paramsC 			= JComponentHelper::getParams('com_phocaguestbook') ;
+		$app		= JFactory::getApplication();
+		$paramsC 	= $app->getParams();
 		$pagination 		= $paramsC->get( 'pagination_posts', '5,10,15,20' );
 		$paginationArray	= explode( ',', $pagination );
 		

@@ -44,7 +44,8 @@ class PhocaguestbookHelperCaptchaTTF
 	public static function generateRandomChar($length=6)
 	{	
 	
-		$paramsC 	= JComponentHelper::getParams('com_phocaguestbook') ;
+		$app		= JFactory::getApplication();
+		$paramsC 	= $app->getParams();
 		
 		$charGroup = 'a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z';
 		if ($paramsC->get( 'ttf_captcha_chars' ) != '') {
@@ -380,7 +381,8 @@ $ch[5].$ch[6].$ch[7].$ch[8].$ch[9],
 	public static function generateRandomChar($length=6)
 	{	
 	
-		$paramsC 	= JComponentHelper::getParams('com_phocaguestbook') ;
+		$app		= JFactory::getApplication();
+		$paramsC 	= $app->getParams();
 		
 		$charGroup = 'a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z';
 		if ($paramsC->get( 'math_captcha_chars' ) != '') {
@@ -530,7 +532,8 @@ class PhocaguestbookHelperCaptchaStd
 	public static function generateRandomChar($length=6)
 	{	
 	
-		$paramsC 	= JComponentHelper::getParams('com_phocaguestbook') ;
+		$app		= JFactory::getApplication();
+		$paramsC 	= $app->getParams();
 		
 		$charGroup = 'a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z';
 		if ($paramsC->get( 'standard_captcha_chars' ) != '') {
@@ -690,7 +693,8 @@ class PhocaguestbookHelperCaptchaHn
 
 	function createImageData()
 	{
-		$paramsC 	= JComponentHelper::getParams('com_phocaguestbook') ;
+		$app		= JFactory::getApplication();
+		$paramsC 	= $app->getParams();
 		$this->noise = $paramsC->get('hn_noise', TRUE);
 		
 		//get challenge
@@ -773,7 +777,8 @@ class PhocaguestbookHelperCaptchaHn
 	
 	function generateRandomChar($length=6) {	
 	
-		$paramsC 	= JComponentHelper::getParams('com_phocaguestbook') ;
+		$app		= JFactory::getApplication();
+		$paramsC 	= $app->getParams();
 		
 		$charGroup = 'a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z';
 		if ($paramsC->get( 'ttf_captcha_chars' ) != '') {

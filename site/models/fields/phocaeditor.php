@@ -18,7 +18,7 @@ class JFormFieldPhocaEditor extends JFormField
 	protected function getInput(){
 	
 		
-		$class = $this->element['class'] ? ' class="' . (string) $this->element['class'] . ' mceEditor"' : '';
+		$class = $this->element['class'] ? ' class="' . (string) $this->element['class'] . ' mceEditor mce_editable"' : 'mce_editable';
 		
 		$disabled = ((string) $this->element['disabled'] == 'true') ? ' disabled="disabled"' : '';
 		$columns = $this->element['cols'] ? ' cols="' . (int) $this->element['cols'] . '"' : '';
@@ -172,10 +172,10 @@ class JFormFieldPhocaEditor extends JFormField
 			// Problem with required
 			$class = str_replace('required', '', $class);
 			
-			$editor = '<textarea class="mce_editable" name="' . $this->name . '" id="' . $this->id . '"' . $columns . $rows . $class . $disabled . $onchange . ' style="width:' . $width .'; height:'. $height.'">'
+			$editor = '<textarea  name="' . $this->name . '" id="' . $this->id . '"' . $columns . $rows . $class . $disabled . $onchange . ' style="width:' . $width .'; height:'. $height.'">'
 				. htmlspecialchars($this->value, ENT_COMPAT, 'UTF-8') . '</textarea>';
 		} else {
-			$editor = '<textarea class="mce_editable" name="' . $this->name . '" id="' . $this->id . '"' . $columns . $rows . $class . $disabled . $onchange . ' style="width:' . $width .'; height:'. $height.'">'
+			$editor = '<textarea  name="' . $this->name . '" id="' . $this->id . '"' . $columns . $rows . $class . $disabled . $onchange . ' style="width:' . $width .'; height:'. $height.'">'
 				. htmlspecialchars($this->value, ENT_COMPAT, 'UTF-8') . '</textarea>';
 		}
 		return $editor;

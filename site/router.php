@@ -8,6 +8,7 @@
  * @copyright Copyright (C) Jan Pavelka www.phoca.cz
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
+ defined('_JEXEC') || die('=;)');
  
 function PhocaGuestbookBuildRoute(&$query) {
 	
@@ -16,7 +17,8 @@ function PhocaGuestbookBuildRoute(&$query) {
 	// get a menu item based on Itemid or currently active
 	$app	= JFactory::getApplication();
 	$menu	= $app->getMenu();
-	$params = JComponentHelper::getParams('com_phocaguestbook');
+	
+		$params 	= $app->getParams();
 	$advanced = $params->get('sef_advanced_link', 0);
 
 	if (empty($query['Itemid'])) {
@@ -47,7 +49,7 @@ function PhocaGuestbookBuildRoute(&$query) {
 	}
 
 	if (isset($view) and ($view == 'guestbook' or $view == 'guestbooki')) {
-		if ((isset($query['cid']) && $mId != intval($query['cid'])) || $mView != $view) {
+		if ((isset($query['cid']) && $query['cid'] > 0 && $mId != intval($query['cid'])) || $mView != $view) {
 			
 			if($view == 'guestbook')
 			{
@@ -55,9 +57,13 @@ function PhocaGuestbookBuildRoute(&$query) {
 				{
 					list($tmp, $id) = explode(':', $query['cid'], 2);
 				} else {
-					$id = $query['cid'];
+					if (isset($query['cid'])) {
+						$id = $query['cid'];
+					}
 				}
-				$segments[] = $id;
+				if (isset($id)) {
+					$segments[] = $id;
+				}
 			}
 		}
 		unset($query['cid']);
@@ -89,10 +95,11 @@ function PhocaGuestbookParseRoute($segments) {
 	$vars = array();
 
 	//Get the active menu item.
-	$app	= JFactory::getApplication();
+	
 	$menu	= $app->getMenu();
 	$item	= $menu->getActive();
-	$params = JComponentHelper::getParams('com_phocaguestbook');
+	$app		= JFactory::getApplication();
+		$params 	= $app->getParams();
 	$advanced = $params->get('sef_advanced_link', 0);
 
 	// Count route segments

@@ -149,6 +149,8 @@
 				label="COM_PHOCAGUESTBOOK_FIELD_SEND_EMAIL_LABEL" 
 				description="COM_PHOCAGUESTBOOK_FIELD_SEND_EMAIL_DESC"/>
 				
+		<field name="num_char_email" default="400" type="text" label="COM_PHOCAGUESTBOOK_FIELD_NUM_CHARACTERS_EMAIL_LABEL" description="COM_PHOCAGUESTBOOK_FIELD_NUM_CHARACTERS_EMAIL_DESC"/>	
+				
 		<field name="date_format" 
 				type="list" default="DATE_FORMAT_LC" 
 				label="COM_PHOCAGUESTBOOK_FIELD_DATE_FORMAT_LABEL" 
@@ -302,7 +304,7 @@
 				label="COM_PHOCAGUESTBOOK_FIELD_DEFAULT_VALUE_PAGINATION_LABEL" 
 				description="COM_PHOCAGUESTBOOK_FIELD_DEFAULT_VALUE_PAGINATION_DESC"/>
 				
-		<field name="pagination_posts" default="5,10,15,20" size="18" type="phocatext" label="COM_PHOCAGUESTBOOK_FIELD_PAGINATION_POSTS_LABEL" description="COM_PHOCAGUESTBOOK_FIELD_PAGINATION_POSTS_DESC"/>
+		<field name="pagination_posts" default="5,10,15,20" size="18" type="text" label="COM_PHOCAGUESTBOOK_FIELD_PAGINATION_POSTS_LABEL" description="COM_PHOCAGUESTBOOK_FIELD_PAGINATION_POSTS_DESC"/>
 		
 		<field name="show_pagination_limit" 
 				type="radio" 

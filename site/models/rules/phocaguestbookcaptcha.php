@@ -15,7 +15,8 @@ class JFormRulePhocaguestbookCaptcha extends JFormRule
 		//E_ERROR, E_WARNING, E_NOTICE, E_USER_ERROR, E_USER_WARNING, E_USER_NOTICE.
 		$info = array();
 		$info['field'] = 'guestbook_captcha';
-		$params = JComponentHelper::getParams('com_phocaguestbook');
+		$app		= JFactory::getApplication();
+		$params 	= $app->getParams();
 		$session = JFactory::getSession();
 		$namespace = 'pgb'.$params->get('session_suffix');
 		

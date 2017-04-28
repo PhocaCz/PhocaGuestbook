@@ -17,7 +17,8 @@ class JFormRulePhocaguestbookHomesite extends JFormRuleUrl
 		//E_ERROR, E_WARNING, E_NOTICE, E_USER_ERROR, E_USER_WARNING, E_USER_NOTICE.
 		$info = array();
 		$info['field'] = 'guestbook_website';
-		$params = JComponentHelper::getParams('com_phocaguestbook');	
+		$app		= JFactory::getApplication();
+		$params 	= $app->getParams();	
 		
 		//URL FORMAT
 		if(!parent::test($element, $value, $group, $input, $form)){

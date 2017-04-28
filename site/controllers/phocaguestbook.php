@@ -50,7 +50,8 @@ class PhocaguestbookControllerPhocaguestbook extends JControllerForm
 	
 		$guestbook = $model->getGuestbook();
 		if (!$guestbook) {
-			JError::raiseError(500, JText::_("COM_PHOCAGUESTBOOK_POSSIBLE_SPAM_DETECTED"));
+			
+			throw new Exception(JText::_("COM_PHOCAGUESTBOOK_POSSIBLE_SPAM_DETECTED"), 500);
 			return false;
 		}
 		
@@ -93,11 +94,17 @@ class PhocaguestbookControllerPhocaguestbook extends JControllerForm
 		if (!isset($data['website'])) {
 			$data['website'] = '';
 		}
+
+		
 		//ipaddr
 		if(isset($_SERVER['REMOTE_ADDR']) && $_SERVER['REMOTE_ADDR'] != getenv('SERVER_ADDR')) {
 			$data['userip']  = $_SERVER['REMOTE_ADDR'];
 		} else {
 			$data['userip']  = getenv('HTTP_X_FORWARDED_FOR');
+		}
+
+		if (!$data['userip']) {
+			$data['userip'] = $_SERVER['REMOTE_ADDR'];
 		}
 		$logging->ip = $data['userip'];
 	
@@ -122,7 +129,7 @@ class PhocaguestbookControllerPhocaguestbook extends JControllerForm
 				$logging->hidden_field = 2;
 				$model->doLog($logging,false);
 				//no session id available
-				JError::raiseError(500, JText::_("COM_PHOCAGUESTBOOK_POSSIBLE_SPAM_DETECTED"));
+				throw new Exception(JText::_("COM_PHOCAGUESTBOOK_POSSIBLE_SPAM_DETECTED"), 500);
 				return false;
 			}
 			$logging->hidden_field = 1;
@@ -135,8 +142,7 @@ class PhocaguestbookControllerPhocaguestbook extends JControllerForm
 			$logging->session = 2;
 			$model->doLog($logging,false);
 
-			JError::raiseWarning(403, JText::_('COM_PHOCAGUESTBOOK_SESSION_INVALID'));
-
+			throw new Exception(JText::_('COM_PHOCAGUESTBOOK_SESSION_INVALID'), 403);
 			// Redirect back to the contact form.
 			$this->setRedirect(JRoute::_($uri));
 			return false;
@@ -155,7 +161,7 @@ class PhocaguestbookControllerPhocaguestbook extends JControllerForm
 			$logging->session = 3;
 			$model->doLog($logging,false);
 			
-			JError::raiseError(500, JText::_("COM_PHOCAGUESTBOOK_POSSIBLE_SPAM_DETECTED"));
+			throw new Exception(JText::_("COM_PHOCAGUESTBOOK_POSSIBLE_SPAM_DETECTED"), 500);
 			return false;
 		}
 				
@@ -177,8 +183,8 @@ class PhocaguestbookControllerPhocaguestbook extends JControllerForm
 			
 			if($params->get('enable_time_check') && $delta <= $params->get('time_check_s'))
             {
-				JError::raiseWarning(403, JText::_('COM_PHOCAGUESTBOOK_SUBMIT_TOO_FAST'));
-
+			
+				throw new Exception(JText::_('COM_PHOCAGUESTBOOK_SUBMIT_TOO_FAST'), 403);
 				// Save the data in the session.
 				$app->setUserState('com_phocaguestbook.guestbook.data', $data);
 				$model->doLog($logging,false);
@@ -203,7 +209,7 @@ class PhocaguestbookControllerPhocaguestbook extends JControllerForm
 					$model->doLog($logging,false);
 					
 					/*$app->setUserState('com_phocaguestbook.guestbook.data', '');
-					JError::raiseError(500, JText::_("COM_PHOCAGUESTBOOK_POSSIBLE_SPAM_DETECTED"));
+					throw new Exception(JText::_("COM_PHOCAGUESTBOOK_POSSIBLE_SPAM_DETECTED"), 500);
 					return false;*/
 					$app->setUserState('com_phocaguestbook.guestbook.data', $data);	// Save the data in the session.
 					$app->enqueueMessage(JText::_( 'COM_PHOCAGUESTBOOK_PHOCA_GUESTBOOK_SPAM_BLOCKED' ), 'error');
@@ -225,7 +231,7 @@ class PhocaguestbookControllerPhocaguestbook extends JControllerForm
 			$logging->fields = 10;
 			$model->doLog($logging,false);
 			
-			JError::raiseError(500, $model->getError());
+			throw new Exception($model->getError(), 500);
 			return false;
 		}
 		
@@ -235,7 +241,7 @@ class PhocaguestbookControllerPhocaguestbook extends JControllerForm
 			// Get (possible) attack issues
 			for ($i = 0, $n = count($errors); $i < $n && $i < 5; $i++) {
 				if (($errors[$i] instanceof JException) && ($errors[$i]->get('Level') == E_ERROR)) {
-					JError::raiseError(500, JText::_("COM_PHOCAGUESTBOOK_POSSIBLE_SPAM_DETECTED"));
+					throw new Exception(JText::_("COM_PHOCAGUESTBOOK_POSSIBLE_SPAM_DETECTED"), 500);
 					
 					$logging->fields = 11;
 					$model->doLog($logging,false);
@@ -446,7 +452,7 @@ class PhocaguestbookControllerPhocaguestbook extends JControllerForm
 		// Load the parameters. 
 		$guestbook = $model->getGuestbook();
 		if (!$guestbook) {
-			JError::raiseError(500, JText::_("COM_PHOCAGUESTBOOK_POSSIBLE_SPAM_DETECTED"));
+			throw new Exception(JText::_("COM_PHOCAGUESTBOOK_POSSIBLE_SPAM_DETECTED"), 500);
 			return false;
 		}
 		$bookparams = new JRegistry;
@@ -460,7 +466,9 @@ class PhocaguestbookControllerPhocaguestbook extends JControllerForm
 		if ($bookparams->get('access-delete')) {
 			
 			if (count( $cid ) < 1) {
-				JError::raiseError(500, JText::_( 'COM_PHOCAGUESTBOOK_WARNING_SELECT_ITEM_DELETE' ) );
+				
+				throw new Exception(JText::_( 'COM_PHOCAGUESTBOOK_WARNING_SELECT_ITEM_DELETE' ), 500);
+				return false;
 			}
 			if(!$model->delete($cid)) {
 				$app->enqueueMessage(JText::_( 'COM_PHOCAGUESTBOOK_ERROR_DELETE_ITEM' ));
@@ -494,7 +502,7 @@ class PhocaguestbookControllerPhocaguestbook extends JControllerForm
 		// Load the parameters. 
 		$guestbook = $model->getGuestbook();
 		if (!$guestbook) {
-			JError::raiseError(500, JText::_("COM_PHOCAGUESTBOOK_POSSIBLE_SPAM_DETECTED"));
+			throw new Exception(JText::_("COM_PHOCAGUESTBOOK_POSSIBLE_SPAM_DETECTED"), 500);
 			return false;
 		}
 		
@@ -508,7 +516,9 @@ class PhocaguestbookControllerPhocaguestbook extends JControllerForm
 				
 		if ($bookparams->get('access-state')) {
 			if (count( $entryid ) < 1) {
-				JError::raiseError(500, JText::_( 'COM_PHOCAGUESTBOOK_WARNING_SELECT_ITEM_UNPUBLISH' ) );
+			
+				throw new Exception(JText::_( 'COM_PHOCAGUESTBOOK_WARNING_SELECT_ITEM_UNPUBLISH' ), 500);
+				return false;
 			}
 			if(!$model->publish($entryid, $catid, $newState)) {
 				$app->enqueueMessage($newState ? JText::_( 'COM_PHOCAGUESTBOOK_ERROR_PUBLISH_ITEM' ) : JText::_( 'COM_PHOCAGUESTBOOK_ERROR_UNPUBLISH_ITEM' ));

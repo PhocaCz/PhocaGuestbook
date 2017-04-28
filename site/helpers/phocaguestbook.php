@@ -121,13 +121,16 @@ class PhocaguestbookHelperFront
 	}
 	
 	public static function checkSpecificId($image = 0) {
-		$paramsC 		= JComponentHelper::getParams('com_phocaguestbook') ;
+		
+		$app		= JFactory::getApplication();
+		$paramsC 	= $app->getParams();
 		$specificItemid = $paramsC->get( 'specific_itemid', '' );
 		$itemids		= explode(',', $specificItemid);
 		
 		$sec = 0;
 		if (!empty($itemids) && isset($itemids[0]) && (int)$itemids[0] > 0) {
-			$itemid	= JRequest::getCmd('Itemid');
+			$itemid	= $app->input->get('Itemid');
+			
 			if (!in_array($itemid, $itemids)) {
 				$sec = 1;
 			}
@@ -152,7 +155,8 @@ class PhocaguestbookHelperFront
 	}
 	
 	public static function getCaptchaUrl($id) {		
-		$paramsC 		= JComponentHelper::getParams('com_phocaguestbook') ;
+		$app		= JFactory::getApplication();
+		$paramsC 	= $app->getParams();
 		$captcha_url	= $paramsC->get( 'captcha_url', 1 );
 		
 		$index = 'index.php';
@@ -168,16 +172,16 @@ class PhocaguestbookHelperFront
 		}
 		switch ($captcha_url) {
 			case 2:		// Full Path
-				return '<img src="'. JURI::base(false).''.$index.'?option=com_phocaguestbook&view=guestbooki&id='.$id.'&Itemid='.JRequest::getVar('Itemid', 0, '', 'int').'&phocasid='. md5(uniqid(time())).'" alt="'.JText::_('COM_PHOCAGUESTBOOK_CAPTCHA_IMAGE').'" id="phocacaptcha" style="max-width: none;" />';
+				return '<img src="'. JURI::base(false).''.$index.'?option=com_phocaguestbook&view=guestbooki&id='.$id.'&Itemid='.$app->input->get('Itemid', 0, 'int').'&phocasid='. md5(uniqid(time())).'" alt="'.JText::_('COM_PHOCAGUESTBOOK_CAPTCHA_IMAGE').'" id="phocacaptcha" style="max-width: none;" />';
 				break;
 			case 3:		// No Itemid Full Path
 				return '<img src="'. JURI::base(false).''.$index.'?option=com_phocaguestbook&view=guestbooki&id='.$id.'&phocasid='. md5(uniqid(time())).'" alt="'.JText::_('COM_PHOCAGUESTBOOK_CAPTCHA_IMAGE').'" id="phocacaptcha" style="max-width: none;" />';	
 				break;
 			case 4:		// No language prefix - standard path
-				return '<img src="'. JURI::base(true).'/index.php?option=com_phocaguestbook&view=guestbooki&id='.$id.'&Itemid='.JRequest::getVar('Itemid', 0, '', 'int').'&phocasid='. md5(uniqid(time())).'" alt="'.JText::_('COM_PHOCAGUESTBOOK_CAPTCHA_IMAGE').'" id="phocacaptcha" style="max-width: none;" />';
+				return '<img src="'. JURI::base(true).'/index.php?option=com_phocaguestbook&view=guestbooki&id='.$id.'&Itemid='.$app->input->get('Itemid', 0, 'int').'&phocasid='. md5(uniqid(time())).'" alt="'.JText::_('COM_PHOCAGUESTBOOK_CAPTCHA_IMAGE').'" id="phocacaptcha" style="max-width: none;" />';
 				break;
 			case 5:		// No language prefix - full path
-				return '<img src="'. JURI::base(false).'index.php?option=com_phocaguestbook&view=guestbooki&id='.$id.'&Itemid='.JRequest::getVar('Itemid', 0, '', 'int').'&phocasid='. md5(uniqid(time())).'" alt="'.JText::_('COM_PHOCAGUESTBOOK_CAPTCHA_IMAGE').'" id="phocacaptcha" style="max-width: none;" />';
+				return '<img src="'. JURI::base(false).'index.php?option=com_phocaguestbook&view=guestbooki&id='.$id.'&Itemid='.$app->input->get('Itemid', 0, 'int').'&phocasid='. md5(uniqid(time())).'" alt="'.JText::_('COM_PHOCAGUESTBOOK_CAPTCHA_IMAGE').'" id="phocacaptcha" style="max-width: none;" />';
 				break;
 			case 6:		// No Itemid Full Path No Language
 				return '<img src="'. JURI::base(false).'index.php?option=com_phocaguestbook&view=guestbooki&id='.$id.'&phocasid='. md5(uniqid(time())).'" alt="'.JText::_('COM_PHOCAGUESTBOOK_CAPTCHA_IMAGE').'" id="phocacaptcha" style="max-width: none;" />';
@@ -186,7 +190,7 @@ class PhocaguestbookHelperFront
 				return '<img src="'. JURI::base(true).'/index.php?option=com_phocaguestbook&view=guestbooki&id='.$id.'&phocasid='. md5(uniqid(time())).'" alt="'.JText::_('COM_PHOCAGUESTBOOK_CAPTCHA_IMAGE').'" id="phocacaptcha" style="max-width: none;" />';
 				break;
 			case 1:	default:	// Standard Path
-				return '<img src="'. JURI::base(true).'/'.$index.'?option=com_phocaguestbook&view=guestbooki&id='.$id.'&Itemid='.JRequest::getVar('Itemid', 0, '', 'int').'&phocasid='. md5(uniqid(time())).'" alt="'.JText::_('COM_PHOCAGUESTBOOK_CAPTCHA_IMAGE').'" id="phocacaptcha" style="max-width: none;" />';
+				return '<img src="'. JURI::base(true).'/'.$index.'?option=com_phocaguestbook&view=guestbooki&id='.$id.'&Itemid='.$app->input->get('Itemid', 0, 'int').'&phocasid='. md5(uniqid(time())).'" alt="'.JText::_('COM_PHOCAGUESTBOOK_CAPTCHA_IMAGE').'" id="phocacaptcha" style="max-width: none;" />';
 				break;
 		}
 		

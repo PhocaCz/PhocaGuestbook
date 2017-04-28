@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `#__phocaguestbook_items` (
 -- Insert Root for Table `#__phocaguestbook_items`
 --
 INSERT INTO `#__phocaguestbook_items` (`id`, `catid`, `parent_id`, `lft`, `rgt`, `level`, `path`, `username`, `userid`, `email`, `homesite`, `ip`, `title`, `alias`, `content`, `date`, `published`, `checked_out`, `checked_out_time`, `params`, `language`) VALUES
-(1, 0, 0, 0, 1, 0, '', 'ROOT', 0, '', '', '', 'root', 'root', '', '0000-00-00 00:00:00', 0, 0, '0000-00-00 00:00:00', '', '*');
+(1, 0, 0, 0, 1, 0, '', 'ROOT', 0, '', '', '', 'root', 'root', '', '0000-00-00 00:00:00', 1, 0, '0000-00-00 00:00:00', '', '*');
 
 
 

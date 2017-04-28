@@ -16,7 +16,8 @@ class JFormRulePhocaguestbookUsername extends JFormRuleUsername
 		//E_ERROR, E_WARNING, E_NOTICE, E_USER_ERROR, E_USER_WARNING, E_USER_NOTICE.
 		$info = array();
 		$info['field'] = 'guestbook_username';
-		$params = JComponentHelper::getParams('com_phocaguestbook');
+		$app		= JFactory::getApplication();
+		$params 	= $app->getParams();
 
 		if (preg_match("~[\<|\>|\"|\'|\%|\;|\(|\)|\&|\+]~", $value)){
 			return new JException(JText::_('COM_PHOCAGUESTBOOK_BAD_USERNAME' ), "105", E_USER_ERROR, $info, false);

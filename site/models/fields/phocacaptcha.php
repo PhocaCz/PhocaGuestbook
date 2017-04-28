@@ -15,7 +15,8 @@ class JFormFieldPhocacaptcha extends JFormFieldPhocaText
 		
 		$document	= JFactory::getDocument();
 		$session 	= JFactory::getSession();
-		$params     = JComponentHelper::getParams('com_phocaguestbook');
+		$app		= JFactory::getApplication();
+		$params 	= $app->getParams();
 		$namespace	= 'pgb'.$params->get('session_suffix');
 		$captchaCnt = $session->get('captcha_cnt',  0, $namespace) + 1;
 						
@@ -44,7 +45,8 @@ class JFormFieldPhocacaptcha extends JFormFieldPhocaText
 				$document->addScriptDeclaration($js);
 
 				$session->set('captcha_cnt', $captchaCnt, $namespace); 					//Set new Retry count
-				$retval = '</div><div>' . PhocaGuestbookHelperReCaptcha::recaptcha_get_html($publicKey);
+				//$retval = '</div><div>' . PhocaGuestbookHelperReCaptcha::recaptcha_get_html($publicKey);
+				$retval = '</div><div>' . PhocaGuestbookHelperReCaptcha::recaptcha_get_html($publicKey, null, true);
 				break;
 				
 			case 6: //COM_PHOCAGUESTBOOK_EASYCALC_CAPTCHA
