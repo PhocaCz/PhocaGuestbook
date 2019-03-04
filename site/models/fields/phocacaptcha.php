@@ -7,7 +7,8 @@
  */
 defined('JPATH_BASE') or die;
 
-class JFormFieldPhocacaptcha extends JFormFieldPhocaText
+JFormHelper::loadFieldClass('text');
+class JFormFieldPhocacaptcha extends JFormFieldText
 {
 	protected $type 		= 'phocacaptcha';
 		
@@ -47,6 +48,28 @@ class JFormFieldPhocacaptcha extends JFormFieldPhocaText
 				$session->set('captcha_cnt', $captchaCnt, $namespace); 					//Set new Retry count
 				//$retval = '</div><div>' . PhocaGuestbookHelperReCaptcha::recaptcha_get_html($publicKey);
 				$retval = '</div><div>' . PhocaGuestbookHelperReCaptcha::recaptcha_get_html($publicKey, null, true);
+				break;
+				
+			case 9: //COM_PHOCAGUESTBOOK_RECAPTCHA_CAPTCHA 2
+				//require_once JPATH_COMPONENT.'/assets/recaptcha/recaptchalib.php';
+				//Recaptcha
+				//$publicKey = $params->get('recaptcha_publickey');
+				//$theme     = $params->get('recaptcha_theme', 'red');
+				//$js     = 'var RecaptchaOptions = { theme : "'.$theme.'" };';
+				//$document->addScriptDeclaration($js);
+				
+			
+		
+				
+		
+
+				$session->set('captcha_cnt', $captchaCnt, $namespace); 					//Set new Retry count
+				
+				$siteKey	= strip_tags(trim($params->get( 'recaptcha_publickey', '' )));
+		
+				$document->addScript('https://www.google.com/recaptcha/api.js');
+				$retval =  '</div><div><div class="g-recaptcha" data-sitekey="'.$siteKey.'"></div>';
+				
 				break;
 				
 			case 6: //COM_PHOCAGUESTBOOK_EASYCALC_CAPTCHA

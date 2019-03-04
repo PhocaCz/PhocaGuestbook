@@ -84,6 +84,18 @@ if ($this->params->get('show_form') == 1) :?>
 		</div>
 
 	<?php endif;?>
+	<?php if ($this->params->get('display_privacy_checkbox_form')):	?>
+		<div class="control-group">
+			<div class="controls input-group">
+			<?php echo $this->form->getInput('privacy_checkbox'); ?>
+			
+			</div>
+			<div class="ph-privacy-row"><?php echo $this->params->get('privacy_checkbox_text'); ?></div>
+		</div>
+
+	<?php endif;?>
+	
+	
 	<hr class="hr-condensed" />
 	<div class="btn-toolbar">
 		<div class="btn-group">

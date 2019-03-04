@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension method="upgrade" type="component" version="3">
+<extension type="component" method="upgrade" version="3">
 	<name>com_phocaguestbook</name>
-	<author>Jan Pavelka (www.phoca.cz), Daniel Huber</author>
-	<creationDate>28/04/2017</creationDate>
+	<author>Jan Pavelka (www.phoca.cz)</author>
+	<creationDate>04/03/2019</creationDate>
 	<authorEmail></authorEmail>
-	<authorUrl>www.phoca.cz</authorUrl>
+	<authorUrl>https://www.phoca.cz</authorUrl>
 	<copyright>Jan Pavelka</copyright>
 	<license>GNU/GPL</license>
-	<version>3.0.6</version>
-	<description>Phoca Guestbook</description>
-	<scriptfile>install/script.php</scriptfile>
+	<version>3.0.9</version>
+	<description>COM_PHOCAGUESTBOOK_XML_DESCRIPTION</description>
+	<scriptfile>script.php</scriptfile>
+	<projectName>PhocaGuestbook</projectName>
 
 	<install>
 		<sql>
@@ -24,67 +25,72 @@
 	</uninstall>
 
 	<update>
-		<schemas/>
+		<schemas>
+			<schemapath type="mysql">update/sql/mysql</schemapath>
+		</schemas>
 	</update>
 
 	<files folder="site">
-		<filename>controller.php</filename>
-		<filename>index.html</filename>
-		<filename>phocaguestbook.php</filename>
-		<filename>router.php</filename>
 		<folder>assets</folder>
 		<folder>controllers</folder>
 		<folder>helpers</folder>
 		<folder>language</folder>
 		<folder>models</folder>
 		<folder>views</folder>
+		<filename>controller.php</filename>
+		<filename>index.html</filename>
+		<filename>phocaguestbook.php</filename>
+		<filename>router.php</filename>
 	</files>
 
 	<media destination="com_phocaguestbook" folder="media">
-		<filename>index.html</filename>
 		<folder>css</folder>
 		<folder>images</folder>
+		<filename>index.html</filename>
 	</media>
 
-	<languages>
-		<language tag="en-GB" client="site">language/en-GB/en-GB.com_phocaguestbook.ini</language>
-		<language tag="en-GB" client="site">language/en-GB/en-GB.com_phocaguestbook.sys.ini</language>
+	<languages folder="admin/language">
+		<language tag="en-GB" client="site">en-GB/en-GB.com_phocaguestbook.ini</language>
+		<language tag="en-GB" client="site">en-GB/en-GB.com_phocaguestbook.sys.ini</language>
 	</languages>
 
 	<administration>
-		<menu img="components/com_phocaguestbook/assets/images/icon-16-pgb-menu.png" link="option=com_phocaguestbook">COM_PHOCAGUESTBOOK</menu>
-		<submenu>
-			<menu img="components/com_phocaguestbook/assets/images/icon-16-pgb-menu-cp.png" alt="COM_PHOCAGUESTBOOK_CONTROLPANEL" view="phocaguestbookcp" link="option=com_phocaguestbook">COM_PHOCAGUESTBOOK_CONTROLPANEL</menu>
-			<menu img="components/com_phocaguestbook/assets/images/icon-16-pgb-menu-item.png" alt="COM_PHOCAGUESTBOOK_ITEMS" view="phocaguestbooks" link="option=com_phocaguestbook&amp;amp;view=phocaguestbooks">COM_PHOCAGUESTBOOK_ITEMS</menu>
-			<menu img="components/com_phocaguestbook/assets/images/icon-16-pgb-menu-guestbook.png" alt="COM_PHOCAGUESTBOOK_GUESTBOOKS" view="phocaguestbookbs" link="option=com_categories&amp;amp;extension=com_phocaguestbook">COM_PHOCAGUESTBOOK_GUESTBOOKS</menu>
-			<menu img="components/com_phocaguestbook/assets/images/icon-16-pgb-menu-logs.png" alt="COM_PHOCAGUESTBOOK_LOGGING" view="phocaguestlogs" link="option=com_phocaguestbook&amp;amp;view=phocaguestbooklogs">COM_PHOCAGUESTBOOK_LOGGING</menu>
-			<menu img="components/com_phocaguestbook/assets/images/icon-16-pgb-menu-info.png" alt="COM_PHOCAGUESTBOOK_INFO" view="phocaguestbookin" link="option=com_phocaguestbook&amp;amp;view=phocaguestbookin">COM_PHOCAGUESTBOOK_INFO</menu>
-		</submenu>
+
+		<menu img="media/com_phocaguestbook/images/administrator/icon-16-pgb-menu.png" alt="COM_PHOCAGUESTBOOK" link="option=com_phocaguestbook">COM_PHOCAGUESTBOOK</menu>
+
+			<submenu>
+				<menu img="media/com_phocaguestbook/images/administrator/icon-16-pgb-menu-cp.png" alt="COM_PHOCAGUESTBOOK_CONTROLPANEL" view="phocaguestbookcp" link="option=com_phocaguestbook">COM_PHOCAGUESTBOOK_CONTROLPANEL</menu>
+				<menu img="media/com_phocaguestbook/images/administrator/icon-16-pgb-menu-item.png" alt="COM_PHOCAGUESTBOOK_ITEMS" view="phocaguestbooks" link="option=com_phocaguestbook&amp;amp;view=phocaguestbooks">COM_PHOCAGUESTBOOK_ITEMS</menu>
+				<menu img="media/com_phocaguestbook/images/administrator/icon-16-pgb-menu-guestbook.png" alt="COM_PHOCAGUESTBOOK_GUESTBOOKS" view="phocaguestbookbs" link="option=com_categories&amp;amp;extension=com_phocaguestbook">COM_PHOCAGUESTBOOK_GUESTBOOKS</menu>
+				<menu img="media/com_phocaguestbook/images/administrator/icon-16-pgb-menu-logs.png" alt="COM_PHOCAGUESTBOOK_LOGGING" view="phocaguestlogs" link="option=com_phocaguestbook&amp;amp;view=phocaguestbooklogs">COM_PHOCAGUESTBOOK_LOGGING</menu>
+				<menu img="media/com_phocaguestbook/images/administrator/icon-16-pgb-menu-info.png" alt="COM_PHOCAGUESTBOOK_INFO" view="phocaguestbookin" link="option=com_phocaguestbook&amp;amp;view=phocaguestbookin">COM_PHOCAGUESTBOOK_INFO</menu>
+			</submenu>
 
 		<files folder="admin">
-			<filename>access.xml</filename>
-			<filename>config.xml</filename>
-			<filename>controller.php</filename>
-			<filename>index.html</filename>
-			<filename>phocaguestbook.php</filename>
-			<filename>phocaguestbook.xml</filename>
 			<folder>controllers</folder>
 			<folder>help</folder>
 			<folder>helpers</folder>
 			<folder>install</folder>
 			<folder>models</folder>
 			<folder>tables</folder>
+			<folder>update</folder>
 			<folder>views</folder>
+			<filename>access.xml</filename>
+			<filename>config.xml</filename>
+			<filename>controller.php</filename>
+			<filename>index.html</filename>
+			<filename>phocaguestbook.php</filename>
 		</files>
 
-		<languages>
-			<language tag="en-GB">language/en-GB/en-GB.com_phocaguestbook.ini</language>
-			<language tag="en-GB">language/en-GB/en-GB.com_phocaguestbook.sys.ini</language>
+		<languages folder="admin/language">
+			<language tag="en-GB">en-GB/en-GB.com_phocaguestbook.ini</language>
+			<language tag="en-GB">en-GB/en-GB.com_phocaguestbook.sys.ini</language>
 		</languages>
-
 	</administration>
-	<updateservers>
-		<server type="extension" priority="1" name="updates"><![CDATA[https://raw.githubusercontent.com/PhocaCz/PhocaGuestbook/master/manifest.xml]]></server>
-	</updateservers>
+	
+	
 
+	<updateservers>
+		<server type="extension" name="COM_PHOCAGUESTBOOK" priority="1"><![CDATA[https://raw.githubusercontent.com/PhocaCz/PhocaGuestbook/master/manifest.xml]]></server>
+	</updateservers>
 </extension>

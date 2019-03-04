@@ -6,6 +6,9 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined( '_JEXEC' ) or die( 'Restricted access' );
+
+use Joomla\String\StringHelper;
+
 class PhocaguestbookHelperFront
 {
 		
@@ -26,7 +29,7 @@ class PhocaguestbookHelperFront
 	
 	public static function checkWordChar($string, $length) 
 	{
-		if (JString::strlen($string) < $length || JString::strlen($string) == $length) {
+		if (StringHelper::strlen($string) < $length || StringHelper::strlen($string) == $length) {
 			return $string;
 		} else {
 			return false;
@@ -35,10 +38,10 @@ class PhocaguestbookHelperFront
 	
 	public static function wordDelete($string,$length,$end) 
 	{
-		if (JString::strlen($string) < $length || JString::strlen($string) == $length) {
+		if (StringHelper::strlen($string) < $length || StringHelper::strlen($string) == $length) {
 			return $string;
 		} else {
-			return JString::substr($string, 0, $length) . $end;
+			return StringHelper::substr($string, 0, $length) . $end;
 		}
 	}
 	
@@ -59,6 +62,14 @@ class PhocaguestbookHelperFront
 	}
 	
 	public static function getInfo() {
+		
+		JPluginHelper::importPlugin('phocatools');
+        $results = \JFactory::getApplication()->triggerEvent('PhocatoolsOnDisplayInfo', array('NjI5NTYxNTY5NQ=='));
+        if (isset($results[0]) && $results[0] === true) {
+            return '';
+        }
+		
+		
 		return '<div style="tex'.'t-alig'
 		.'n: right;">Po'.'were'.'d b'.'y'
 		.' <a hre'.'f="ht'.'t'.'p://ww'.'w.pho'

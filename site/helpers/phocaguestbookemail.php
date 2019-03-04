@@ -14,7 +14,7 @@ class PhocaguestbookEmailHelper
 		
 		$app			= JFactory::getApplication();
 		$db 			= JFactory::getDBO();
-		$sitename 		= $app->getCfg( 'sitename' );
+		$sitename 		= $app->get( 'sitename' );
 		$title 			= $post2['title'];
 		
 		$paramsC 	= $app->getParams();
@@ -80,7 +80,10 @@ class PhocaguestbookEmailHelper
 				
 		//return JFactory::getMailer()->sendMail($mailfrom, $fromname, $email, $subject, $message);
 		
-		return JFactory::getMailer()->sendMail($mailfrom, $fromname, $email, $subject, $message, false, null, null, null, $mailfrom, $fromname);
+		//return JFactory::getMailer()->sendMail($mailfrom, $fromname, $email, $subject, $message, false, null, null, null, $mailfrom, $fromname);
+		$mailFromAdmin = $rows[0]->email;
+		$recipient = $rows[0]->email;
+		return JFactory::getMailer()->sendMail($mailFromAdmin, $fromname, $recipient, $subject, $message, false, null, null, null, $mailfrom, $fromname);
 	}
     
 }

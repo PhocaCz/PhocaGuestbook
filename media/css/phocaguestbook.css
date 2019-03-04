@@ -46,3 +46,12 @@
 #phocacaptcha {
 	max-width: none !important;
 }
+
+div.ph-privacy-row/*,
+div.ph-privacy-row div,
+div.ph-privacy-row p*/ {
+	float:left;
+	margin-top: -15px;
+	margin-left: 20px;
+	
+}

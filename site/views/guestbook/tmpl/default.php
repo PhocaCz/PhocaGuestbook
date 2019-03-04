@@ -5,7 +5,7 @@
  * @copyright  Copyright (C) 2012 Jan Pavelka www.phoca.cz
  * @license    http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
- 
+
 defined('_JEXEC') or die('Restricted access');
 
 jimport('joomla.html.html.bootstrap');
@@ -29,7 +29,7 @@ if($this->params->get('custom_color')) :?>
 	 border:1px solid <?php echo $this->params->get('border_color');?>;
 }
 .pgb_border {
-	border:1px solid <?php echo $this->params->get('border_color');?>;	 
+	border:1px solid <?php echo $this->params->get('border_color');?>;
 }
 </style>
 <?php endif;
@@ -38,7 +38,7 @@ if ($this->params->get('show_form')) : ?>
 <script type="text/javascript">
 	Joomla.submitbutton = function(task)
 	{
-		if (task == 'phocaguestbook.cancel' || document.formvalidator.isValid(document.id('adminForm'))) {
+		if (task == 'phocaguestbook.cancel' || document.formvalidator.isValid(document.getElementById('adminForm'))) {
 			Joomla.submitform(task);
 		} else {
 			alert('<?php echo $this->escape(JText::_('JGLOBAL_VALIDATION_FORM_FAILED')); ?>');
@@ -66,7 +66,8 @@ if ( $this->params->get( 'show_page_heading' ) ) : ?>
    /*if ( isset($this->tmpl['image']) ) {
 	  echo $this->tmpl['image'];
    }*/
-   echo $this->guestbooks->description;
+
+   echo JHTML::_('content.prepare', $this->guestbooks->description);
    ?>
    </div>
 <?php endif;
@@ -76,17 +77,17 @@ if ( $this->params->get( 'show_page_heading' ) ) : ?>
 
 // - - - - - - - - - - -
 // Page / Different positions
-// - - - - - - - - - - - 
+// - - - - - - - - - - -
 if ($this->params->get('form_style') == 1){
-	$formStyle = 'form'; 
+	$formStyle = 'form';
 } else {
-	$formStyle = 'form_classic'; 
+	$formStyle = 'form_classic';
 }
 
 // Display Page (Posts, Items, Form)
 // Forms:
 //  If position = 0 --> Form is top, Messages bottom
-//  If position = 1 --> Form is bottom, Messages top, 
+//  If position = 1 --> Form is bottom, Messages top,
 //  If position = 2 --> Use tabs for Message and Form
 switch ($this->params->get('form_position')) {
 	case 0:

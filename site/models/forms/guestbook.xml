@@ -18,8 +18,17 @@
 			id="guestbook-website" 		validate="phocaguestbookhomesite"	preicon="glyphicon glyphicon-home icon-home"
 			description="COM_PHOCAGUESTBOOK_FIELD_WEBSITE_DESC"  />
 
-		<field name="content" type="phocaeditor" label="COM_PHOCAGUESTBOOK_CONTENT" id="guestbook-content" 	validate="phocaguestbookcontent" rows="10" description="COM_PHOCAGUESTBOOK_FIELD_CONTENT_DESC" class="inputbox input-xxlarge" filter="safehtml" buttons="false" editor="tinymce"/>
-
+		<field name="content" type="phocaeditor" label="COM_PHOCAGUESTBOOK_CONTENT" id="guestbook-content" 	validate="phocaguestbookcontent" rows="10" description="COM_PHOCAGUESTBOOK_FIELD_CONTENT_DESC" class="inputbox input-xxlarge" filter="JComponentHelper::filterText" buttons="false" editor="tinymce"/>
+		
+		<field
+			name="privacy_checkbox"
+			type="checkbox"
+			label="COM_PHOCAGUESTBOOK_DATA_PROTECTION_LABEL"
+			description="COM_PHOCAGUESTBOOK_DATA_PROTECTION_DESC"
+			id="privacy_checkbox"
+			default="0"
+			
+		/>
 
 			
 		<field

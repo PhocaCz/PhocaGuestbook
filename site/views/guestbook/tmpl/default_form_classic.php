@@ -89,15 +89,25 @@ if ($this->params->get('show_form') == 1) : ?>
 			</div>
 		</div>
 	<?php	endif; ?>
+	
+	
+	<?php if ($this->params->get('display_privacy_checkbox_form')):	?>
+		<div class="control-group">
+			<div class="control-label"><?php echo $this->form->getLabel('privacy_checkbox'); ?></div>
+			<div class="controls"><?php echo $this->form->getInput('privacy_checkbox');  ?>
+				<div class="ph-privacy-row"><?php echo $this->params->get('privacy_checkbox_text'); ?></div></div>
+		</div>
+	<?php endif;?>
+	
 	<hr class="hr-condensed" />
 	<div class="btn-toolbar">
 		<div class="btn-group">
 			<button type="submit" class="btn btn-primary">
-				<i class="glyphicon glyphicon-ok icon-ok"></i> <?php echo JText::_('COM_PHOCAGUESTBOOK_SUBMIT');?></button>
+				<?php /*<i class="glyphicon glyphicon-ok icon-ok"></i> <?php*/ echo JText::_('COM_PHOCAGUESTBOOK_SUBMIT');?></button>
 		</div>
 		<div class="btn-group">
 			<button type="button" class="btn" onclick="Joomla.submitbutton('phocaguestbook.cancel')">
-				<i class="glyphicon glyphicon-remove icon-remove"></i><?php echo JText::_('COM_PHOCAGUESTBOOK_RESET');?>	</button>
+				<?php /*<i class="glyphicon glyphicon-remove icon-remove"></i><?php*/ echo JText::_('COM_PHOCAGUESTBOOK_RESET');?>	</button>
 		</div>
 	</div>		
 

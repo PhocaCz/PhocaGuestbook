@@ -12,7 +12,7 @@ class PhocaguestbookViewGuestbook extends JViewLegacy
 {
     /**
      * @var
-     */    
+     */
     protected $params;
     protected $guestbooks;
     protected $items;
@@ -20,9 +20,9 @@ class PhocaguestbookViewGuestbook extends JViewLegacy
 	protected $form;
 	protected $additional;
 	protected $user;
-        
+
 	function display($tpl = null) {
-		
+
 
 		$app		= JFactory::getApplication();
 		$user  		= JFactory::getUser();
@@ -33,7 +33,7 @@ class PhocaguestbookViewGuestbook extends JViewLegacy
 		// Get constant data from model
 		$state		= $this->get('State');
 		$guestbooks	= $this->get('Guestbook'); // = getCategory
-		
+
 		$tmplGet 		= $app->input->get('tmpl', '', 'string');
 		$url			= 'index.php';
 		$url			= JRoute::_($url);
@@ -49,20 +49,20 @@ class PhocaguestbookViewGuestbook extends JViewLegacy
 			return false;
 		}
 
-		// Load the parameters. 
+		// Load the parameters.
 		// Merge Global => GUESTBOOK => Menu Item params into new object in view
-		$applparams = $app->getParams();		
+		$applparams = $app->getParams();
 		$bookparams = new JRegistry;
 		$menuParams = new JRegistry;
 		$bookparams->loadString($guestbooks->get('params'));
 		if ($menu = $app->getMenu()->getActive()) {
 			$menuParams->loadString($menu->params);
-		} 
-		
+		}
+
 		$params = clone $applparams;
 		$params->merge($bookparams);
 		$params->merge($menuParams);
-		
+
 		if ($params->get('load_bootstrap', 0) == 1) {
 			JHtml::_('bootstrap.loadCss');
 		}
@@ -70,8 +70,8 @@ class PhocaguestbookViewGuestbook extends JViewLegacy
 
 		// Check whether category access level allows access.
 		if (!$params->get('access-view')) {
-			
-			$uri = JFactory::getURI();
+
+			$uri = \Joomla\CMS\Uri\Uri::getInstance();
 			$app->redirect('index.php?option=com_users&view=login&return=' . base64_encode($uri), JText::_('COM_PHOCAGUESTBOOK_NOT_AUTHORIZED_DO_ACTION'));
 			return;
 		}
@@ -86,16 +86,16 @@ class PhocaguestbookViewGuestbook extends JViewLegacy
 		if ($params->get('enable_captcha_users') == 1 && $user->id > 0) {
 			$params->set('enable_captcha', 0);
 		}
-		
+
 		$namespace  = 'pgb' . $params->get('session_suffix');
 		// Hidden Field
 		if ($params->get('enable_hidden_field') 	== 1) {
 			$params->set('hidden_field_position', PhocaguestbookHelperFront::setHiddenFieldPos($params->get('display_title_form'), $params->get('display_name_form'), $params->get('display_email_form'), $params->get('display_website_form'), $params->get('display_content_form')));
-			
+
 			$session->set('hidden_field_id', 'hf'.PhocaguestbookHelperFront::getRandomString(mt_rand(6,10)), $namespace);
 			$session->set('hidden_field_name', 'hf'.PhocaguestbookHelperFront::getRandomString(mt_rand(6,10)), $namespace);
 			$session->set('hidden_field_class', 'pgb'.PhocaguestbookHelperFront::getRandomString(mt_rand(6,10)), $namespace);
-				
+
 			$params->set('hidden_field_id', $session->get('hidden_field_id', '', $namespace));
 			$params->set('hidden_field_name', $session->get('hidden_field_name', '', $namespace));
 			$params->set('hidden_field_class', $session->get('hidden_field_class', '', $namespace));
@@ -105,20 +105,20 @@ class PhocaguestbookViewGuestbook extends JViewLegacy
 			$params->set('hidden_field_position', -1);
 		}
 		$state->set('params', $params);
-		
+
 		// - - - - - - - - - - -
 		// Get data from model, depending on parmas
 		$items		= $this->get('Data');
 		$pagination = $this->get('Pagination');
 		$form		= $this->get('Form');
 		$form->setValue('language',  null, $guestbooks->language);
-		
+
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {
 			throw new Exception(implode("\n", $errors), 500);
 			return false;
 		}
-		
+
 		// Form processing
 		// - - - - - - - - - - -
 		// Fill the form in case, you get no data from post
@@ -139,7 +139,7 @@ class PhocaguestbookViewGuestbook extends JViewLegacy
 					$form_username = $params->get('predefined_name');
 				}
 			}
-			
+
 			if ($user->email && trim($user->email !='')) {
 				$form_email = $user->email;
 			} else {
@@ -148,8 +148,8 @@ class PhocaguestbookViewGuestbook extends JViewLegacy
 			$form->setValue('username', null, $form_username);
 			$form->setValue('email', null, $form_email);
 		}
-			
-		
+
+
 		//-----------------------------------------------------------------------------------------------
 		// !!!! 2. Before Server Side Checking controll, don't show form (but there is a server side
 		//         checking, it means, if the user hack the form which is not displayed to him
@@ -158,7 +158,7 @@ class PhocaguestbookViewGuestbook extends JViewLegacy
 		//Don't show form, if IP Ban is wrong
 		if ($params->get('form_action_banned_ip') == 2) {
 			$ipAddr = $_SERVER["REMOTE_ADDR"];
-			
+
 			$logging = new stdClass();
 			$isSpam = PhocaguestbookOnlineCheckHelper::checkIpAddress($ipAddr, $params, $logging);
 
@@ -168,14 +168,14 @@ class PhocaguestbookViewGuestbook extends JViewLegacy
 				$app->enqueueMessage(JText::_('COM_PHOCAGUESTBOOK_IP_BAN_NO_ACCESS'), 'error');
 			}
 		} //end of ip check
-		
-		
+
+
 		// user can create posts
 		if (!$params->get('access-post')){
 			$params->set('show_form', 0);
 			$app->enqueueMessage(JText::_('COM_PHOCAGUESTBOOK_REG_USER_ONLY_NO_ACCESS'), 'warning');
-		} 
-		
+		}
+
 		//check procedure (form was send with error/successful)
 		$msgs = ($app->getMessageQueue());
 		$foundSuccess = $foundError = false;
@@ -192,7 +192,7 @@ class PhocaguestbookViewGuestbook extends JViewLegacy
 		} else if ($foundSuccess) {
 			//$params->set('show_form', 0);  show form, even is post was send
 		}
-		
+
 		// Always set session, even if form is not set (avoid spam from cached form)
         // Time Lock or logging
         if($params->get('enable_logging') || $params->get('enable_time_check')) {
@@ -204,12 +204,12 @@ class PhocaguestbookViewGuestbook extends JViewLegacy
 		}
 		if ($params->get('show_form')){
 			//always set form id - if not set at post -> SPAM! (use default namespace)
-			$session->set('form_id', PhocaguestbookHelperFront::getRandomString(mt_rand(6,10)), 'phocaguestbook'); 
+			$session->set('form_id', PhocaguestbookHelperFront::getRandomString(mt_rand(6,10)), 'phocaguestbook');
 		}
-				
+
 		//IF ITEMS ARE REQUIRED
-		if ($params->get('show_posts')) {	
-			if ($params->get('display_hidden_word') != 1) {	
+		if ($params->get('show_posts')) {
+			if ($params->get('display_hidden_word') != 1) {
 				$fwfa	= explode( ',', trim( $params->get( 'forbidden_word_filter', '' ) ) );
 				$fwwfa	= explode( ',', trim( $params->get( 'forbidden_whole_word_filter', '' ) ) );
 
@@ -223,7 +223,7 @@ class PhocaguestbookViewGuestbook extends JViewLegacy
 							$item->content		= str_ireplace (trim($values2), '***', $item->content);
 							$item->email		= str_ireplace (trim($values2), '***', $item->email);
 							$item->homesite		= str_ireplace (trim($values2), '***', $item->homesite);
-						} else {		
+						} else {
 							$item->username 	= str_replace (trim($values2), '***', $item->username);
 							$item->title		= str_replace (trim($values2), '***', $item->title);
 							$item->content		= str_replace (trim($values2), '***', $item->content);
@@ -231,8 +231,8 @@ class PhocaguestbookViewGuestbook extends JViewLegacy
 							$item->homesite		= str_replace (trim($values2), '***', $item->homesite);
 						}
 					}
-				
-					
+
+
 					//Forbidden Whole Word Filter
 					foreach ($fwwfa as $values2) {
 						if ($values2 !='') {
@@ -247,16 +247,16 @@ class PhocaguestbookViewGuestbook extends JViewLegacy
 					}
 				}
 			}
-			
+
 			$pagination	= $this->get('pagination');
-			
-			$document->addCustomTag('<style type="text/css"> .pgb-comment:after { '."\n\t".'content: "'.JText::_('COM_PHOCAGUESTBOOK_CSS_COMMENT').'";'."\n".'}</style>');  
+
+			$document->addCustomTag('<style type="text/css"> .pgb-comment:after { '."\n\t".'content: "'.JText::_('COM_PHOCAGUESTBOOK_CSS_COMMENT').'";'."\n".'}</style>');
 		}
 		//Escape strings for HTML output
 		$this->pageclass_sfx = htmlspecialchars($params->get('pageclass_sfx'));
-		
-		
-		// Create a shortcut	
+
+
+		// Create a shortcut
 		$this->items      = &$items;
 		$this->guestbooks = &$guestbooks;
 		$this->pagination = &$pagination;
@@ -264,29 +264,29 @@ class PhocaguestbookViewGuestbook extends JViewLegacy
 		$this->params	  = &$params;
 		$this->form       = &$form;
 		$this->additional = &$additional;
-		
+
 		$this->_prepareDocument();
 		parent::display($tpl);
 	}
-	
+
 	protected function _prepareDocument() {
 		$app		= JFactory::getApplication();
 		$pathway 	= $app->getPathway();
-	
+
 		$title = $this->params->get('page_title'); //$this->guestbooks->title; dont use guestbook title
 		if (empty($title)) {
-			$title = $app->getCfg('sitename');
+			$title = $app->get('sitename');
 		}
-		elseif ($app->getCfg('sitename_pagetitles', 0) == 1) {
-			$title = JText::sprintf('JPAGETITLE', $app->getCfg('sitename'), $title);
+		elseif ($app->get('sitename_pagetitles', 0) == 1) {
+			$title = JText::sprintf('JPAGETITLE', $app->get('sitename'), $title);
 		}
-		elseif ($app->getCfg('sitename_pagetitles', 0) == 2) {
-			$title = JText::sprintf('JPAGETITLE', $title, $app->getCfg('sitename'));
+		elseif ($app->get('sitename_pagetitles', 0) == 2) {
+			$title = JText::sprintf('JPAGETITLE', $title, $app->get('sitename'));
 		}
 
 		$this->document->setTitle($title);
-		
-		
+
+
 		if ($this->guestbooks->metadesc)
 		{
 			$this->document->setDescription($this->guestbooks->metadesc);
@@ -308,7 +308,7 @@ class PhocaguestbookViewGuestbook extends JViewLegacy
 		{
 			$this->document->setMetadata('robots', $this->params->get('robots'));
 		}
-		
+
 		$mdata = $this->guestbooks->getMetadata()->toArray();
 		foreach ($mdata as $k => $v)
 		{
@@ -316,7 +316,7 @@ class PhocaguestbookViewGuestbook extends JViewLegacy
 				$this->document->setMetadata($k, $v);
 			}
 		}
-		
+
 		// Add feed links
 		if ($this->params->get('show_feed_link', 1)) {
 			$link = '&format=feed&limitstart=';

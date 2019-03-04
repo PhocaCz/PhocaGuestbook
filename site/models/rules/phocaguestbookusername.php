@@ -41,6 +41,8 @@ class JFormRulePhocaguestbookUsername extends JFormRuleUsername
 		
 		// Get the database object and a new query object.
 		$db = JFactory::getDBO();
+		
+		
 		$query = $db->getQuery(true);
 
 		// Build the query.
@@ -56,6 +58,26 @@ class JFormRulePhocaguestbookUsername extends JFormRuleUsername
 		$duplicate = (bool) $db->loadResult();
 
 		if ($duplicate)
+		{
+			return false;
+		}
+		
+		
+		$query = $db->getQuery(true);
+
+		// Build the query.
+		$query->select('COUNT(*)');
+		$query->from('#__users');
+		$query->where('name = ' . $db->quote($value));
+
+		// Get the extra field check attribute.
+		$query->where($db->quoteName('id') . ' <> ' . (int) $userId);
+
+		// Set and query the database.
+		$db->setQuery($query);
+		$duplicate2 = (bool) $db->loadResult();
+
+		if ($duplicate2)
 		{
 			return false;
 		}

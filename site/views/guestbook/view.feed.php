@@ -14,10 +14,10 @@ class PhocaguestbookViewguestbook extends JViewLegacy
 		$app       = JFactory::getApplication();
 		$doc       = JFactory::getDocument();
 		$params    = $app->getParams();
-		$siteEmail = $app->getCfg('mailfrom');
+		$siteEmail = $app->get('mailfrom');
 
 		// Get some data from the model
-		$app->input->set('limit', $app->getCfg('feed_limit'));
+		$app->input->set('limit', $app->get('feed_limit'));
 
 		// - - - - - - - - - - -
 		// Get constant data from model

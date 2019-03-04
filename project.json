@@ -1,0 +1,60 @@
+{
+	"author": "Jan Pavelka (www.phoca.cz)",
+	"authorUrl": "https://www.phoca.cz",
+	"copyright": "Jan Pavelka",
+	"license": "GNU/GPL",
+	"projectName": "PhocaGuestbook",
+	"extensionName": "Phoca Guestbook",
+	"projectInitials" : "GB",				  
+	"description": "Phoca Guestbook is Joomla! CMS component. It displays guestbook form with Captcha (8 types of Captcha) and many other different internal or external spam protection methods.",
+	"projectUrl": "https://www.phoca.cz/phocaguestbook",
+	"projectDocumentationUrl": "https://www.phoca.cz/documentation/category/3-phoca-guestbook-component",
+	"projectMainComponent": "Phoca Guestbook",
+	"projectMainComponentInfoUrl": "https://www.phoca.cz/project/phocaguestbook-joomla-guestbook",
+	"projectDemo" : {
+		"Joomla! 3 Demo": "https://www.phoca.cz/joomla3demo/phocaguestbook'"
+	},
+	"projectColor": "#bac83f",												
+	"menu": {
+		"main":{
+			"0" : {
+				"image": "icon-16-pgb-menu.png",
+				"view": "",
+				"link": "option=com_phocaguestbook",
+				"title": "COM_PHOCAGUESTBOOK"
+			}
+		},
+		"submenu": {
+			"0" : {
+				"image": "icon-16-pgb-menu-cp.png",
+				"view": "phocaguestbookcp",
+				"link": "option=com_phocaguestbook",
+				"title": "COM_PHOCAGUESTBOOK_CONTROLPANEL"
+			},
+			"1": {
+				"image": "icon-16-pgb-menu-item.png",
+				"view": "phocaguestbooks",
+				"link": "option=com_phocaguestbook&amp;amp;view=phocaguestbooks",
+				"title": "COM_PHOCAGUESTBOOK_ITEMS"
+			},
+			"2": {
+				"image": "icon-16-pgb-menu-guestbook.png",
+				"view": "phocaguestbookbs",
+				"link": "option=com_categories&amp;amp;extension=com_phocaguestbook",
+				"title": "COM_PHOCAGUESTBOOK_GUESTBOOKS"
+			},
+			"3": {
+				"image": "icon-16-pgb-menu-logs.png",
+				"view": "phocaguestlogs",
+				"link": "option=com_phocaguestbook&amp;amp;view=phocaguestbooklogs",
+				"title": "COM_PHOCAGUESTBOOK_LOGGING"
+			},
+			"4": {
+				"image": "icon-16-pgb-menu-info.png",
+				"view": "phocaguestbookin",
+				"link": "option=com_phocaguestbook&amp;amp;view=phocaguestbookin",
+				"title": "COM_PHOCAGUESTBOOK_INFO"
+			}
+		}
+	}
+}

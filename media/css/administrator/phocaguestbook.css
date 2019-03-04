@@ -174,5 +174,8 @@ div.icon-48-guestbook {
 	margin-left: -180px;
 }
 
-
+.ph-cpanel-logo img {
+	transform: scale(0.6);
+	transform-origin: 0 50%;
+}
 

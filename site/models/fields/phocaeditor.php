@@ -17,7 +17,7 @@ class JFormFieldPhocaEditor extends JFormField
 	
 	protected function getInput(){
 	
-		
+		$app = JFactory::getApplication();
 		$class = $this->element['class'] ? ' class="' . (string) $this->element['class'] . ' mceEditor mce_editable"' : 'mce_editable';
 		
 		$disabled = ((string) $this->element['disabled'] == 'true') ? ' disabled="disabled"' : '';
@@ -63,10 +63,61 @@ class JFormFieldPhocaEditor extends JFormField
 			$plugin 	= JPluginHelper::getPlugin('editors', 'tinymce');
 			$paramsE 	= new JRegistry($plugin->params);
 			$language 		 = JFactory::getLanguage();
-			//$entity_encoding = $this->params->get('entity_encoding', 'raw');
-			$langMode        = $paramsE->get('lang_mode', 0);
-			$langPrefix      = $paramsE->get('lang_code', 'en');
+			
+			$user     = JFactory::getUser();
+			$language = JFactory::getLanguage();
+			$theme    = 'modern';
+			$ugroups  = array_combine($user->getAuthorisedGroups(), $user->getAuthorisedGroups());
 
+			// Prepare the parameters
+			$levelParams      = new Joomla\Registry\Registry;
+			$extraOptions     = new stdClass;
+			$toolbarParams    = new stdClass;
+			
+			$configuration	= $paramsE->get('configuration');
+			
+			if (!empty($configuration)) {
+				$extraOptionsAll  = $configuration->setoptions;
+				$toolbarParamsAll = $configuration->toolbars;
+
+				// Get configuration depend from User group
+				if (!empty($extraOptionsAll)) {
+					foreach ($extraOptionsAll as $set => $val)
+					{
+						$val->access = empty($val->access) ? array() : $val->access;
+
+						// Check whether User in one of allowed group
+						foreach ($val->access as $group)
+						{
+							if (isset($ugroups[$group]))
+							{
+								$extraOptions  = $val;
+								$toolbarParams = $toolbarParamsAll->$set;
+							}
+						}
+					}
+				}
+			}
+			// Merge the params
+			$levelParams->loadObject($toolbarParams);
+			$levelParams->loadObject($extraOptions);
+
+			// List the skins
+			$skindirs = glob(JPATH_ROOT . '/media/editors/tinymce/skins' . '/*', GLOB_ONLYDIR);
+
+			// Set the selected skin
+			$skin = 'lightgray';
+			$side = $app->isClient('administrator') ? 'skin_admin' : 'skin';
+
+			if ((int) $levelParams->get($side, 0) < count($skindirs))
+			{
+				$skin = basename($skindirs[(int) $levelParams->get($side, 0)]);
+			}
+
+			$langMode   = $levelParams->get('lang_mode', 1);
+			$langPrefix = $levelParams->get('lang_code', 'en');
+			
+			
 			if ($langMode)
 			{
 				if (file_exists(JPATH_ROOT . "/media/editors/tinymce/langs/" . $language->getTag() . ".js"))
