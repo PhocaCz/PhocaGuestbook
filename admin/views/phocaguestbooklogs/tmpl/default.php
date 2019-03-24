@@ -24,7 +24,7 @@ $sortFields = $this->getSortFields();
 		table = document.getElementById("sortTable");
 		direction = document.getElementById("directionTable");
 		order = table.options[table.selectedIndex].value;
-	
+
 		if (order != '<?php echo $listOrder; ?>') {
 			dirn = 'asc';
 		} else {
@@ -42,10 +42,10 @@ $sortFields = $this->getSortFields();
 		<?php echo $this->sidebar; ?>
 	</div>
 	<div id="j-main-container" class="span10">
-	
-	
+
+
 	<?php
-if (!$this->params->get('enable_logging')) :?>
+if (!$this->params->get('enable_logging', 0)) :?>
 
     <div class="alert">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -75,7 +75,7 @@ endif;
 					<option value=""><?php echo JText::_('JGLOBAL_SORT_BY');?></option>
 					<?php echo JHtml::_('select.options', $sortFields, 'value', 'text', $listOrder);?>
 				</select>
-			</div>			
+			</div>
 		</div>
 		<div class="clearfix"></div>
 
@@ -102,7 +102,7 @@ endif;
 				</th>
 				<th width="2%" class="nowrap">
 					<?php echo JHtml::_('grid.sort', 'Come in', 'a.incoming_page', $listDirn, $listOrder); ?>
-				</th>			
+				</th>
 				<th width="1%" class="nowrap">
 					<?php echo JHtml::_('grid.sort', 'COM_PHOCAGUESTBOOK_FIELD_CHECK', 'a.fields', $listDirn, $listOrder); ?>
 				</th>
@@ -125,7 +125,7 @@ endif;
 					<?php echo JHtml::_('grid.sort', 'COM_PHOCAGUESTBOOK_IP', 'a.ip_list', $listDirn, $listOrder); ?>
 				</th>
 				<th width="1%" class="nowrap center">
-					<?php echo JHtml::_('grid.sort', 'COM_PHOCAGUESTBOOK_IP', 'a.ip_stopforum', $listDirn, $listOrder); ?> 
+					<?php echo JHtml::_('grid.sort', 'COM_PHOCAGUESTBOOK_IP', 'a.ip_stopforum', $listDirn, $listOrder); ?>
 				</th>
 				<th width="1%" class="nowrap center">
 					<?php echo JHtml::_('grid.sort', 'COM_PHOCAGUESTBOOK_IP', 'a.ip_honeypot', $listDirn, $listOrder); ?>
@@ -133,7 +133,7 @@ endif;
 				<th width="1%" class="nowrap center">
 					<?php echo JHtml::_('grid.sort', 'COM_PHOCAGUESTBOOK_IP', 'a.ip_botscout', $listDirn, $listOrder); ?>
 				</th>
-				
+
 				<th width="5%" class="nowrap hidden-phone">
 					<?php echo JHtml::_('grid.sort', 'COM_PHOCAGUESTBOOK_IP', 'a.ip', $listDirn, $listOrder); ?>
 				</th>
@@ -146,16 +146,16 @@ endif;
 			</tr>
 			</thead>
 			<tbody><?php /*======== TBODY =========================================================*/ ?>
-			<?php foreach($this->items as $i => $item): 
-			
+			<?php foreach($this->items as $i => $item):
+
 			//table-striped table-bordered table-hover table-condensed
 			?>
 			<tr>
-				<td class="center hidden-phone">	
+				<td class="center hidden-phone">
 					<?php echo JHtml::_('grid.id', $i, $item->id); ?>
 				</td>
 			<?php
-			
+
 			// ++++++++++++++++++++++++++++++++ STATE +++++++++++++++++++++++++++++
 			switch ($item->state) {
 				case 1:
@@ -173,10 +173,10 @@ endif;
 					$class  = 'error';
 					$image  = 'icon-lightning';
 					$title  = JText::_('COM_PHOCAGUESTBOOK_REJECT');
-					break;				
+					break;
 			}
 			echo '<td class="hasTip ' .$class. '" title="' .$title .'"> <i class="' .$image. '"></i> </td>';
-			
+
 			// ++++++++++++++++++++++++++++++++ POST_ID +++++++++++++++++++++++++++++
 			if ($item->postid > 0){
 				$title = 'Title: ' . $item->title . ' from:' .$item->username;
@@ -184,12 +184,12 @@ endif;
 			} else {
 				echo '<td class="center"> -- </td>';
 			}
-			
+
 			// ++++++++++++++++++++++++++++++++ GUESBTOOK +++++++++++++++++++++++++++++
 			$title = $item->guestbook_title;
 			echo '<td class="hasTip center" title="' .$title. '">' .$item->catid. '</td>';
-			
-			
+
+
 			// ++++++++++++++++++++++++++++++++ CAPTCHA_ID +++++++++++++++++++++++++++++
 			switch ($item->captchaid) {
 				case 0:	 $title  =	JText::_('COM_PHOCAGUESTBOOK_NONE_CAPTCHA'); 		break;
@@ -204,15 +204,15 @@ endif;
 				default: $title  = 'UNKOWN'; break;
 			}
 			echo '<td class="hasTip center" title="' .$title .'">' .$item->captchaid. '</td>';
-			
-			
+
+
 			// ++++++++++++++++++++++++++++++++ USED TIME +++++++++++++++++++++++++++++
 			echo '<td class="center">' .$item->used_time. '</td>';
 
 			// ++++++++++++++++++++++++++++++++ INCOMING PAGE +++++++++++++++++++++++++++++
 			$title = $item->incoming_page;
 			echo '<td class="hasTip center nowrap" title="' .$title. '">' .substr($item->incoming_page,7,4). '...' .substr($item->incoming_page,-11). '</td>';
-			
+
 			// ++++++++++++++++++++++++++++++++ FIELDS +++++++++++++++++++++++++++++
 			switch ($item->fields) {
 				case 1:
@@ -224,12 +224,12 @@ endif;
 					$class  = 'error';
 					$image  = 'icon-key';
 					$title  = JText::_('COM_PHOCAGUESTBOOK_ANY_FIELDS_INVALID');
-					break;				
+					break;
 			}
 			echo '<td class="hasTip ' .$class. ' center" title="' .$title .'"> <i class="' .$image. '"></i> </td>';
 
 
-			// ++++++++++++++++++++++++++++++++ SESSION +++++++++++++++++++++++++++++	
+			// ++++++++++++++++++++++++++++++++ SESSION +++++++++++++++++++++++++++++
 			switch ($item->session) {
 				case 1:
 					$class  = 'success';
@@ -240,7 +240,7 @@ endif;
 					$class  = 'error';
 					$image  = 'icon-lightning';
 					$title  = JText::_('COM_PHOCAGUESTBOOK_SESSION_INVALID');
-					break;				
+					break;
 			}
 			echo '<td class="hasTip ' .$class. ' center" title="' .$title .'"> <i class="' .$image. '"></i> </td>';
 
@@ -261,11 +261,11 @@ endif;
 					$class  = 'error';
 					$image  = 'icon-key';
 					$title  = JText::_('COM_PHOCAGUESTBOOK_PHOCA_GUESTBOOK_SPAM_BLOCKED');
-					break;				
+					break;
 			}
 			echo '<td class="hasTip ' .$class. ' center" title="' .$title .'"> <i class="' .$image. '"></i> </td>';
-				
-				
+
+
 			// ++++++++++++++++++++++++++++++++ FORBIDDEN +++++++++++++++++++++++++++++
 			switch ($item->forbidden_word) {
 				case 1:
@@ -284,12 +284,12 @@ endif;
 					$class  = 'error';
 					$image  = 'icon-key';
 					$title  = JText::_('COM_PHOCAGUESTBOOK_PHOCA_GUESTBOOK_SPAM_BLOCKED');
-					break;				
+					break;
 			}
 			echo '<td class="hasTip ' .$class. ' center" title="' .$title .'"> <i class="' .$image. '"></i> </td>';
-				
-			
-			// ++++++++++++++++++++++++++++++++ Content:Akismet +++++++++++++++++++++++++++++	
+
+
+			// ++++++++++++++++++++++++++++++++ Content:Akismet +++++++++++++++++++++++++++++
 			$title = 'Content:Akismet: ';
 			switch ($item->content_akismet) {
 				case 1:
@@ -306,13 +306,13 @@ endif;
 					$class  = 'error';
 					$image  = 'icon-lightning';
 					$title .= JText::_('COM_PHOCAGUESTBOOK_PHOCA_GUESTBOOK_SPAM_BLOCKED');
-					break;				
+					break;
 			}
-			$title .= '<br/>' . $item->content_akismet_txt;	
+			$title .= '<br/>' . $item->content_akismet_txt;
 			echo '<td class="hasTip ' .$class. ' center" title="' .$title .'"> <i class="' .$image. '"></i> </td>';
-		
-		 	
-			// ++++++++++++++++++++++++++++++++ Content:Mollom +++++++++++++++++++++++++++++	
+
+
+			// ++++++++++++++++++++++++++++++++ Content:Mollom +++++++++++++++++++++++++++++
 			$title = 'Content:Mollom: ';
 			$title .= '<br/>' . $item->content_mollom_txt . '<br/>' ;
 			switch ($item->content_mollom) {
@@ -330,12 +330,12 @@ endif;
 					$class  = 'error';
 					$image  = 'icon-lightning';
 					$title .= JText::_('COM_PHOCAGUESTBOOK_PHOCA_GUESTBOOK_SPAM_BLOCKED');
-					break;				
+					break;
 			}
 			echo '<td class="hasTip ' .$class. ' center" title="' .$title .'"> <i class="' .$image. '"></i> </td>';
-		
-		
-			// ++++++++++++++++++++++++++++++++ IP:List +++++++++++++++++++++++++++++	
+
+
+			// ++++++++++++++++++++++++++++++++ IP:List +++++++++++++++++++++++++++++
 			switch ($item->ip_list) {
 				case 1:
 					$class  = 'success';
@@ -346,12 +346,12 @@ endif;
 					$class  = 'error';
 					$image  = 'icon-lightning';
 					$title  = JText::_('COM_PHOCAGUESTBOOK_IP_BAN_NO_ACCESS');
-					break;				
+					break;
 			}
 			echo '<td class="hasTip ' .$class. ' center" title="' .$title .'"> <i class="' .$image. '"></i> </td>';
-			
 
-			// ++++++++++++++++++++++++++++++++ IP:Stopforum +++++++++++++++++++++++++++++	
+
+			// ++++++++++++++++++++++++++++++++ IP:Stopforum +++++++++++++++++++++++++++++
 			$title = 'IP:Stopforum: ';
 			switch ($item->ip_stopforum) {
 				case 1:
@@ -368,12 +368,12 @@ endif;
 					$class  = 'error';
 					$image  = 'icon-lightning';
 					$title .= JText::_('COM_PHOCAGUESTBOOK_IP_BAN_NO_ACCESS');
-					break;				
+					break;
 			}
-			$title .= '<br/>' . $item->ip_stopforum_txt;	
+			$title .= '<br/>' . $item->ip_stopforum_txt;
 			echo '<td class="hasTip ' .$class. ' center" title="' .$title .'"> <i class="' .$image. '"></i> </td>';
-		
-		
+
+
 			// ++++++++++++++++++++++++++++++++ IP:Honepot +++++++++++++++++++++++++++++
 			$title = 'IP:Honeypot: ';
 			switch ($item->ip_honeypot) {
@@ -391,11 +391,11 @@ endif;
 					$class  = 'error';
 					$image  = 'icon-lightning';
 					$title .= JText::_('COM_PHOCAGUESTBOOK_IP_BAN_NO_ACCESS');
-					break;				
-			}	
+					break;
+			}
 			echo '<td class="hasTip ' .$class. ' center" title="' .$title .'"> <i class="' .$image. '"></i> </td>';
-			
-			// ++++++++++++++++++++++++++++++++ IP:Botscout +++++++++++++++++++++++++++++	
+
+			// ++++++++++++++++++++++++++++++++ IP:Botscout +++++++++++++++++++++++++++++
 			$title  = 'IP:Botscout: ';
 			switch ($item->ip_botscout) {
 				case 1:
@@ -412,25 +412,25 @@ endif;
 					$class  = 'error';
 					$image  = 'icon-lightning';
 					$title .= JText::_('COM_PHOCAGUESTBOOK_IP_BAN_NO_ACCESS');
-					break;				
+					break;
 			}
-			$title .= '<br/>' . $item->ip_botscout_txt;	
+			$title .= '<br/>' . $item->ip_botscout_txt;
 			echo '<td class="hasTip ' .$class. ' center" title="' .$title .'"> <i class="' .$image. '"></i> </td>';
-		
-		
-			// ++++++++++++++++++++++++++++++++ IP +++++++++++++++++++++++++++++	
+
+
+			// ++++++++++++++++++++++++++++++++ IP +++++++++++++++++++++++++++++
 			echo '<td>' .$item->ip. '</td>';
-			
-			
-			// ++++++++++++++++++++++++++++++++ DATE +++++++++++++++++++++++++++++	
+
+
+			// ++++++++++++++++++++++++++++++++ DATE +++++++++++++++++++++++++++++
 			echo '<td class="nowrap">' .JHtml::_('date', $item->date, JText::_('DATE_FORMAT_LC4') . ' H:i:s'). '</td>';
-			
-			
-			// ++++++++++++++++++++++++++++++++ ID +++++++++++++++++++++++++++++	
+
+
+			// ++++++++++++++++++++++++++++++++ ID +++++++++++++++++++++++++++++
 			echo '<td>' .$item->id. '</td>';
-			
+
 			?>
-							
+
 
 			</tr>
 			<?php endforeach;?>

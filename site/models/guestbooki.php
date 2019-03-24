@@ -13,14 +13,14 @@ require_once JPATH_COMPONENT.'/helpers/phocaguestbookcaptcha.php';
 class PhocaguestbookModelGuestbooki extends JModelLegacy
 {
 	var $_data = null;
-	
+
 	function &getData()
 	{
-		//reuse old captcha id		
+		//reuse old captcha id
 		$app		= JFactory::getApplication();
 		$paramsC 	= $app->getParams();
 		$session 	= JFactory::getSession();
-		$captchaId = $session->get('captcha_id','', 'pgb'.$paramsC->get('session_suffix'));//Get captcha type
+		$captchaId = $session->get('captcha_id','', 'pgb'.$paramsC->get('session_suffix', ''));//Get captcha type
 
 		/*
 		$app		= JFactory::getApplication();
@@ -49,7 +49,7 @@ class PhocaguestbookModelGuestbooki extends JModelLegacy
 				break;
 		}
 		$this->_data['captchaid'] = $captchaId;
-		
+
 		return $this->_data;
 	}
 }

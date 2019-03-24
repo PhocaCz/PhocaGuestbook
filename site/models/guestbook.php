@@ -52,7 +52,7 @@ class PhocaguestbookModelGuestbook extends JModelForm
 		}
 
 		// HTML Purifier - - - - - - - - - -
-		if ($params->get('enable_html_purifier') == 0) {
+		if ($params->get('enable_html_purifier', 1) == 0) {
 			$filterTags		= '';//preg_split( '#[,\s]+#', trim( ) ); // black list method is used
 			$filterAttrs	= '';//preg_split( '#[,\s]+#', trim( ) ); // black list method is used
 			$filter	= new JFilterInput( $filterTags, $filterAttrs, 1, 1, 1 );
@@ -68,7 +68,7 @@ class PhocaguestbookModelGuestbook extends JModelForm
 			$data['guestbook_content'] = $purifier->purify($data['content']);
 		}
 		// Maximum of character, they will be saved in database
-		$data['guestbook_content']	= substr($data['guestbook_content'], 0, $params->get('max_char'));
+		$data['guestbook_content']	= substr($data['guestbook_content'], 0, $params->get('max_char', 2000));
 		$data['content'] = $data['guestbook_content'];
 
 		//review item?
@@ -117,11 +117,11 @@ class PhocaguestbookModelGuestbook extends JModelForm
 		}
 
 		// Everything OK - send email for menu item and guestbook
-		if ($params->get('send_email') > 0) {
-			PhocaguestbookEmailHelper::sendPhocaGuestbookMail($params->get('send_email'), $data, \Joomla\CMS\Uri\Uri::getInstance()->toString(), $params);
+		if ($params->get('send_email', 0) > 0) {
+			PhocaguestbookEmailHelper::sendPhocaGuestbookMail($params->get('send_email', 0), $data, \Joomla\CMS\Uri\Uri::getInstance()->toString(), $params);
 		}
-		if ($params->get('send_super_email') > 0) {
-			PhocaguestbookEmailHelper::sendPhocaGuestbookMail($params->get('send_super_email'), $data, \Joomla\CMS\Uri\Uri::getInstance()->toString(), $params);
+		if ($params->get('send_super_email', 0) > 0) {
+			PhocaguestbookEmailHelper::sendPhocaGuestbookMail($params->get('send_super_email', 0), $data, \Joomla\CMS\Uri\Uri::getInstance()->toString(), $params);
 		}
 
 		$data['id'] = $row->id;
@@ -134,8 +134,8 @@ class PhocaguestbookModelGuestbook extends JModelForm
 	function doLog(&$logging, $success) {
 		$params = $this->getState('params');
 
-		if($params->get('enable_logging') &&
-		  ($params->get('logging_failed') || $success )) {
+		if($params->get('enable_logging', 0) &&
+		  ($params->get('logging_failed', 0) || $success )) {
 			$logging->date = gmdate('Y-m-d H:i:s');   // Create the timestamp for the date
 			if (!$success) {
 				$logging->state = 3;	//1 = published, 2 = review, 3 = reject
@@ -200,39 +200,39 @@ class PhocaguestbookModelGuestbook extends JModelForm
 		}
 
 		// Set required or not && disable if not available
-		if(!$params->get('display_title_form', 0)){
+		if(!$params->get('display_title_form', 2)){
 			$form->removeField('title');
-		} else if ($params->get('display_title_form') == 2){
+		} else if ($params->get('display_title_form', 2) == 2){
 			$form->setFieldAttribute('title', 'required', 'true');
 		}
 
-		if(!$params->get('display_name_form', 0)){
+		if(!$params->get('display_name_form', 2)){
 			$form->removeField('username');
-		} else if ($params->get('display_name_form') == 2){
+		} else if ($params->get('display_name_form', 2) == 2){
 			$form->setFieldAttribute('username', 'required', 'true');
 		}
 
-		if(!$params->get('display_email_form', 0)){
+		if(!$params->get('display_email_form', 1)){
 			$form->removeField('email');
-		} else if ($params->get('display_email_form') == 2){
+		} else if ($params->get('display_email_form', 1) == 2){
 			$form->setFieldAttribute('email', 'required', 'true');
 		}
 
 		if(!$params->get('display_website_form', 0)){
 			$form->removeField('homesite');
-		} else if ($params->get('display_website_form') == 2){
+		} else if ($params->get('display_website_form', 0) == 2){
 			$form->setFieldAttribute('homesite', 'required', 'true');
 		}
 
 		if(!$params->get('display_privacy_checkbox_form', 0)){
 			$form->removeField('privacy_checkbox');
-		} else if ($params->get('display_privacy_checkbox_form') == 2){
+		} else if ($params->get('display_privacy_checkbox_form', 0) == 2){
 			$form->setFieldAttribute('privacy_checkbox', 'required', 'true');
 		}
 
-		if(!$params->get('display_content_form', 0)){
+		if(!$params->get('display_content_form', 2)){
 			$form->removeField('content');
-		} else if ($params->get('display_content_form') == 2){
+		} else if ($params->get('display_content_form', 2) == 2){
 			$form->setFieldAttribute('content', 'required', 'true');
 		}
 
@@ -244,7 +244,7 @@ class PhocaguestbookModelGuestbook extends JModelForm
 			$form->setFieldAttribute('hidden_field', 'name', $params->get('hidden_field_name'));
 		}
 
-		if (!$params->get('enable_captcha')) {
+		if (!$params->get('enable_captcha', '')) {
 			$form->removeField('captcha');
 		} else {
 			switch ($params->get('captcha_id')){
@@ -259,12 +259,12 @@ class PhocaguestbookModelGuestbook extends JModelForm
 		}
 
 		//$form->setFieldAttribute('content', 'type', 'textarea');
-		if (false == $params->get('enable_editor')) {
+		if (false == $params->get('enable_editor', 1)) {
 			$form->setFieldAttribute('content', 'type', 'textarea');
 		}
 
 
-		$form->setValue('version', null, $params->get('form_style'));
+		$form->setValue('version', null, $params->get('form_style', 1));
 
 		return $form;
 	}
@@ -291,7 +291,7 @@ class PhocaguestbookModelGuestbook extends JModelForm
 		$context			= 'com_phocaguestbook.guestbook.';
 		$app				= JFactory::getApplication();
 
-		$limit = $app->getUserStateFromRequest('list.limit', 'limit', $params->get('default_pagination'), 'int');
+		$limit = $app->getUserStateFromRequest('list.limit', 'limit', $params->get('default_pagination', 5), 'int');
 		$start = $app->input->get('limitstart', $this->getState('list.limitstart', 0), 'int');
 
 		$this->setState('list.limit', $limit);

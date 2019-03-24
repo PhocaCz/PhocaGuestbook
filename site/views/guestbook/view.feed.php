@@ -25,21 +25,21 @@ class PhocaguestbookViewguestbook extends JViewLegacy
 		$guestbooks	= $this->get('Guestbook'); // = getCategory
 		// Check for errors.
 		if ($guestbooks == false) {
-			
+
 			throw new Exception(JText::_('COM_PHOCAGUESTBOOK_GUESTBOOK_NOT_FOUND'), 404);
 			return false;
 		}
 
-		// Load the parameters. 
+		// Load the parameters.
 		// Merge Global => GUESTBOOK => Menu Item params into new object in view
-		$applparams = $app->getParams();		
+		$applparams = $app->getParams();
 		$bookparams = new JRegistry;
 		$menuParams = new JRegistry;
 		$bookparams->loadString($guestbooks->get('params'));
 		if ($menu = $app->getMenu()->getActive()) {
 			$menuParams->loadString($menu->params);
-		} 
-		
+		}
+
 		$params = clone $applparams;
 		$params->merge($bookparams);
 		$params->merge($menuParams);
@@ -47,7 +47,7 @@ class PhocaguestbookViewguestbook extends JViewLegacy
 
 		// Check whether category access level allows access.
 		if (!$params->get('access-view')) {
-		
+
 			throw new Exception(JText::_('COM_PHOCAGUESTBOOK_ALERTNOAUTHOR'), 403);
 			return false;
 		}
@@ -57,23 +57,23 @@ class PhocaguestbookViewguestbook extends JViewLegacy
 		$items		= $this->get('Data');
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {
-			
+
 			throw new Exception(implode("\n", $errors), 500);
 			return false;
-		}		
-		
+		}
+
 		$link = JRoute::_(PhocaguestbookHelperRoute::getCategoryRoute($guestbooks));
 		//SHOW ITEMS
 		//$doc->link = JRoute::_(PhocaguestbookHelperRoute::getCategoryRoute($guestbooks->id+10));
-		
-		if ($params->get('display_posts')) {
+
+		if ($params->get('display_posts', 1)) {
 			foreach ($items as $key => &$item) {
 
-				if ($params->get('display_hidden_word') != 1) {	
+				if ($params->get('display_hidden_word', 0) != 1) {
 					$fwfa	= explode( ',', trim( $params->get( 'forbidden_word_filter', '' ) ) );
 					$fwwfa	= explode( ',', trim( $params->get( 'forbidden_whole_word_filter', '' ) ) );
 
-				
+
 					// Forbidden Word Filter
 					// Believe or not - it is more faster to replace items than the whole content :-)
 					foreach ($fwfa as $values2) {
@@ -81,14 +81,14 @@ class PhocaguestbookViewguestbook extends JViewLegacy
 							$item->username 	= str_ireplace (trim($values2), '***', $item->username);
 							$item->title		= str_ireplace (trim($values2), '***', $item->title);
 							$item->content		= str_ireplace (trim($values2), '***', $item->content);
-						} else {		
+						} else {
 							$item->username 	= str_replace (trim($values2), '***', $item->username);
 							$item->title		= str_replace (trim($values2), '***', $item->title);
 							$item->content		= str_replace (trim($values2), '***', $item->content);
 						}
 					}
-				
-					
+
+
 					//Forbidden Whole Word Filter
 					foreach ($fwwfa as $values2) {
 						if ($values2 !='') {
@@ -108,7 +108,7 @@ class PhocaguestbookViewguestbook extends JViewLegacy
 
 				// Get description, author and date
 				$description = $item->content;
-				$author = $params->get('display_name') ? $item->username : $params->get('predefined_name');
+				$author = $params->get('display_name', 1) ? $item->username : $params->get('predefined_name', '');
 				@$date = date('r', strtotime($item->date));
 
 				// Load individual item creator class
@@ -119,12 +119,12 @@ class PhocaguestbookViewguestbook extends JViewLegacy
 				$item->category = $guestbooks->title;
 				$item->author   = $author;
 				$item->authorEmail = $siteEmail;	//always page email
-				$item->description	= '<div class="feed-description">'.$description.'</div>';				
-				
+				$item->description	= '<div class="feed-description">'.$description.'</div>';
+
 				// Loads item info into rss array
-				$doc->addItem($item);		
+				$doc->addItem($item);
 			}
-			
+
 		}
 	}
 }

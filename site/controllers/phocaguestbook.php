@@ -73,12 +73,12 @@ class PhocaguestbookControllerPhocaguestbook extends JControllerForm
 		$params->merge($bookparams);
 		$params->merge($menuParams);
 
-		$namespace  = 'pgb' . $params->get('session_suffix');
+		$namespace  = 'pgb' . $params->get('session_suffix', '');
 
 		$captcha_id = $session->get('captcha_id',   null, $namespace);
 		$params->set('captcha_id', $captcha_id );
 		// Captcha not for registered
-		if ($params->get('enable_captcha_users') == 1 && $user->id > 0) {
+		if ($params->get('enable_captcha_users', 0) == 1 && $user->id > 0) {
 			$params->set('enable_captcha', 0);
 		}
 		$logging->captchaid = $captcha_id;
@@ -118,7 +118,7 @@ class PhocaguestbookControllerPhocaguestbook extends JControllerForm
 		}
 
 		// Hidden Field check
-		if ($params->get('enable_hidden_field') 	== 1) {
+		if ($params->get('enable_hidden_field', 0) 	== 1) {
 			$params->set('hidden_field_id', $session->get('hidden_field_id', 'fieldnotvalid', $namespace));
 			$params->set('hidden_field_name', $session->get('hidden_field_name', 'fieldnotvalid', $namespace));
 
@@ -157,7 +157,7 @@ class PhocaguestbookControllerPhocaguestbook extends JControllerForm
 		}
 		if (($this->input->get('view') != 'guestbook') || ($this->input->get('option') != 'com_phocaguestbook') || ($task != 'submit')) {
 			$app->setUserState('com_phocaguestbook.guestbook.data', '');
-			$session->clear('time', 'pgb'.$params->get('session_suffix'));
+			$session->clear('time', 'pgb'.$params->get('session_suffix', ''));
 
 			$logging->session = 3;
 			$model->doLog($logging,false);
@@ -177,12 +177,12 @@ class PhocaguestbookControllerPhocaguestbook extends JControllerForm
 		$logging->session = 1;
 
 		//Check Time
-	    if($params->get('enable_time_check') || $params->get('enable_logging')) {
-            $time = $session->get('time', null, 'pgb'.$params->get('session_suffix'));
+	    if($params->get('enable_time_check', 0) || $params->get('enable_logging', 0)) {
+            $time = $session->get('time', null, 'pgb'.$params->get('session_suffix', ''));
             $delta = time() - $time;
 			$logging->used_time = $delta;
 
-			if($params->get('enable_time_check') && $delta <= $params->get('time_check_s'))
+			if($params->get('enable_time_check', 0) && $delta <= $params->get('time_check_s', 10))
             {
 
 				throw new Exception(JText::_('COM_PHOCAGUESTBOOK_SUBMIT_TOO_FAST'), 403);
@@ -202,11 +202,11 @@ class PhocaguestbookControllerPhocaguestbook extends JControllerForm
 			$isSpam = PhocaguestbookOnlineCheckHelper::checkIpAddress($data['userip'], $params, $logging);
 
 			if ($isSpam) {
-				if ($params->get('form_action_banned_ip') == 1){
+				if ($params->get('form_action_banned_ip', 0) == 1){
 					$data['published'] = 0;
 					//break;
 				} else {
-					$session->clear('time', 'pgb'.$params->get('session_suffix'));
+					$session->clear('time', 'pgb'.$params->get('session_suffix', ''));
 					$model->doLog($logging,false);
 
 					/*$app->setUserState('com_phocaguestbook.guestbook.data', '');
@@ -273,7 +273,7 @@ class PhocaguestbookControllerPhocaguestbook extends JControllerForm
 					(strpos($data['username'], $word) !== false)) {
 
 					$logging->forbidden_word = 2;
-					switch ($params->get('form_action_denied_url')){
+					switch ($params->get('form_action_denied_url', 0)){
 						case 0: default://throw error
 							$continueValidate = false;
 							$app->enqueueMessage(JText::_('COM_PHOCAGUESTBOOK_DENY_URL' ), 'warning');
@@ -291,7 +291,7 @@ class PhocaguestbookControllerPhocaguestbook extends JControllerForm
 		//FORBIDDEN WORD
 		foreach ($fwfa as $item) {
 			if (trim($item) != '') {
-				switch ($params->get('form_action_hidden_word')){
+				switch ($params->get('form_action_hidden_word', 2)){
 					case 0: default://throw error
 						if (stripos($data['content'], trim($item)) !== false) {
 							$continueValidate = false;
@@ -338,7 +338,7 @@ class PhocaguestbookControllerPhocaguestbook extends JControllerForm
 			if ($item != '') {
 				$item			= "/(^|[^a-zA-Z0-9_]){1}(".preg_quote(($item),"/").")($|[^a-zA-Z0-9_]){1}/i";
 
-				switch ($params->get('form_action_hidden_word')){
+				switch ($params->get('form_action_hidden_word', 2)){
 					case 0: default://throw error
 						if (preg_match( $item, $data['content']) == 1) {
 							$continueValidate = false;
@@ -400,10 +400,10 @@ class PhocaguestbookControllerPhocaguestbook extends JControllerForm
 		// StopforumSpam,  see http://www.stopforumspam.com/
 		// Honeypot,       see http://www.projecthoneypot.org/
 		// Botscout,       see http://botscout.com/
-		if ($params->get('contentcheck_block_spam') != 2){
+		if ($params->get('contentcheck_block_spam', 0) != 2){
 			$suspectSpam = PhocaguestbookOnlineCheckHelper::checkSpam($data, $params, $logging);  //print_r($feedback);
 			if ($suspectSpam){
-				if ($params->get('contentcheck_block_spam') != 1){
+				if ($params->get('contentcheck_block_spam', 0) != 1){
 					$model->doLog($logging,false);
 
 					$app->setUserState('com_phocaguestbook.guestbook.data', $data);	// Save the data in the session.
@@ -438,7 +438,7 @@ class PhocaguestbookControllerPhocaguestbook extends JControllerForm
 		}
 
 		// Flush the data from the session
-		$session->clear('time', 'pgb'.$params->get('session_suffix'));
+		$session->clear('time', 'pgb'.$params->get('session_suffix', ''));
 		$app->setUserState('com_phocaguestbook.guestbook.data', null);
 		$app->enqueueMessage($msg, 'success');
 		$this->setRedirect($uri->toString());

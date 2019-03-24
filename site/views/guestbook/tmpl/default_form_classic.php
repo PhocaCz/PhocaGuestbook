@@ -15,16 +15,16 @@ JHTML::_('behavior.modal');
 
 // - - - - - - - - - - -
 // Form
-// - - - - - - - - - - - 
+// - - - - - - - - - - -
 if ($this->params->get('show_form') == 1) : ?>
 <div class="well pgwell pgb_background pgb_sec_font">
 	<h4 class="pgb_font"><?php echo JText::_('COM_phocaguestbook_POST_MESSAGE');?></h4>
 	<form action="<?php echo $this->t['actionurl']; ?>" method="post" name="adminForm" id="adminForm" class="form-validate form-horizontal">
-	
-	<?php if ($this->params->get('display_title_form')) : ?>
+
+	<?php if ($this->params->get('display_title_form', 2)) : ?>
 		<div class="control-group">
 			<div class="control-label"><?php echo $this->form->getLabel('title'); ?></div>
-			<div class="controls"><?php 
+			<div class="controls"><?php
 
 				$app				= JFactory::getApplication();
 				$reportTitle 		= $app->input->get('reporttitle', '', 'string');
@@ -33,41 +33,41 @@ if ($this->params->get('show_form') == 1) : ?>
 					$formTitle = str_replace('value=""', 'value="'.urldecode(strip_tags($reportTitle)).'"', $this->form->getInput('title'));
 				}
 				echo $formTitle;
-			
+
 				if($this->params->get('hidden_field_position')==1){
 					echo $this->form->getInput($this->params->get('hidden_field_name'));
 				}  ?></div>
-		</div>	
+		</div>
 	<?php	endif;
-	if ($this->params->get('display_name_form')) :?>
+	if ($this->params->get('display_name_form', 2)) :?>
 		<div class="control-group">
 			<div class="control-label"><?php echo $this->form->getLabel('username'); ?></div>
-			<div class="controls"><?php echo $this->form->getInput('username');  
+			<div class="controls"><?php echo $this->form->getInput('username');
 				if($this->params->get('hidden_field_position')==2){echo $this->form->getInput($this->params->get('hidden_field_name'));}  ?></div>
-		</div>	
+		</div>
 	<?php	endif;
-	if ($this->params->get('display_email_form')) : ?>
+	if ($this->params->get('display_email_form', 1)) : ?>
 		<div class="control-group">
 			<div class="control-label"><?php echo $this->form->getLabel('email'); ?></div>
-			<div class="controls"><?php echo $this->form->getInput('email');  
+			<div class="controls"><?php echo $this->form->getInput('email');
 				if($this->params->get('hidden_field_position')==3){echo $this->form->getInput($this->params->get('hidden_field_name'));}  ?></div>
-		</div>	
+		</div>
 	<?php	endif;
-	if ($this->params->get('display_website_form')) : ?>
+	if ($this->params->get('display_website_form', 0)) : ?>
 		<div class="control-group">
 			<div class="control-label"><?php echo $this->form->getLabel('homesite'); ?></div>
-			<div class="controls"><?php echo $this->form->getInput('homesite');  
+			<div class="controls"><?php echo $this->form->getInput('homesite');
 				if($this->params->get('hidden_field_position')==4){echo $this->form->getInput($this->params->get('hidden_field_name'));}  ?></div>
-		</div>	
+		</div>
 	<?php	endif;
-	if ($this->params->get('display_content_form')) : ?>
+	if ($this->params->get('display_content_form', 2)) : ?>
 		<div class="control-group">
 			<div class="control-label"><?php echo $this->form->getLabel('content'); ?></div>
-			<div class="controls"><?php echo $this->form->getInput('content');  
+			<div class="controls"><?php echo $this->form->getInput('content');
 				if($this->params->get('hidden_field_position')==5){echo $this->form->getInput($this->params->get('hidden_field_name'));}  ?></div>
 		</div>
 	<?php	endif;
-	if ($this->params->get('enable_captcha') && $this->params->get('captcha_id') > 0) :
+	if ($this->params->get('enable_captcha', '') && $this->params->get('captcha_id', 0) > 0) :
 		// Set fix height because of pane slider
 		$maxImageHeight = '';/*'style="height:100px"';*/?>
 		<div class="control-group" <?php echo $maxImageHeight;?>>
@@ -89,16 +89,16 @@ if ($this->params->get('show_form') == 1) : ?>
 			</div>
 		</div>
 	<?php	endif; ?>
-	
-	
-	<?php if ($this->params->get('display_privacy_checkbox_form')):	?>
+
+
+	<?php if ($this->params->get('display_privacy_checkbox_form', 0)):	?>
 		<div class="control-group">
 			<div class="control-label"><?php echo $this->form->getLabel('privacy_checkbox'); ?></div>
 			<div class="controls"><?php echo $this->form->getInput('privacy_checkbox');  ?>
-				<div class="ph-privacy-row"><?php echo $this->params->get('privacy_checkbox_text'); ?></div></div>
+				<div class="ph-privacy-row"><?php echo $this->params->get('privacy_checkbox_text', ''); ?></div></div>
 		</div>
 	<?php endif;?>
-	
+
 	<hr class="hr-condensed" />
 	<div class="btn-toolbar">
 		<div class="btn-group">
@@ -109,7 +109,7 @@ if ($this->params->get('show_form') == 1) : ?>
 			<button type="button" class="btn" onclick="Joomla.submitbutton('phocaguestbook.cancel')">
 				<?php /*<i class="glyphicon glyphicon-remove icon-remove"></i><?php*/ echo JText::_('COM_PHOCAGUESTBOOK_RESET');?>	</button>
 		</div>
-	</div>		
+	</div>
 
 	<?php echo $this->form->getInput('language'); ?>
 	<input type="hidden" name="view" value="guestbook" />
@@ -118,7 +118,7 @@ if ($this->params->get('show_form') == 1) : ?>
 	<input type="hidden" name="option" value="com_phocaguestbook" />
 	<input type="hidden" name="task" value="phocaguestbook.submit" />
 	<?php echo JHtml::_('form.token');?>
-	
+
 	</form>
 </div>
 <?php

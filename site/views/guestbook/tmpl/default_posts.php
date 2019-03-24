@@ -73,10 +73,10 @@ if ($this->params->get('show_posts') == 1) {
 		$form2 = '<div><form action="'.htmlspecialchars($uri->toString()).'" method="post" name="adminForm" id="pgbadminForm">';
 		if (count($this->items)) {
 			$form2 .='<div class="pgcenter"><div class="pagination">';
-			if ($this->params->get('show_pagination_limit')) {
+			if ($this->params->get('show_pagination_limit', 0)) {
 				$form2 .= '<div class="pginline">'.JText::_('COM_PHOCAGUESTBOOK_DISPLAY_NUM') .'&nbsp;'.$this->pagination->getLimitBox().'</div>';
 			}
-			if ($this->params->get('show_pagination')) {
+			if ($this->params->get('show_pagination', 1)) {
 				$form2 .= '<div style="margin:0 10px 0 10px;" class="sectiontablefooter'.$this->params->get( 'pageclass_sfx' ).'" id="pg-pagination" >'.$this->pagination->getPagesLinks().'</div><div style="margin:0 10px 0 10px;display:inline;" class="pagecounter">'.$this->pagination->getPagesCounter().'</div>';
 
 			}
@@ -84,7 +84,7 @@ if ($this->params->get('show_posts') == 1) {
 		}
 		$form2 .= '</form></div>';
 
-		if (count($this->items) && $this->params->get('show_pagination') && $this->pagination->getPagesLinks()) {
+		if (count($this->items) && $this->params->get('show_pagination', 1) && $this->pagination->getPagesLinks()) {
 			$form2 .= '<div class="pg-pagination-bottom">&nbsp;</div>';
 		}
 		echo $form2;

@@ -10,7 +10,7 @@ JFormHelper::loadRuleClass('Username');
 
 class JFormRulePhocaguestbookUsername extends JFormRuleUsername
 {
-	
+
 	public function test(SimpleXMLElement $element, $value, $group = null, JRegistry $input = null, JForm $form = null)
 	{
 		//E_ERROR, E_WARNING, E_NOTICE, E_USER_ERROR, E_USER_WARNING, E_USER_NOTICE.
@@ -24,25 +24,25 @@ class JFormRulePhocaguestbookUsername extends JFormRuleUsername
 		}
 
 		//Username exists?
-		if ($params->get('disable_user_check') == 0) {
+		if ($params->get('disable_user_check', 0) == 0) {
 			if(!$this->testUser($element, $value, $group, $input, $form)){
 				return new JException(JText::_('COM_PHOCAGUESTBOOK_USERNAME_EXISTS' ), "105", E_USER_ERROR, $info, false);
 			}
 		}
-		
+
 		return true;
 	}
-	
-	
+
+
 	public function testUser(SimpleXMLElement $element, $value, $group = null, JRegistry $input = null, JForm $form = null)
 	{
 		$user 		= JFactory::getUser();
 		$userId     = $user->id;
-		
+
 		// Get the database object and a new query object.
 		$db = JFactory::getDBO();
-		
-		
+
+
 		$query = $db->getQuery(true);
 
 		// Build the query.
@@ -61,8 +61,8 @@ class JFormRulePhocaguestbookUsername extends JFormRuleUsername
 		{
 			return false;
 		}
-		
-		
+
+
 		$query = $db->getQuery(true);
 
 		// Build the query.

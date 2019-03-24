@@ -586,7 +586,7 @@
 			<!--<option value="5">COM_PHOCAGUESTBOOK_RECAPTCHA_CAPTCHA</option>-->
 			<option value="9">COM_PHOCAGUESTBOOK_RECAPTCHA2_CAPTCHA</option>
 			<option value="6">COM_PHOCAGUESTBOOK_EASYCALC_CAPTCHA</option>
-			<option value="7">COM_PHOCAGUESTBOOK_MOLLOM_CAPTCHA</option>
+			<!--<option value="7">COM_PHOCAGUESTBOOK_MOLLOM_CAPTCHA</option>-->
 			<option value="8">COM_PHOCAGUESTBOOK_HN_CAPTCHA</option>
 		</field>
 

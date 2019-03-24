@@ -4,10 +4,10 @@
 		<description><![CDATA[ Phoca Guestbook is Joomla! CMS component. It displays guestbook form with Captcha (8 types of Captcha) and many other different internal or external spam protection methods. ]]></description>
 		<element>com_phocaguestbook</element>
 		<type>component</type>
-		<version>3.0.9</version>
-		<infourl title="Phoca Guestbook 3.0.9">http://www.phoca.cz/version/index.php?phocaguestbook=3.0.9</infourl>
+		<version>3.0.10</version>
+		<infourl title="Phoca Guestbook 3.0.10">http://www.phoca.cz/version/index.php?phocaguestbook=3.0.10</infourl>
 		<downloads>
-			<downloadurl type="full" format="zip">https://github.com/PhocaCz/PhocaGuestbook/releases/download/3.0.9/com_phocaguestbook_v3.0.9.zip</downloadurl>
+			<downloadurl type="full" format="zip">https://github.com/PhocaCz/PhocaGuestbook/releases/download/3.0.10/com_phocaguestbook_v3.0.10.zip</downloadurl>
 		</downloads>
 		<tags>
 			<tag>stable</tag>

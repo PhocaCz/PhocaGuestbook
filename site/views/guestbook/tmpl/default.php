@@ -78,7 +78,7 @@ if ( $this->params->get( 'show_page_heading' ) ) : ?>
 // - - - - - - - - - - -
 // Page / Different positions
 // - - - - - - - - - - -
-if ($this->params->get('form_style') == 1){
+if ($this->params->get('form_style', 1) == 1){
 	$formStyle = 'form';
 } else {
 	$formStyle = 'form_classic';
@@ -89,7 +89,7 @@ if ($this->params->get('form_style') == 1){
 //  If position = 0 --> Form is top, Messages bottom
 //  If position = 1 --> Form is bottom, Messages top,
 //  If position = 2 --> Use tabs for Message and Form
-switch ($this->params->get('form_position')) {
+switch ($this->params->get('form_position', 2)) {
 	case 0:
 		//echo $this->loadTemplate('form');
 		echo $this->loadTemplate($formStyle);

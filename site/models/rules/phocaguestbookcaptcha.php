@@ -7,27 +7,27 @@
  */
 
 defined('_JEXEC') or die;
- 
+
 class JFormRulePhocaguestbookCaptcha extends JFormRule
 {
 	public function test(SimpleXMLElement $element, $value, $group = null, JRegistry $input = null, JForm $form = null)
-	{		
-	
+	{
+
 		//E_ERROR, E_WARNING, E_NOTICE, E_USER_ERROR, E_USER_WARNING, E_USER_NOTICE.
 		$info = array();
 		$info['field'] = 'guestbook_captcha';
 		$app		= JFactory::getApplication();
 		$params 	= $app->getParams();
 		$session = JFactory::getSession();
-		$namespace = 'pgb'.$params->get('session_suffix');
-		
+		$namespace = 'pgb'.$params->get('session_suffix', '');
+
 		$captchaId = $session->get('captcha_id',     null, $namespace);
 		$value_exp = $session->get('captcha_result', null, $namespace);
 		$session->clear('captcha_id',     $namespace);
 		$session->clear('captcha_result', $namespace);
-		
-		$recaptcha_connection_method = $params->get('recaptcha_connection_method' ,    1);
-		
+
+		$recaptcha_connection_method = $params->get('recaptcha_connection_method', 1);
+
 
 		switch ($captchaId) {
 			default:
@@ -54,8 +54,8 @@ class JFormRulePhocaguestbookCaptcha extends JFormRule
 				$app = JFactory::getApplication();
 				$challange = $app->input->post->get('recaptcha_challenge_field', 'ABC', 'string');
 				$response = $app->input->post->get('recaptcha_response_field', 'DEF', 'string');
-				$privateKey = $params->get('recaptcha_privatekey');
-				
+				$privateKey = $params->get('recaptcha_privatekey', '');
+
 				$resp = PhocaguestbookHelperReCaptcha::recaptcha_check_answer ($privateKey,
 									$_SERVER["REMOTE_ADDR"],
 									$challange,
@@ -70,27 +70,27 @@ class JFormRulePhocaguestbookCaptcha extends JFormRule
 				$mollomSession = $session->get('captcha_session', null, $namespace);
 
 				$resp = PhocaguestbookOnlinecheckHelper::checkMollomCaptcha(
-									$params->get('mollom_publickey'),
-									$params->get('mollom_privatekey'),
+									$params->get('mollom_publickey', ''),
+									$params->get('mollom_privatekey', ''),
 									$mollomSession, $value);
-									
+
 				if ($resp == false) {
 					// What happens when the CAPTCHA was entered incorrectly
 					return new JException(JText::_('COM_PHOCAGUESTBOOK_WRONG_CAPTCHA' ), "105", E_USER_ERROR, $info, false);
 				}
 				break;
-				
+
 			case 9://COM_PHOCAGUESTBOOK_RE_CAPTCHA 2
-			
-				
-				
+
+
+
 				$secretKey	= $params->get( 'recaptcha_privatekey', '' );
 				//$response 	= $app->input->post->get('g-recaptcha-response', '', 'string');
 				//$response	= $ POST['g-recaptcha-response'];
 				$response 	= $app->input->post->get('g-recaptcha-response', '', 'string');
 				$remoteIp	= $_SERVER['REMOTE_ADDR'];
-				
-			
+
+
 				try {
 
 					$url = 'https://www.google.com/recaptcha/api/siteverify';
@@ -102,15 +102,15 @@ class JFormRulePhocaguestbookCaptcha extends JFormRule
 						'http' => [
 							'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
 							'method'  => 'POST',
-							'content' => http_build_query($data) 
+							'content' => http_build_query($data)
 						]
 					];
 
-			
+
 					if ($recaptcha_connection_method == 1) {
 						$context  = stream_context_create($options);
 						$result = file_get_contents($url, false, $context);
-					
+
 					//$resultString = print_r($result, true);
 					//PhocacartLog::add(1, 'Ask a Question - Captcha Result', 0, $resultString);
 					} else {
@@ -122,19 +122,19 @@ class JFormRulePhocaguestbookCaptcha extends JFormRule
 						curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 						$result = curl_exec($curl);
 					}
-					
+
 					if (empty($result) || $result == '') {
 						return false;
 					}
-					
+
 					return json_decode($result)->success;
 				}
 				catch (Exception $e) {
 					return null;
 				}
-			
+
 			break;
-					
+
 		} //Switch
 
 		return true;

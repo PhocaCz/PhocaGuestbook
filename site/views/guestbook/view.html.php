@@ -77,20 +77,22 @@ class PhocaguestbookViewGuestbook extends JViewLegacy
 		}
 
 		// Setup custom parameters
-		$params->set('date_format',	PhocaguestbookHelperFront::getDateFormat($params->get('date_format')));
-		$params->set('captcha_id', 	PhocaguestbookHelperFront::getCaptchaId($params->get('enable_captcha')));
+		$params->set('date_format',	PhocaguestbookHelperFront::getDateFormat($params->get('date_format', 'DATE_FORMAT_LC')));
+		$params->set('captcha_id', 	PhocaguestbookHelperFront::getCaptchaId($params->get('enable_captcha', '')));
 		$params->set('pgbinfo',		PhocaguestbookHelperFront::getInfo());
 		$params->set('show_form', $params->get('display_form',1));
+
+
 		$params->set('show_posts', $params->get('display_posts',1));
 		// Captcha not for registered
-		if ($params->get('enable_captcha_users') == 1 && $user->id > 0) {
+		if ($params->get('enable_captcha_users', 0) == 1 && $user->id > 0) {
 			$params->set('enable_captcha', 0);
 		}
 
-		$namespace  = 'pgb' . $params->get('session_suffix');
+		$namespace  = 'pgb' . $params->get('session_suffix', '');
 		// Hidden Field
-		if ($params->get('enable_hidden_field') 	== 1) {
-			$params->set('hidden_field_position', PhocaguestbookHelperFront::setHiddenFieldPos($params->get('display_title_form'), $params->get('display_name_form'), $params->get('display_email_form'), $params->get('display_website_form'), $params->get('display_content_form')));
+		if ($params->get('enable_hidden_field', 0) 	== 1) {
+			$params->set('hidden_field_position', PhocaguestbookHelperFront::setHiddenFieldPos($params->get('display_title_form', 2), $params->get('display_name_form', 2), $params->get('display_email_form', 1), $params->get('display_website_form', 0), $params->get('display_content_form', 2)));
 
 			$session->set('hidden_field_id', 'hf'.PhocaguestbookHelperFront::getRandomString(mt_rand(6,10)), $namespace);
 			$session->set('hidden_field_name', 'hf'.PhocaguestbookHelperFront::getRandomString(mt_rand(6,10)), $namespace);
@@ -126,17 +128,17 @@ class PhocaguestbookViewGuestbook extends JViewLegacy
 
 			// - - - - - - - - - -
 			// Add username and user e-mail if user is login
-			if ($params->get('username_or_name') == 1) {
+			if ($params->get('username_or_name', 0) == 1) {
 				if ($user->name && trim($user->name !='')) {
 					$form_username = $user->name;
 				} else {
-					$form_username = $params->get('predefined_name');
+					$form_username = $params->get('predefined_name', '');
 				}
 			} else {
 				if ($user->username && trim($user->username !='')) {
 					$form_username = $user->username;
 				} else {
-					$form_username = $params->get('predefined_name');
+					$form_username = $params->get('predefined_name', '');
 				}
 			}
 
@@ -156,7 +158,7 @@ class PhocaguestbookViewGuestbook extends JViewLegacy
 		//         there is a server checking controll too.
 		//-----------------------------------------------------------------------------------------------
 		//Don't show form, if IP Ban is wrong
-		if ($params->get('form_action_banned_ip') == 2) {
+		if ($params->get('form_action_banned_ip', 0) == 2) {
 			$ipAddr = $_SERVER["REMOTE_ADDR"];
 
 			$logging = new stdClass();
@@ -195,11 +197,11 @@ class PhocaguestbookViewGuestbook extends JViewLegacy
 
 		// Always set session, even if form is not set (avoid spam from cached form)
         // Time Lock or logging
-        if($params->get('enable_logging') || $params->get('enable_time_check')) {
+        if($params->get('enable_logging', 0) || $params->get('enable_time_check', 0)) {
 			$sesstime = $session->get('time', time(), $namespace);
 			$session->set('time', $sesstime, $namespace);
 		}
-		if ($params->get('enable_captcha')) {
+		if ($params->get('enable_captcha', 0)) {
 			$session->set('captcha_id', $params->get('captcha_id'), $namespace);//Save captcha type
 		}
 		if ($params->get('show_form')){
@@ -209,7 +211,7 @@ class PhocaguestbookViewGuestbook extends JViewLegacy
 
 		//IF ITEMS ARE REQUIRED
 		if ($params->get('show_posts')) {
-			if ($params->get('display_hidden_word') != 1) {
+			if ($params->get('display_hidden_word', 0) != 1) {
 				$fwfa	= explode( ',', trim( $params->get( 'forbidden_word_filter', '' ) ) );
 				$fwwfa	= explode( ',', trim( $params->get( 'forbidden_whole_word_filter', '' ) ) );
 
