@@ -10,7 +10,7 @@ defined('_JEXEC') or die();
 
 class PhocaguestbookViewGuestbooki extends JViewLegacy
 {
-	private $image;
+	protected $image;
 
 	function display($tpl = null)
 	{

@@ -9,9 +9,9 @@ defined('_JEXEC') or die('Restricted access');
 
 jimport('joomla.html.html.bootstrap');
 JHtml::_('behavior.keepalive');
-JHtml::_('behavior.formvalidation');
-JHtml::_('behavior.tooltip');
-JHTML::_('behavior.modal');
+///JHtml::_('behavior.formvalidation');
+///JHtml::_('behavior.tooltip');
+///JHTML::_('behavior.modal');
 
 // - - - - - - - - - - -
 // Form
