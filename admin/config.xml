@@ -579,7 +579,7 @@
 				multiple="true"
 				label="COM_PHOCAGUESTBOOK_FIELD_ENABLE_CAPTCHA_LABEL"
 				description="COM_PHOCAGUESTBOOK_FIELD_ENABLE_CAPTCHA_DESC">
-			<option value="1">COM_PHOCAGUESTBOOK_JOOMLA_CAPTCHA</option>
+			<!--<option value="1">COM_PHOCAGUESTBOOK_JOOMLA_CAPTCHA</option>-->
 			<option value="2">COM_PHOCAGUESTBOOK_STANDARD_CAPTCHA</option>
 			<option value="3">COM_PHOCAGUESTBOOK_MATH_CAPTCHA</option>
 			<option value="4">COM_PHOCAGUESTBOOK_TTF_CAPTCHA</option>

@@ -2,7 +2,7 @@
 
 
 
-![Phoca Guestbook](https://github.com/PhocaCz/PhocaGuestbook/blob/master/phocaguestbook.png)
+![Phoca Guestbook](https://github.com/PhocaCz/PhocaGuestbook/blob/master/phocaguestbook.png?raw=true)
 
 # Phoca Guestbook
 
@@ -23,6 +23,8 @@ Phoca Guestbook is Joomla! CMS component. It displays guestbook form with Captch
 ## Documentation
 
 [Documentation](https://www.phoca.cz/documentation/category/3-phoca-guestbook-component)
+
+
 
 
 
@@ -50,9 +52,13 @@ Phoca Guestbook is Joomla! CMS component. It displays guestbook form with Captch
 
 
 
+
+
+
+
 ## Version
 
-3.0.11
+3.0.12
 
 
 
