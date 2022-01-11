@@ -40,7 +40,7 @@ class PhocaguestbookViewPhocaguestbookIn extends HtmlView
 		$this->r	= new PhocaguestbookRenderAdminview();
 		$this->t['component_head'] 	= 'COM_PHOCAGUESTBOOK_PHOCA_GUESTBOOK';
 		$this->t['component_links']	= $this->r->getLinks(1);
-		$this->t['version'] = PhocaguestbookHelper::getPhocaVersion('com_phocafont');
+		$this->t['version'] = PhocaguestbookHelper::getPhocaVersion();
 		$this->addToolbar();
 
         parent::display($tpl);

@@ -19,7 +19,7 @@ use Joomla\CMS\Filesystem\File;
 use Joomla\CMS\Uri\Uri;
 
 // Frontend editor - button plugin
-require_once JPATH_ADMINISTRATOR . '/components/com_phocafont/libraries/autoloadPhoca.php';
+require_once JPATH_ADMINISTRATOR . '/components/com_phocaguestbook/libraries/autoloadPhoca.php';
 
 use Phoca\Render\Adminviews;
 

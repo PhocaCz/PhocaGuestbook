@@ -1,120 +1,197 @@
 <?php
-/*
- * @package Joomla 1.5
- * @copyright Copyright (C) 2005 Open Source Matters. All rights reserved.
- * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
+/**
+ * @package     Joomla.Site
+ * @subpackage  com_content
  *
- * @component Phoca Guestbook
- * @copyright Copyright (C) Jan Pavelka www.phoca.cz
- * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
+ * @copyright   (C) 2006 Open Source Matters, Inc. <https://www.joomla.org>
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
- defined('_JEXEC') or die('Restricted access');
+
+
+
+defined('_JEXEC') or die;
+
+use Joomla\CMS\Application\SiteApplication;
+use Joomla\CMS\Categories\CategoryFactoryInterface;
+use Joomla\CMS\Categories\CategoryInterface;
+use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Component\Router\RouterView;
+use Joomla\CMS\Component\Router\RouterViewConfiguration;
+use Joomla\CMS\Component\Router\Rules\MenuRules;
+use Joomla\CMS\Component\Router\Rules\NomenuRules;
+use Joomla\CMS\Component\Router\Rules\StandardRules;
 use Joomla\CMS\Factory;
- 
-function PhocaGuestbookBuildRoute(&$query) {
-	
-	$segments = array();
+use Joomla\CMS\Menu\AbstractMenu;
+use Joomla\Database\DatabaseInterface;
+use Joomla\Database\ParameterType;
 
-	// get a menu item based on Itemid or currently active
-	$app	= Factory::getApplication();
-	$menu	= $app->getMenu();
-	
-		$params 	= $app->getParams();
-	$advanced = $params->get('sef_advanced_link', 0);
 
-	if (empty($query['Itemid'])) {
-		$menuItem = $menu->getActive();
-	}
-	else {
-		$menuItem = $menu->getItem($query['Itemid']);
-	}
-	$mView	= (empty($menuItem->query['view'])) ? null : $menuItem->query['view'];
-	//$mCatid	= (empty($menuItem->query['catid'])) ? null : $menuItem->query['catid'];
-	$mId	= (empty($menuItem->query['cid'])) ? null : $menuItem->query['cid'];
+class PhocaguestbookRouter extends RouterView
+{
 
-	if (isset($query['view']))
+	protected $noIDs = false;
+	//private $categoryFactory;
+	private $categoryCache = [];
+	private $db;
+
+	//public function __construct(SiteApplication $app, AbstractMenu $menu, CategoryFactoryInterface $categoryFactory, DatabaseInterface $db)
+    public function __construct(SiteApplication $app, AbstractMenu $menu)
 	{
-		$view = $query['view'];
-		if (empty($query['Itemid'])) {
-			$segments[] = $query['view'];
-		}
-		unset($query['view']);
-	};
+		//$this->categoryFactory = $categoryFactory;
+		//$this->db              = $db;
+        $this->db = Factory::getDbo();
 
-	// are we dealing with an newsfeed that is attached to a menu item?
-	if (isset($query['view']) && ($mView == $query['view']) and (isset($query['cid'])) and ($mId == intval($query['cid']))) {
-		unset($query['view']);
-		//unset($query['catid']);
-		unset($query['cid']);
-		return $segments;
+		$params = ComponentHelper::getParams('com_phocaguestbook');
+		$this->noIDs = (bool) $params->get('sef_ids');
+		$categories = new RouterViewConfiguration('categories');
+		$categories->setKey('id');
+		$this->registerView($categories);
+		$category = new RouterViewConfiguration('category');
+		$category->setKey('id')->setParent($categories, 'catid')->setNestable();
+		$this->registerView($category);
+
+        $guestbook = new RouterViewConfiguration('guestbook');
+        $guestbook->setName('guestbook');
+		$guestbook->setKey('cid')->setParent($category, 'catid');
+		$this->registerView($guestbook);
+
+
+
+		parent::__construct($app, $menu);
+
+		$this->attachRule(new MenuRules($this));
+		$this->attachRule(new StandardRules($this));
+		$this->attachRule(new NomenuRules($this));
 	}
 
-	if (isset($view) and ($view == 'guestbook' or $view == 'guestbooki')) {
-		if ((isset($query['cid']) && $query['cid'] > 0 && $mId != intval($query['cid'])) || $mView != $view) {
-			
-			if($view == 'guestbook')
+
+	public function getCategorySegment($id, $query)
+	{
+		$category = $this->getCategories(['access' => true])->get($id);
+
+		if ($category)
+		{
+			$path = array_reverse($category->getPath(), true);
+			$path[0] = '1:root';
+
+			if ($this->noIDs)
 			{
-				if($advanced)
+				foreach ($path as &$segment)
 				{
-					list($tmp, $id) = explode(':', $query['cid'], 2);
-				} else {
-					if (isset($query['cid'])) {
-						$id = $query['cid'];
+					list($id, $segment) = explode(':', $segment, 2);
+				}
+			}
+
+			return $path;
+		}
+
+		return array();
+	}
+
+
+	public function getCategoriesSegment($id, $query)
+	{
+		return $this->getCategorySegment($id, $query);
+	}
+
+
+	public function getGuestbookSegment($id, $query)
+	{
+		if (!strpos($id, ':'))
+		{
+			$id      = (int) $id;
+			$dbquery = $this->db->getQuery(true);
+			$dbquery->select($this->db->quoteName('alias'))
+				->from($this->db->quoteName('#__phocaguestbook_items'))
+				->where($this->db->quoteName('id') . ' = :id')
+				->bind(':id', $id, ParameterType::INTEGER);
+			$this->db->setQuery($dbquery);
+
+			$id .= ':' . $this->db->loadResult();
+		}
+
+		if ($this->noIDs)
+		{
+			list($void, $segment) = explode(':', $id, 2);
+
+			return array($void => $segment);
+		}
+
+		return array((int) $id => $id);
+	}
+
+
+	public function getCategoryId($segment, $query)
+	{
+		if (isset($query['id']))
+		{
+			$category = $this->getCategories(['access' => false])->get($query['id']);
+
+			if ($category)
+			{
+				foreach ($category->getChildren() as $child)
+				{
+					if ($this->noIDs)
+					{
+						if ($child->alias == $segment)
+						{
+							return $child->id;
+						}
+					}
+					else
+					{
+						if ($child->id == (int) $segment)
+						{
+							return $child->id;
+						}
 					}
 				}
-				if (isset($id)) {
-					$segments[] = $id;
-				}
 			}
 		}
-		unset($query['cid']);
-		unset($query['catid']);
-	}
 
-	if (isset($query['layout']))
-	{
-		if (!empty($query['Itemid']) && isset($menuItem->query['layout']))
-		{
-			if ($query['layout'] == $menuItem->query['layout']) {
-
-				unset($query['layout']);
-			}
-		}
-		else
-		{
-			if ($query['layout'] == 'default') {
-				unset($query['layout']);
-			}
-		}
-	};
-
-	return $segments;
-
-}
-
-function PhocaGuestbookParseRoute($segments) {
-	$vars = array();
-
-	//Get the active menu item.
-	
-	$menu	= $app->getMenu();
-	$item	= $menu->getActive();
-	$app		= Factory::getApplication();
-		$params 	= $app->getParams();
-	$advanced = $params->get('sef_advanced_link', 0);
-
-	// Count route segments
-	$count = count($segments);
-
-	// Standard routing for newsfeeds.
-	if (!isset($item))
-	{
-		$vars['view']	= $segments[0];
-		$vars['cid']		= $segments[$count - 1];
-		return $vars;
+		return false;
 	}
 
 
-	return $vars;
+	public function getCategoriesId($segment, $query)
+	{
+		return $this->getCategoryId($segment, $query);
+	}
+
+
+	public function getGuestbookId($segment, $query)
+	{
+		if ($this->noIDs)
+		{
+			$dbquery = $this->db->getQuery(true);
+			$dbquery->select($this->db->quoteName('id'))
+				->from($this->db->quoteName('#__phocaguestbook_items'))
+				->where(
+					[
+						$this->db->quoteName('alias') . ' = :alias',
+						$this->db->quoteName('catid') . ' = :catid',
+					]
+				)
+				->bind(':alias', $segment)
+				->bind(':catid', $query['cid'], ParameterType::INTEGER);
+			$this->db->setQuery($dbquery);
+
+			return (int) $this->db->loadResult();
+		}
+
+		return (int) $segment;
+	}
+
+
+	/*private function getCategories(array $options = []): CategoryInterface
+	{
+		$key = serialize($options);
+
+		if (!isset($this->categoryCache[$key]))
+		{
+			$this->categoryCache[$key] = $this->categoryFactory->createCategory($options);
+		}
+
+		return $this->categoryCache[$key];
+	}*/
 }
-?>
