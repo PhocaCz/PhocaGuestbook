@@ -7,15 +7,17 @@
  */
  
 //-- No direct access
-defined('_JEXEC') || die('=;)');
+defined('_JEXEC') or die('Restricted access');
+use Joomla\CMS\MVC\Controller\BaseController;
+use Joomla\CMS\Factory;
 
 require_once JPATH_COMPONENT.'/helpers/router.php';
 require_once JPATH_COMPONENT.'/helpers/phocaguestbook.php';
 require_once JPATH_COMPONENT.'/helpers/pagination.php';
 
 
-$controller	= JControllerLegacy::getInstance('phocaguestbook');
-$controller->execute(JFactory::getApplication()->input->get('task'));
+$controller	= BaseController::getInstance('phocaguestbook');
+$controller->execute(Factory::getApplication()->input->get('task'));
 $controller->redirect();
 
 return;

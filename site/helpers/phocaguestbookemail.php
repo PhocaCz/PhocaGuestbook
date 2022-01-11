@@ -6,14 +6,17 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined( '_JEXEC' ) or die( 'Restricted access' );
+use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\HTML\HTMLHelper;
 
 
 class PhocaguestbookEmailHelper
 {
 	public static function sendPhocaGuestbookMail ($id, $post2, $url, $tmpl) {
 		
-		$app			= JFactory::getApplication();
-		$db 			= JFactory::getDBO();
+		$app			= Factory::getApplication();
+		$db 			= Factory::getDBO();
 		$sitename 		= $app->get( 'sitename' );
 		$title 			= $post2['title'];
 		
@@ -28,9 +31,9 @@ class PhocaguestbookEmailHelper
 		$rows = $db->loadObjectList();
 		
 		if ($post2['published']) {
-			$subject = $sitename .' ('.JText::_( 'COM_PHOCAGUESTBOOK_PG_NEW_POST' ). ')';
+			$subject = $sitename .' ('.Text::_( 'COM_PHOCAGUESTBOOK_PG_NEW_POST' ). ')';
 		} else {
-			$subject = $sitename .' ('.JText::_( 'COM_PHOCAGUESTBOOK_PG_NEW_POST_WAITING' ). ')';
+			$subject = $sitename .' ('.Text::_( 'COM_PHOCAGUESTBOOK_PG_NEW_POST_WAITING' ). ')';
 		}
 		
 		
@@ -61,18 +64,18 @@ class PhocaguestbookEmailHelper
 		$post2['content'] = str_replace("</p>", "\n", $post2['content'] );
 		$post2['content'] = strip_tags($post2['content']);
 		
-		$message = JText::_( 'COM_PHOCAGUESTBOOK_PG_NEW_POST_ADDED' ) . "\n\n"
-							. JText::_( 'COM_PHOCAGUESTBOOK_WEBSITE' ) . ': '. $sitename . "\n"
-							. JText::_( 'COM_PHOCAGUESTBOOK_FROM' ) . ': '. $fromname . "\n"
-							. JText::_( 'COM_PHOCAGUESTBOOK_DATE' ) . ': '. JHTML::_('date',  gmdate('Y-m-d H:i:s'), JText::_( 'DATE_FORMAT_LC2' )) . "\n\n"
-							. JText::_( 'COM_PHOCAGUESTBOOK_SUBJECT' ) . ': '.$title."\n"
-							. JText::_( 'COM_PHOCAGUESTBOOK_CONTENT' ) . ': '."\n"
+		$message = Text::_( 'COM_PHOCAGUESTBOOK_PG_NEW_POST_ADDED' ) . "\n\n"
+							. Text::_( 'COM_PHOCAGUESTBOOK_WEBSITE' ) . ': '. $sitename . "\n"
+							. Text::_( 'COM_PHOCAGUESTBOOK_FROM' ) . ': '. $fromname . "\n"
+							. Text::_( 'COM_PHOCAGUESTBOOK_DATE' ) . ': '. HTMLHelper::_('date',  gmdate('Y-m-d H:i:s'), Text::_( 'DATE_FORMAT_LC2' )) . "\n\n"
+							. Text::_( 'COM_PHOCAGUESTBOOK_SUBJECT' ) . ': '.$title."\n"
+							. Text::_( 'COM_PHOCAGUESTBOOK_CONTENT' ) . ': '."\n"
 							. "\n\n"
 							.PhocaguestbookHelperFront::wordDelete($post2['content'], $numCharEmail, '...')."\n\n"
 							. "\n\n"
-							. JText::_( 'COM_PHOCAGUESTBOOK_CLICK_LINK' ) ."\n"
+							. Text::_( 'COM_PHOCAGUESTBOOK_CLICK_LINK' ) ."\n"
 							. $url."\n\n"
-							. JText::_( 'COM_PHOCAGUESTBOOK_REGARDS' ) .", \n"
+							. Text::_( 'COM_PHOCAGUESTBOOK_REGARDS' ) .", \n"
 							. $sitename ."\n";
 					
 		$subject = html_entity_decode($subject, ENT_QUOTES);
@@ -83,7 +86,7 @@ class PhocaguestbookEmailHelper
 		//return JFactory::getMailer()->sendMail($mailfrom, $fromname, $email, $subject, $message, false, null, null, null, $mailfrom, $fromname);
 		$mailFromAdmin = $rows[0]->email;
 		$recipient = $rows[0]->email;
-		return JFactory::getMailer()->sendMail($mailFromAdmin, $fromname, $recipient, $subject, $message, false, null, null, null, $mailfrom, $fromname);
+		return Factory::getMailer()->sendMail($mailFromAdmin, $fromname, $recipient, $subject, $message, false, null, null, null, $mailfrom, $fromname);
 	}
     
 }

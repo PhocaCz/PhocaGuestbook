@@ -6,13 +6,19 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined('_JEXEC') or die;
+use Joomla\CMS\MVC\View\HtmlView;
+use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
+use Joomla\Registry\Registry;
+use Joomla\CMS\Router\Route;
+use Joomla\CMS\Document\Feed\FeedItem;
 
-class PhocaguestbookViewguestbook extends JViewLegacy
+class PhocaguestbookViewguestbook extends HtmlView
 {
 	public function display($tpl = null)
 	{
-		$app       = JFactory::getApplication();
-		$doc       = JFactory::getDocument();
+		$app       = Factory::getApplication();
+		$doc       = Factory::getDocument();
 		$params    = $app->getParams();
 		$siteEmail = $app->get('mailfrom');
 
@@ -26,18 +32,18 @@ class PhocaguestbookViewguestbook extends JViewLegacy
 		// Check for errors.
 		if ($guestbooks == false) {
 
-			throw new Exception(JText::_('COM_PHOCAGUESTBOOK_GUESTBOOK_NOT_FOUND'), 404);
+			throw new Exception(Text::_('COM_PHOCAGUESTBOOK_GUESTBOOK_NOT_FOUND'), 404);
 			return false;
 		}
 
 		// Load the parameters.
 		// Merge Global => GUESTBOOK => Menu Item params into new object in view
 		$applparams = $app->getParams();
-		$bookparams = new JRegistry;
-		$menuParams = new JRegistry;
+		$bookparams = new Registry;
+		$menuParams = new Registry;
 		$bookparams->loadString($guestbooks->get('params'));
 		if ($menu = $app->getMenu()->getActive()) {
-			$menuParams->loadString($menu->params);
+			$menuParams->loadString($menu->getParams());
 		}
 
 		$params = clone $applparams;
@@ -48,7 +54,7 @@ class PhocaguestbookViewguestbook extends JViewLegacy
 		// Check whether category access level allows access.
 		if (!$params->get('access-view')) {
 
-			throw new Exception(JText::_('COM_PHOCAGUESTBOOK_ALERTNOAUTHOR'), 403);
+			throw new Exception(Text::_('COM_PHOCAGUESTBOOK_ALERTNOAUTHOR'), 403);
 			return false;
 		}
 
@@ -62,7 +68,7 @@ class PhocaguestbookViewguestbook extends JViewLegacy
 			return false;
 		}
 
-		$link = JRoute::_(PhocaguestbookHelperRoute::getCategoryRoute($guestbooks));
+		$link = Route::_(PhocaguestbookHelperRoute::getCategoryRoute($guestbooks));
 		//SHOW ITEMS
 		//$doc->link = JRoute::_(PhocaguestbookHelperRoute::getCategoryRoute($guestbooks->id+10));
 
@@ -112,7 +118,7 @@ class PhocaguestbookViewguestbook extends JViewLegacy
 				@$date = date('r', strtotime($item->date));
 
 				// Load individual item creator class
-				$item           = new JFeedItem;
+				$item           = new FeedItem;
 				$item->title    = $title;
 				$item->link     = $link;	//always use link to guestbook
 				$item->date     = $date;

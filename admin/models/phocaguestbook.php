@@ -6,7 +6,12 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 //-- No direct access
-defined('_JEXEC') || die('=;)');
+defined('_JEXEC') or die('Restricted access');
+
+use Joomla\CMS\Application\ApplicationHelper;
+use Joomla\CMS\MVC\Model\AdminModel;
+use Joomla\CMS\Table\Table;
+use Joomla\CMS\Factory;
 
 /**
  * phocaguestbook Model.
@@ -14,23 +19,27 @@ defined('_JEXEC') || die('=;)');
  * @package    phocaguestbook
  * @subpackage Models
  */
-class PhocaguestbookModelPhocaguestbook extends JModelAdmin
+class PhocaguestbookModelPhocaguestbook extends AdminModel
 {
 	protected $_data;
 	public $typeAlias 			= 'com_phocaguestbook.phocaguestbook';
-	
+
 	/**
 	 * Prepare and sanitise the table data prior to saving.
 	 */
 	protected function prepareTable($table)
 	{
 		jimport('joomla.filter.output');
-		
+
 		// Set title and alias
 		$table->title		= htmlspecialchars_decode($table->title, ENT_QUOTES);
-		$table->alias		= JApplication::stringURLSafe($table->alias);
+		$table->alias		= ApplicationHelper::stringURLSafe($table->alias);
 		if (empty($table->alias)) {
-			$table->alias = JApplication::stringURLSafe($table->title);
+			$table->alias = ApplicationHelper::stringURLSafe($table->title);
+		}
+
+        if (empty($table->path)) {
+			$table->path = '';
 		}
 
 		// Reorder the articles within the category so the new article is first
@@ -39,15 +48,15 @@ class PhocaguestbookModelPhocaguestbook extends JModelAdmin
 			$table->setLocation($table->parent_id, 'last-child');
 		}
 	}
-	
-	
+
+
     /**
      * Returns a reference to the a Table object, always creating it.
      * @internal param \The $type table type to instantiate
      */
     public function getTable($type = 'phocaguestbook', $prefix = 'Table', $config = array())
     {
-        return JTable::getInstance($type, $prefix, $config);
+        return Table::getInstance($type, $prefix, $config);
     }
 
     /**
@@ -68,8 +77,8 @@ class PhocaguestbookModelPhocaguestbook extends JModelAdmin
         {
             return false;
         }
-        
-		$jinput = JFactory::getApplication()->input;
+
+		$jinput = Factory::getApplication()->input;
 		// The front end calls this model and uses a_id to avoid id clashes so we need to check for that first.
 		if ($jinput->get('g_id'))
 		{
@@ -80,7 +89,7 @@ class PhocaguestbookModelPhocaguestbook extends JModelAdmin
 		{
 			$id = $jinput->get('id', 0);
 		}
-		
+
 		// Determine correct permissions to check.
 		if ($this->getState('phocaguestbook.id'))
 		{
@@ -96,7 +105,7 @@ class PhocaguestbookModelPhocaguestbook extends JModelAdmin
 			$form->setFieldAttribute('catid', 'action', 'core.create');
 		}
 
-		$user = JFactory::getUser();
+		$user = Factory::getUser();
 
 		// Check for existing article.
 		// Modify the form based on Edit State access controls.
@@ -114,14 +123,17 @@ class PhocaguestbookModelPhocaguestbook extends JModelAdmin
 			$form->setFieldAttribute('state', 'filter', 'unset');
 
 		}
-		
-		
+
+
 		$data = $this->loadFormData();
-		if ($data->parent_id > 1){
+
+
+
+		if ((int)$data->parent_id > 1){
 			// New record. Can only create in selected categories.
 			$form->setFieldAttribute('catid', 'readonly', 'true');
 		}
-		
+
 
 		return $form;
     }
@@ -135,17 +147,17 @@ class PhocaguestbookModelPhocaguestbook extends JModelAdmin
     {
 		if (empty($this->_data)) {
 			// Check the session for previously entered form data.
-			$app  = JFactory::getApplication();
+			$app  = Factory::getApplication();
 			$this->_data = $app->getUserState('com_phocaguestbook.edit.phocaguestbook.data', array());
-			
+
 			if(empty($this->_data))
 			{
 				$this->_data = $this->getItem();
-				
+
 				// Prime some default values.
 				if ($this->getState('phocaguestbook.id') == 0) {
 					$this->_data->set('catid', $app->input->getInt('catid', $app->getUserState('com_phocaguestbook.phocaguestbook.filter.category_id')));
-					
+
 					$this->_data->set('parent_id', $app->input->getInt('parentid', 1));
 				}
 			}
@@ -153,8 +165,8 @@ class PhocaguestbookModelPhocaguestbook extends JModelAdmin
 
         return $this->_data;
     }
-    
-    
+
+
 	/**
 	 * A protected method to get a set of ordering conditions.
 	 */
@@ -164,9 +176,9 @@ class PhocaguestbookModelPhocaguestbook extends JModelAdmin
 		$condition[] = 'catid = '.(int) $table->catid;
 		return $condition;
 	}
-	
-	
-	
+
+
+
 	public function saveorder($idArray = null, $lft_array = null)
 	{
 		// Get an instance of the table object.
@@ -183,5 +195,5 @@ class PhocaguestbookModelPhocaguestbook extends JModelAdmin
 
 		return true;
 	}
-	
+
 }

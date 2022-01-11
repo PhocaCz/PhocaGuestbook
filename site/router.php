@@ -8,14 +8,15 @@
  * @copyright Copyright (C) Jan Pavelka www.phoca.cz
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
- defined('_JEXEC') || die('=;)');
+ defined('_JEXEC') or die('Restricted access');
+use Joomla\CMS\Factory;
  
 function PhocaGuestbookBuildRoute(&$query) {
 	
 	$segments = array();
 
 	// get a menu item based on Itemid or currently active
-	$app	= JFactory::getApplication();
+	$app	= Factory::getApplication();
 	$menu	= $app->getMenu();
 	
 		$params 	= $app->getParams();
@@ -98,7 +99,7 @@ function PhocaGuestbookParseRoute($segments) {
 	
 	$menu	= $app->getMenu();
 	$item	= $menu->getActive();
-	$app		= JFactory::getApplication();
+	$app		= Factory::getApplication();
 		$params 	= $app->getParams();
 	$advanced = $params->get('sef_advanced_link', 0);
 

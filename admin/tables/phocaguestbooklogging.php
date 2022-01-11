@@ -7,7 +7,9 @@
  */
 
 //-- No direct access
-defined('_JEXEC') || die('=;)');
+defined('_JEXEC') or die('Restricted access');
+use Joomla\CMS\Table\Table;
+use Joomla\CMS\Factory;
 
 
 /**
@@ -16,7 +18,7 @@ defined('_JEXEC') || die('=;)');
  * @package    phocaguestbook
  * @subpackage Components
  */
-class TablePhocaguestbookLogging extends JTable
+class TablePhocaguestbookLogging extends Table
 {
 	function __construct(& $db) {
 		parent::__construct('#__phocaguestbook_logging', 'id', $db);
@@ -24,7 +26,7 @@ class TablePhocaguestbookLogging extends JTable
 	
 	function check() {
 		if(empty($this->date)) {
-			$this->date = JFactory::getDate()->toSql();
+			$this->date = Factory::getDate()->toSql();
 		}
 		
 		return true;

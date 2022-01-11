@@ -6,7 +6,11 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 //-- No direct access
-defined('_JEXEC') || die('=;)');
+defined('_JEXEC') or die('Restricted access');
+use Joomla\CMS\MVC\View\HtmlView;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Toolbar\ToolbarHelper;
+use Joomla\CMS\Language\Text;
 
 
 /**
@@ -15,26 +19,30 @@ defined('_JEXEC') || die('=;)');
  * @package    phocaguestbook
  * @subpackage Views
  */
-class PhocaguestbookViewPhocaguestbookIn extends JViewLegacy
+class PhocaguestbookViewPhocaguestbookIn extends HtmlView
 {
 	/**
      * @var array
      */
-    protected $tmpl;
-    
+    protected $t;
+
     /**
      * Phoca Guestbook view display method
      */
     public function display($tpl = null)
     {
 		require_once JPATH_COMPONENT.'/helpers/phocaguestbook.php';
-		JHtml::stylesheet( 'media/com_phocaguestbook/css/administrator/phocaguestbook.css' );
-		
+		HTMLHelper::stylesheet( 'media/com_phocaguestbook/css/administrator/phocaguestbook.css' );
+
 		$this->tmpl['version'] = phocaguestbookHelper::getPhocaVersion();
 
-		$this->addToolBar();        
-		$this->sidebar = JHtmlSidebar::render();
-		
+		$this->t	= PhocaguestbookHelper::setVars('info');
+		$this->r	= new PhocaguestbookRenderAdminview();
+		$this->t['component_head'] 	= 'COM_PHOCAGUESTBOOK_PHOCA_GUESTBOOK';
+		$this->t['component_links']	= $this->r->getLinks(1);
+		$this->t['version'] = PhocaguestbookHelper::getPhocaVersion('com_phocafont');
+		$this->addToolbar();
+
         parent::display($tpl);
     }
 
@@ -45,19 +53,19 @@ class PhocaguestbookViewPhocaguestbookIn extends JViewLegacy
     {
 		require_once JPATH_COMPONENT.'/helpers/phocaguestbook.php';
 		$canDo = phocaguestbookHelper::getActions(NULL);
-		
+
 		//TOOLBAR
-        JToolBarHelper::title(JText::_('COM_PHOCAGUESTBOOK_PG_INFO'), 'info');
-		
+        ToolBarHelper::title(Text::_('COM_PHOCAGUESTBOOK_PG_INFO'), 'info');
+
 		// This button is unnecessary but it is displayed because Joomla! design bug
 		$bar = JToolBar::getInstance( 'toolbar' );
-		$dhtml = '<a href="index.php?option=com_phocaguestbook" class="btn btn-small"><i class="icon-home-2" title="'.JText::_('COM_PHOCAGUESTBOOK_CONTROL_PANEL').'"></i> '.JText::_('COM_PHOCAGUESTBOOK_CONTROL_PANEL').'</a>';
+		$dhtml = '<a href="index.php?option=com_phocaguestbook" class="btn btn-small"><i class="icon-home-2" title="'.Text::_('COM_PHOCAGUESTBOOK_CONTROL_PANEL').'"></i> '.Text::_('COM_PHOCAGUESTBOOK_CONTROL_PANEL').'</a>';
 		$bar->appendButton('Custom', $dhtml);
-		
+
 		if ($canDo->get('core.admin')) {
-			JToolbarHelper::preferences('com_phocaguestbook');
+			ToolbarHelper::preferences('com_phocaguestbook');
 		}
-		
-	    JToolBarHelper::help( 'screen.phocaguestbook', true );	   
+
+	    ToolBarHelper::help( 'screen.phocaguestbook', true );
     }
 }

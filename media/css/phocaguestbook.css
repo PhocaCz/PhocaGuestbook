@@ -55,3 +55,8 @@ div.ph-privacy-row p*/ {
 	margin-left: 20px;
 	
 }
+
+.pgb-btn-primary,
+.pgb-btn-danger {
+    margin: auto 0.3em;
+}

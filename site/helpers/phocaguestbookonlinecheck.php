@@ -6,6 +6,8 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined( '_JEXEC' ) or die( 'Restricted access' );
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Factory;
 class PhocaguestbookOnlineCheckHelper
 {
    public static function checkSpam(&$data, &$params, &$logging){
@@ -27,7 +29,7 @@ class PhocaguestbookOnlineCheckHelper
 
 			// Error while setting Akismet
 			if ($tmp != '') {
-				JFactory::getApplication()->enqueueMessage(JText::_( 'COM_PHOCAGUESTBOOK_PHOCA_GUESTBOOK_AKISMET_NOT_CORRECTLY_SET' ) . $tmp, 'error');
+				Factory::getApplication()->enqueueMessage(Text::_( 'COM_PHOCAGUESTBOOK_PHOCA_GUESTBOOK_AKISMET_NOT_CORRECTLY_SET' ) . $tmp, 'error');
 				$return_is_spam = true;
 				$logging->content_akismet = 3;
 			}
@@ -182,7 +184,7 @@ class PhocaguestbookOnlineCheckHelper
 				} else if($is_spam == 'N') {
 					//no spam - do nothing
 				} else {
-					JFactory::getApplication()->enqueueMessage(JText::_( 'COM_PHOCAGUESTBOOK_PHOCA_GUESTBOOK_BOTSCOUT_NOT_CORRECTLY_SET' ) . ':'. $response, 'error');
+					Factory::getApplication()->enqueueMessage(Text::_( 'COM_PHOCAGUESTBOOK_PHOCA_GUESTBOOK_BOTSCOUT_NOT_CORRECTLY_SET' ) . ':'. $response, 'error');
 					$return_is_spam = true;
 					$logging->ip_botscout = 3;
 				}

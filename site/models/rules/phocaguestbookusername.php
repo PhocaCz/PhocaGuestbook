@@ -6,27 +6,38 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined('_JEXEC') or die;
+use Joomla\CMS\Form\FormHelper;
+use Joomla\CMS\Form\Form;
+use Joomla\CMS\Form\Rule\UsernameRule;
+use Joomla\CMS\Form\FormRule;
+use Joomla\Registry\Registry;
+use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
 JFormHelper::loadRuleClass('Username');
 
-class JFormRulePhocaguestbookUsername extends JFormRuleUsername
+class JFormRulePhocaguestbookUsername extends UsernameRule
 {
 
-	public function test(SimpleXMLElement $element, $value, $group = null, JRegistry $input = null, JForm $form = null)
+	public function test(SimpleXMLElement $element, $value, $group = null, Registry $input = null, Form $form = null)
 	{
 		//E_ERROR, E_WARNING, E_NOTICE, E_USER_ERROR, E_USER_WARNING, E_USER_NOTICE.
 		$info = array();
 		$info['field'] = 'guestbook_username';
-		$app		= JFactory::getApplication();
+		$app		= Factory::getApplication();
 		$params 	= $app->getParams();
 
 		if (preg_match("~[\<|\>|\"|\'|\%|\;|\(|\)|\&|\+]~", $value)){
-			return new JException(JText::_('COM_PHOCAGUESTBOOK_BAD_USERNAME' ), "105", E_USER_ERROR, $info, false);
+			//throw new JException(Text::_('COM_PHOCAGUESTBOOK_BAD_USERNAME' ), "105", E_USER_ERROR, $info, false);
+            $app->enqueueMessage(Text::_('COM_PHOCAGUESTBOOK_BAD_USERNAME' ), 'warning');
+			return false;
 		}
 
 		//Username exists?
 		if ($params->get('disable_user_check', 0) == 0) {
 			if(!$this->testUser($element, $value, $group, $input, $form)){
-				return new JException(JText::_('COM_PHOCAGUESTBOOK_USERNAME_EXISTS' ), "105", E_USER_ERROR, $info, false);
+				//throw new Exception(Text::_('COM_PHOCAGUESTBOOK_USERNAME_EXISTS' ), "105", E_USER_ERROR, $info, false);
+                $app->enqueueMessage(Text::_('COM_PHOCAGUESTBOOK_USERNAME_EXISTS' ), 'warning');
+			    return false;
 			}
 		}
 
@@ -34,13 +45,13 @@ class JFormRulePhocaguestbookUsername extends JFormRuleUsername
 	}
 
 
-	public function testUser(SimpleXMLElement $element, $value, $group = null, JRegistry $input = null, JForm $form = null)
+	public function testUser(SimpleXMLElement $element, $value, $group = null, Registry $input = null, Form $form = null)
 	{
-		$user 		= JFactory::getUser();
+		$user 		= Factory::getUser();
 		$userId     = $user->id;
 
 		// Get the database object and a new query object.
-		$db = JFactory::getDBO();
+		$db = Factory::getDBO();
 
 
 		$query = $db->getQuery(true);

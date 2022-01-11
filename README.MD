@@ -52,13 +52,13 @@ Phoca Guestbook is Joomla! CMS component. It displays guestbook form with Captch
 
 
 
-
-
-
-
-## Version
+## Version (Joomla! 3.x)
 
 3.0.12
+
+## Version (Joomla! 4.x)
+
+4.0.0Beta
 
 
 

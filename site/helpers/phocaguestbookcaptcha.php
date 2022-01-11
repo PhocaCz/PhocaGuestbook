@@ -6,6 +6,8 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined( '_JEXEC' ) or die( 'Restricted access' );
+use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
 
 class PhocaguestbookHelperCaptchaTTF
 {
@@ -44,7 +46,7 @@ class PhocaguestbookHelperCaptchaTTF
 	public static function generateRandomChar($length=6)
 	{
 
-		$app		= JFactory::getApplication();
+		$app		= Factory::getApplication();
 		$paramsC 	= $app->getParams();
 
 		$charGroup = 'a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z';
@@ -381,7 +383,7 @@ $ch[5].$ch[6].$ch[7].$ch[8].$ch[9],
 	public static function generateRandomChar($length=6)
 	{
 
-		$app		= JFactory::getApplication();
+		$app		= Factory::getApplication();
 		$paramsC 	= $app->getParams();
 
 		$charGroup = 'a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z';
@@ -532,7 +534,7 @@ class PhocaguestbookHelperCaptchaStd
 	public static function generateRandomChar($length=6)
 	{
 
-		$app		= JFactory::getApplication();
+		$app		= Factory::getApplication();
 		$paramsC 	= $app->getParams();
 
 		$charGroup = 'a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z';
@@ -624,24 +626,24 @@ class PhocaguestbookHelperCaptchaEasycalc
 
 		//operand 1
 		$captcha['result']     = $spam_check_1;
-		$captcha['challenge']  = JText::_('COM_PHOCAGUESTBOOK_CALC_CHALLENGE'). PhocaguestbookHelperCaptchaEasycalc::converttostring($spam_check_1, $convertToString);
+		$captcha['challenge']  = Text::_('COM_PHOCAGUESTBOOK_CALC_CHALLENGE'). PhocaguestbookHelperCaptchaEasycalc::converttostring($spam_check_1, $convertToString);
 
     	//operand 2
-    	$captcha['challenge'] .= ($tcalc == 1) ? ' '.JText::_('COM_PHOCAGUESTBOOK_CALC_PLUS').' ' : ' '.JText::_('COM_PHOCAGUESTBOOK_CALC_MINUS').' ';
+    	$captcha['challenge'] .= ($tcalc == 1) ? ' '.Text::_('COM_PHOCAGUESTBOOK_CALC_PLUS').' ' : ' '.Text::_('COM_PHOCAGUESTBOOK_CALC_MINUS').' ';
 
 		$captcha['result']    += ($tcalc == 1) ? $spam_check_2 : (-1 * $spam_check_2);
 		$captcha['challenge'] .= PhocaguestbookHelperCaptchaEasycalc::converttostring($spam_check_2, $convertToString);
 
 		//operand 3
 		if($toperand == 3)  {
-			$captcha['challenge'] .= ($tcalc == 1) ? ' '.JText::_('COM_PHOCAGUESTBOOK_CALC_PLUS').' ' : ' '.JText::_('COM_PHOCAGUESTBOOK_CALC_MINUS').' ';
+			$captcha['challenge'] .= ($tcalc == 1) ? ' '.Text::_('COM_PHOCAGUESTBOOK_CALC_PLUS').' ' : ' '.Text::_('COM_PHOCAGUESTBOOK_CALC_MINUS').' ';
 
 			$captcha['result']    += ($tcalc == 1) ? $spam_check_3 : (-1 * $spam_check_3);
 			$captcha['challenge'] .= PhocaguestbookHelperCaptchaEasycalc::converttostring($spam_check_3, $convertToString);
 		}
 
 		//done
-		$captcha['challenge'] .=  ' '.JText::_('COM_PHOCAGUESTBOOK_CALC_EQUALS').' ';
+		$captcha['challenge'] .=  ' '.Text::_('COM_PHOCAGUESTBOOK_CALC_EQUALS').' ';
 
 		$captcha['result_encoded'] = base64_encode($captcha['result']);
 
@@ -663,12 +665,12 @@ class PhocaguestbookHelperCaptchaEasycalc
                 return $x;	//not supported yet
             } else {
                 // Names of the numbers are read from language file
-                $names = array(JText::_('COM_PHOCAGUESTBOOK_CALC_NULL'), JText::_('COM_PHOCAGUESTBOOK_CALC_ONE'), JText::_('COM_PHOCAGUESTBOOK_CALC_TWO'), JText::_('COM_PHOCAGUESTBOOK_CALC_THREE'),
-					JText::_('COM_PHOCAGUESTBOOK_CALC_FOUR'), JText::_('COM_PHOCAGUESTBOOK_CALC_FIVE'), JText::_('COM_PHOCAGUESTBOOK_CALC_SIX'), JText::_('COM_PHOCAGUESTBOOK_CALC_SEVEN'),
-					JText::_('COM_PHOCAGUESTBOOK_CALC_EIGHT'), JText::_('COM_PHOCAGUESTBOOK_CALC_NINE'), JText::_('COM_PHOCAGUESTBOOK_CALC_TEN'), JText::_('COM_PHOCAGUESTBOOK_CALC_ELEVEN'),
-					JText::_('COM_PHOCAGUESTBOOK_CALC_TWELVE'), JText::_('COM_PHOCAGUESTBOOK_CALC_THIRTEEN'), JText::_('COM_PHOCAGUESTBOOK_CALC_FOURTEEN'), JText::_('COM_PHOCAGUESTBOOK_CALC_FIFTEEN'),
-					JText::_('COM_PHOCAGUESTBOOK_CALC_SIXTEEN'), JText::_('COM_PHOCAGUESTBOOK_CALC_SEVENTEEN'), JText::_('COM_PHOCAGUESTBOOK_CALC_EIGHTEEN'), JText::_('COM_PHOCAGUESTBOOK_CALC_NINETEEN'),
-					JText::_('COM_PHOCAGUESTBOOK_CALC_TWENTY'));
+                $names = array(Text::_('COM_PHOCAGUESTBOOK_CALC_NULL'), Text::_('COM_PHOCAGUESTBOOK_CALC_ONE'), Text::_('COM_PHOCAGUESTBOOK_CALC_TWO'), Text::_('COM_PHOCAGUESTBOOK_CALC_THREE'),
+					Text::_('COM_PHOCAGUESTBOOK_CALC_FOUR'), Text::_('COM_PHOCAGUESTBOOK_CALC_FIVE'), Text::_('COM_PHOCAGUESTBOOK_CALC_SIX'), Text::_('COM_PHOCAGUESTBOOK_CALC_SEVEN'),
+					Text::_('COM_PHOCAGUESTBOOK_CALC_EIGHT'), Text::_('COM_PHOCAGUESTBOOK_CALC_NINE'), Text::_('COM_PHOCAGUESTBOOK_CALC_TEN'), Text::_('COM_PHOCAGUESTBOOK_CALC_ELEVEN'),
+					Text::_('COM_PHOCAGUESTBOOK_CALC_TWELVE'), Text::_('COM_PHOCAGUESTBOOK_CALC_THIRTEEN'), Text::_('COM_PHOCAGUESTBOOK_CALC_FOURTEEN'), Text::_('COM_PHOCAGUESTBOOK_CALC_FIFTEEN'),
+					Text::_('COM_PHOCAGUESTBOOK_CALC_SIXTEEN'), Text::_('COM_PHOCAGUESTBOOK_CALC_SEVENTEEN'), Text::_('COM_PHOCAGUESTBOOK_CALC_EIGHTEEN'), Text::_('COM_PHOCAGUESTBOOK_CALC_NINETEEN'),
+					Text::_('COM_PHOCAGUESTBOOK_CALC_TWENTY'));
                 return $names[$x];
             }
         } else {
@@ -693,7 +695,7 @@ class PhocaguestbookHelperCaptchaHn
 
 	function createImageData()
 	{
-		$app		= JFactory::getApplication();
+		$app		= Factory::getApplication();
 		$paramsC 	= $app->getParams();
 		$this->noise = $paramsC->get('hn_noise', TRUE);
 
@@ -777,7 +779,7 @@ class PhocaguestbookHelperCaptchaHn
 
 	function generateRandomChar($length=6) {
 
-		$app		= JFactory::getApplication();
+		$app		= Factory::getApplication();
 		$paramsC 	= $app->getParams();
 
 		$charGroup = 'a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z';

@@ -6,19 +6,28 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 //-- No direct access
-defined('_JEXEC') || die('=;)');
+defined('_JEXEC') or die('Restricted access');
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Factory;
+use Joomla\CMS\Router\Route;
+use Joomla\CMS\Language\Text;
 
-// Include the component HTML helpers.
-JHtml::_('bootstrap.tooltip');
-JHtml::_('dropdown.init');
-JHtml::_('formbehavior.chosen', 'select');
-
-$user		= JFactory::getUser();
+$r 			= $this->r;
+$user		= Factory::getUser();
 $userId		= $user->get('id');
 $listOrder	= $this->escape($this->state->get('list.ordering'));
 $listDirn	= $this->escape($this->state->get('list.direction'));
 $sortFields = $this->getSortFields();
-?>
+
+$saveOrder	= $listOrder == 'ordering';
+
+$saveOrderingUrl = '';
+if ($saveOrder && !empty($this->items)) {
+    $saveOrderingUrl = $r->saveOrder($this->t, $listDirn);
+}
+$sortFields = $this->getSortFields();
+
+/*
 <script type="text/javascript">
 	Joomla.orderTable = function() {
 		table = document.getElementById("sortTable");
@@ -33,146 +42,195 @@ $sortFields = $this->getSortFields();
 		Joomla.tableOrdering(order, dirn, '');
 	}
 </script>
+*/
 
+echo $r->jsJorderTable($listOrder);
 
+echo $r->startForm($this->t['o'], $this->t['tasks'], 'adminForm');
+echo $r->startMainContainer();
+echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this));
 
+//echo $r->startTable('categoryList');
+echo '<table class="table table-striped pgb-tableinfo" id="categoryList">' . "\n";
 
-<form action="<?php echo JRoute::_('index.php?option=com_phocaguestbook&view=phocaguestbooklogs');?>" method="post" name="adminForm" id="adminForm">
+echo $r->startTblHeader();
+
+echo $r->firstColumnHeader($listDirn, $listOrder);
+echo $r->secondColumnHeader($listDirn, $listOrder);
+echo '<th class="ph-state">'.HTMLHelper::_('searchtools.sort',  'S', 'a.state', $listDirn, $listOrder ).'</th>'."\n";
+echo '<th class="ph-postid">'.HTMLHelper::_('searchtools.sort',  $this->t['l'].'_ENTRY', 'a.postid', $listDirn, $listOrder ).'</th>'."\n";
+echo '<th class="ph-catid">'.HTMLHelper::_('searchtools.sort', 'GB', 'a.catid', $listDirn, $listOrder ).'</th>'."\n";
+echo '<th class="ph-captcha">'.HTMLHelper::_('searchtools.sort',  $this->t['l'].'_CAPTCHA', 'a.captchaid', $listDirn, $listOrder ).'</th>'."\n";
+echo '<th class="ph-used-time">'.HTMLHelper::_('searchtools.sort',  $this->t['l'].'_TIME', 'a.used_time', $listDirn, $listOrder ).'</th>'."\n";
+echo '<th class="ph-incoming-page">'.HTMLHelper::_('searchtools.sort',  $this->t['l'].'_INCOMING_PAGE', 'a.incoming_page', $listDirn, $listOrder ).'</th>'."\n";
+echo '<th class="ph-fields">'.HTMLHelper::_('searchtools.sort',  $this->t['l'].'_FIELD_CHECK', 'a.fields', $listDirn, $listOrder ).'</th>'."\n";
+echo '<th class="ph-session">'.HTMLHelper::_('searchtools.sort',  		'S', 'a.session', $listDirn, $listOrder ).'</th>'."\n";
+
+echo '<th class="ph-session">'.HTMLHelper::_('searchtools.sort',  		'HF', 'a.hidden_field', $listDirn, $listOrder ).'</th>'."\n";
+echo '<th class="ph-session">'.HTMLHelper::_('searchtools.sort',  		'FW', 'a.forbidden_word', $listDirn, $listOrder ).'</th>'."\n";
+echo '<th class="ph-session">'.HTMLHelper::_('searchtools.sort',  		'CC', 'a.content_akismet', $listDirn, $listOrder ).'</th>'."\n";
+echo '<th class="ph-session">'.HTMLHelper::_('searchtools.sort',  		'CC', 'a.content_mollom', $listDirn, $listOrder ).'</th>'."\n";
+echo '<th class="ph-ip">'.HTMLHelper::_('searchtools.sort',  		$this->t['l'].'_IP', 'a.fields', 'a.ip_list', $listDirn, $listOrder ).'</th>'."\n";
+echo '<th class="ph-ip">'.HTMLHelper::_('searchtools.sort',  		$this->t['l'].'_IP', 'a.ip_stopforum', $listDirn, $listOrder ).'</th>'."\n";
+echo '<th class="ph-ip">'.HTMLHelper::_('searchtools.sort',  		$this->t['l'].'_IP', 'a.ip_honeypot', $listDirn, $listOrder ).'</th>'."\n";
+echo '<th class="ph-ip">'.HTMLHelper::_('searchtools.sort',  		$this->t['l'].'_IP', 'a.ip_botscout', $listDirn, $listOrder ).'</th>'."\n";
+echo '<th class="ph-ip">'.HTMLHelper::_('searchtools.sort',  		$this->t['l'].'_IP', 'a.ip', $listDirn, $listOrder ).'</th>'."\n";
+echo '<th class="ph-date">'.HTMLHelper::_('searchtools.sort',  	$this->t['l'].'_DATE', 'a.date', $listDirn, $listOrder ).'</th>'."\n";
+echo '<th class="ph-id">'.HTMLHelper::_('searchtools.sort',  	$this->t['l'].'_ID', 'a.id', $listDirn, $listOrder ).'</th>'."\n";
+
+echo $r->endTblHeader();
+
+echo $r->startTblBody($saveOrder, $saveOrderingUrl, $listDirn);
+
+/*
+<form action="<?php echo Route::_('index.php?option=com_phocaguestbook&view=phocaguestbooklogs');?>" method="post" name="adminForm" id="adminForm">
 	<div id="j-sidebar-container" class="span2">
 		<?php echo $this->sidebar; ?>
 	</div>
 	<div id="j-main-container" class="span10">
 
 
-	<?php
-if (!$this->params->get('enable_logging', 0)) :?>
+	*/
 
-    <div class="alert">
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
-    <?php echo JText::_('COM_PHOCAGUESTBOOK_LOGGING_NOT_ENABLED');?>
-    </div>
+if (!$this->params->get('enable_logging', 0))  {
 
-<?php
-endif;
-?>
+    echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">'. Text::_('COM_PHOCAGUESTBOOK_LOGGING_NOT_ENABLED').'<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="'.Text::_('COM_PHOCAGUESTBOOK_CLOSE').'"></button></div>';
+}
 
+/*
 		<div id="filter-bar" class="btn-toolbar">
 			<div class="btn-group pull-right hidden-phone">
-				<label for="limit" class="element-invisible"><?php echo JText::_('JFIELD_PLG_SEARCH_SEARCHLIMIT_DESC');?></label>
+				<label for="limit" class="element-invisible"><?php echo Text::_('JFIELD_PLG_SEARCH_SEARCHLIMIT_DESC');?></label>
 				<?php echo $this->pagination->getLimitBox(); ?>
 			</div>
 			<div class="btn-group pull-right hidden-phone">
-				<label for="directionTable" class="element-invisible"><?php echo JText::_('JFIELD_ORDERING_DESC');?></label>
+				<label for="directionTable" class="element-invisible"><?php echo Text::_('JFIELD_ORDERING_DESC');?></label>
 				<select name="directionTable" id="directionTable" class="input-medium" onchange="Joomla.orderTable()">
-					<option value=""><?php echo JText::_('JFIELD_ORDERING_DESC');?></option>
-					<option value="asc" <?php if ($listDirn == 'asc') echo 'selected="selected"'; ?>><?php echo JText::_('JGLOBAL_ORDER_ASCENDING');?></option>
-					<option value="desc" <?php if ($listDirn == 'desc') echo 'selected="selected"'; ?>><?php echo JText::_('JGLOBAL_ORDER_DESCENDING');?></option>
+					<option value=""><?php echo Text::_('JFIELD_ORDERING_DESC');?></option>
+					<option value="asc" <?php if ($listDirn == 'asc') echo 'selected="selected"'; ?>><?php echo Text::_('JGLOBAL_ORDER_ASCENDING');?></option>
+					<option value="desc" <?php if ($listDirn == 'desc') echo 'selected="selected"'; ?>><?php echo Text::_('JGLOBAL_ORDER_DESCENDING');?></option>
 				</select>
 			</div>
 			<div class="btn-group pull-right">
-				<label for="sortTable" class="element-invisible"><?php echo JText::_('JGLOBAL_SORT_BY');?></label>
+				<label for="sortTable" class="element-invisible"><?php echo Text::_('JGLOBAL_SORT_BY');?></label>
 				<select name="sortTable" id="sortTable" class="input-medium" onchange="Joomla.orderTable()">
-					<option value=""><?php echo JText::_('JGLOBAL_SORT_BY');?></option>
-					<?php echo JHtml::_('select.options', $sortFields, 'value', 'text', $listOrder);?>
+					<option value=""><?php echo Text::_('JGLOBAL_SORT_BY');?></option>
+					<?php echo HTMLHelper::_('select.options', $sortFields, 'value', 'text', $listOrder);?>
 				</select>
 			</div>
 		</div>
 		<div class="clearfix"></div>
 
 		<table class="table  pgb-tableinfo" id="itemList">
-			<thead><?php /*======== HEADER =========================================================*/ ?>
+			<thead>
 			<tr>
 				<th width="1%" class="hidden-phone">
-					<input type="checkbox" name="checkall-toggle" value="" title="<?php echo JText::_('JGLOBAL_CHECK_ALL'); ?>" onclick="Joomla.checkAll(this)" />
+					<input type="checkbox" name="checkall-toggle" value="" title="<?php echo Text::_('JGLOBAL_CHECK_ALL'); ?>" onclick="Joomla.checkAll(this)" />
 				</th>
 				<th width="1%" class="nowrap center">
-					<?php echo JHtml::_('grid.sort', 'S', 'a.state', $listDirn, $listOrder); ?>
+					<?php echo HTMLHelper::_('searchtools.sort', 'S', 'a.state', $listDirn, $listOrder); ?>
 				</th>
 				<th width="2%" class="nowrap">
-					<?php echo JHtml::_('grid.sort', 'COM_PHOCAGUESTBOOK_ENTRY', 'a.postid', $listDirn, $listOrder); ?>
+					<?php echo HTMLHelper::_('searchtools.sort', 'COM_PHOCAGUESTBOOK_ENTRY', 'a.postid', $listDirn, $listOrder); ?>
 				</th>
 				<th width="2%" class="nowrap">
-					<?php echo JHtml::_('grid.sort', 'GB', 'a.catid', $listDirn, $listOrder); ?>
+					<?php echo HTMLHelper::_('searchtools.sort', 'GB', 'a.catid', $listDirn, $listOrder); ?>
 				</th>
 				<th width="2%" class="nowrap">
-					<?php echo JHtml::_('grid.sort', 'COM_PHOCAGUESTBOOK_CAPTCHA', 'a.captchaid', $listDirn, $listOrder); ?>
+					<?php echo HTMLHelper::_('searchtools.sort', 'COM_PHOCAGUESTBOOK_CAPTCHA', 'a.captchaid', $listDirn, $listOrder); ?>
 				</th>
 				<th width="2%" class="nowrap">
-					<?php echo JHtml::_('grid.sort', 'Time', 'a.used_time', $listDirn, $listOrder); ?>
+					<?php echo HTMLHelper::_('searchtools.sort', 'Time', 'a.used_time', $listDirn, $listOrder); ?>
 				</th>
 				<th width="2%" class="nowrap">
-					<?php echo JHtml::_('grid.sort', 'Come in', 'a.incoming_page', $listDirn, $listOrder); ?>
+					<?php echo HTMLHelper::_('searchtools.sort', 'Come in', 'a.incoming_page', $listDirn, $listOrder); ?>
 				</th>
 				<th width="1%" class="nowrap">
-					<?php echo JHtml::_('grid.sort', 'COM_PHOCAGUESTBOOK_FIELD_CHECK', 'a.fields', $listDirn, $listOrder); ?>
+					<?php echo HTMLHelper::_('searchtools.sort', 'COM_PHOCAGUESTBOOK_FIELD_CHECK', 'a.fields', $listDirn, $listOrder); ?>
 				</th>
 				<th width="1%" class="nowrap center">
-					<?php echo JHtml::_('grid.sort', 'S', 'a.session', $listDirn, $listOrder); ?>
+					<?php echo HTMLHelper::_('searchtools.sort', 'S', 'a.session', $listDirn, $listOrder); ?>
 				</th>
 				<th width="1%" class="nowrap center">
-					<?php echo JHtml::_('grid.sort', 'HF', 'a.hidden_field', $listDirn, $listOrder); ?>
+					<?php echo HTMLHelper::_('searchtools.sort', 'HF', 'a.hidden_field', $listDirn, $listOrder); ?>
 				</th>
 				<th width="1%" class="nowrap center">
-					<?php echo JHtml::_('grid.sort', 'FW', 'a.forbidden_word', $listDirn, $listOrder); ?>
+					<?php echo HTMLHelper::_('searchtools.sort', 'FW', 'a.forbidden_word', $listDirn, $listOrder); ?>
 				</th>
 				<th width="1%" class="nowrap center">
-					<?php echo JHtml::_('grid.sort', 'CC', 'a.content_akismet', $listDirn, $listOrder); ?>
+					<?php echo HTMLHelper::_('searchtools.sort', 'CC', 'a.content_akismet', $listDirn, $listOrder); ?>
 				</th>
 				<th width="1%" class="nowrap center">
-					<?php echo JHtml::_('grid.sort', 'CC', 'a.content_mollom', $listDirn, $listOrder); ?>
+					<?php echo HTMLHelper::_('searchtools.sort', 'CC', 'a.content_mollom', $listDirn, $listOrder); ?>
 				</th>
 				<th width="1%" class="nowrap center">
-					<?php echo JHtml::_('grid.sort', 'COM_PHOCAGUESTBOOK_IP', 'a.ip_list', $listDirn, $listOrder); ?>
+					<?php echo HTMLHelper::_('searchtools.sort', 'COM_PHOCAGUESTBOOK_IP', 'a.ip_list', $listDirn, $listOrder); ?>
 				</th>
 				<th width="1%" class="nowrap center">
-					<?php echo JHtml::_('grid.sort', 'COM_PHOCAGUESTBOOK_IP', 'a.ip_stopforum', $listDirn, $listOrder); ?>
+					<?php echo HTMLHelper::_('searchtools.sort', 'COM_PHOCAGUESTBOOK_IP', 'a.ip_stopforum', $listDirn, $listOrder); ?>
 				</th>
 				<th width="1%" class="nowrap center">
-					<?php echo JHtml::_('grid.sort', 'COM_PHOCAGUESTBOOK_IP', 'a.ip_honeypot', $listDirn, $listOrder); ?>
+					<?php echo HTMLHelper::_('searchtools.sort', 'COM_PHOCAGUESTBOOK_IP', 'a.ip_honeypot', $listDirn, $listOrder); ?>
 				</th>
 				<th width="1%" class="nowrap center">
-					<?php echo JHtml::_('grid.sort', 'COM_PHOCAGUESTBOOK_IP', 'a.ip_botscout', $listDirn, $listOrder); ?>
+					<?php echo HTMLHelper::_('searchtools.sort', 'COM_PHOCAGUESTBOOK_IP', 'a.ip_botscout', $listDirn, $listOrder); ?>
 				</th>
 
 				<th width="5%" class="nowrap hidden-phone">
-					<?php echo JHtml::_('grid.sort', 'COM_PHOCAGUESTBOOK_IP', 'a.ip', $listDirn, $listOrder); ?>
+					<?php echo HTMLHelper::_('searchtools.sort', 'COM_PHOCAGUESTBOOK_IP', 'a.ip', $listDirn, $listOrder); ?>
 				</th>
 				<th width="10%" class="nowrap">
-					<?php echo JHtml::_('grid.sort', 'COM_PHOCAGUESTBOOK_DATE', 'a.date', $listDirn, $listOrder); ?>
+					<?php echo HTMLHelper::_('searchtools.sort', 'COM_PHOCAGUESTBOOK_DATE', 'a.date', $listDirn, $listOrder); ?>
 				</th>
 				<th width="1%" class="nowrap hidden-phone">
-					<?php echo JHtml::_('grid.sort', 'COM_PHOCAGUESTBOOK_ID', 'a.id', $listDirn, $listOrder); ?>
+					<?php echo HTMLHelper::_('searchtools.sort', 'COM_PHOCAGUESTBOOK_ID', 'a.id', $listDirn, $listOrder); ?>
 				</th>
 			</tr>
 			</thead>
-			<tbody><?php /*======== TBODY =========================================================*/ ?>
-			<?php foreach($this->items as $i => $item):
+			<tbody>
+
+
+
+
+            */
+            $originalOrders = array();
+            $parentsStr 	= "";
+            $j 				= 0;
+
+if (is_array($this->items)) {
+    foreach($this->items as $i => $item) {
 
 			//table-striped table-bordered table-hover table-condensed
-			?>
-			<tr>
-				<td class="center hidden-phone">
-					<?php echo JHtml::_('grid.id', $i, $item->id); ?>
-				</td>
-			<?php
+            $orderkey   = array_search($item->id, $this->ordering[0]);
+            $ordering		= ($listOrder == 'a.ordering');
+            $canCreate		= $user->authorise('core.create', $this->t['o']);
+            $canEdit		= $user->authorise('core.edit', $this->t['o']);
+            $canCheckin		= $user->authorise('core.manage', 'com_checkin') || $item->checked_out==$user->get('id') || $item->checked_out==0;
+            $canChange		= $user->authorise('core.edit.state', $this->t['o']) && $canCheckin;
+
+            echo $r->startTr($i, isset($item->catid) ? (int)$item->catid : 0);
+            echo $r->firstColumn($i, $item->id, $canChange, $saveOrder, $orderkey, $ordering);
+            echo $r->secondColumn($i, $item->id, $canChange, $saveOrder, $orderkey, $ordering);
+
+
 
 			// ++++++++++++++++++++++++++++++++ STATE +++++++++++++++++++++++++++++
 			switch ($item->state) {
 				case 1:
 					$class  = 'success';
 					$image  = 'icon-mail';
-					$title  = JText::_('COM_PHOCAGUESTBOOK_PUBLISHED');
+					$title  = Text::_('COM_PHOCAGUESTBOOK_PUBLISHED');
 					break;
 				case 2:
 					$class  = 'info';
 					$image  = 'icon-mail2';
-					$title  = JText::_('COM_PHOCAGUESTBOOK_REVIEW');
+					$title  = Text::_('COM_PHOCAGUESTBOOK_REVIEW');
 					break;
 				default:
 				case 0:
 					$class  = 'error';
 					$image  = 'icon-lightning';
-					$title  = JText::_('COM_PHOCAGUESTBOOK_REJECT');
+					$title  = Text::_('COM_PHOCAGUESTBOOK_REJECT');
 					break;
 			}
 			echo '<td class="hasTip ' .$class. '" title="' .$title .'"> <i class="' .$image. '"></i> </td>';
@@ -192,15 +250,15 @@ endif;
 
 			// ++++++++++++++++++++++++++++++++ CAPTCHA_ID +++++++++++++++++++++++++++++
 			switch ($item->captchaid) {
-				case 0:	 $title  =	JText::_('COM_PHOCAGUESTBOOK_NONE_CAPTCHA'); 		break;
-				case 1:	 $title  =	JText::_('COM_PHOCAGUESTBOOK_JOOMLA_CAPTCHA');		break;
-				case 2:	 $title  =	JText::_('COM_PHOCAGUESTBOOK_STANDARD_CAPTCHA'); 	break;
-				case 3:	 $title  =	JText::_('COM_PHOCAGUESTBOOK_MATH_CAPTCHA'); 		break;
-				case 4:	 $title  =	JText::_('COM_PHOCAGUESTBOOK_TTF_CAPTCHA'); 		break;
-				case 5:	 $title  =	JText::_('COM_PHOCAGUESTBOOK_RECAPTCHA_CAPTCHA'); 	break;
-				case 6:	 $title  =	JText::_('COM_PHOCAGUESTBOOK_EASYCALC_CAPTCHA'); 	break;
-				case 7:	 $title  =	JText::_('COM_PHOCAGUESTBOOK_MOLLOM_CAPTCHA'); 		break;
-				case 8:	 $title  =	JText::_('COM_PHOCAGUESTBOOK_HN_CAPTCHA'); 			break;
+				case 0:	 $title  =	Text::_('COM_PHOCAGUESTBOOK_NONE_CAPTCHA'); 		break;
+				case 1:	 $title  =	Text::_('COM_PHOCAGUESTBOOK_JOOMLA_CAPTCHA');		break;
+				case 2:	 $title  =	Text::_('COM_PHOCAGUESTBOOK_STANDARD_CAPTCHA'); 	break;
+				case 3:	 $title  =	Text::_('COM_PHOCAGUESTBOOK_MATH_CAPTCHA'); 		break;
+				case 4:	 $title  =	Text::_('COM_PHOCAGUESTBOOK_TTF_CAPTCHA'); 		break;
+				case 5:	 $title  =	Text::_('COM_PHOCAGUESTBOOK_RECAPTCHA_CAPTCHA'); 	break;
+				case 6:	 $title  =	Text::_('COM_PHOCAGUESTBOOK_EASYCALC_CAPTCHA'); 	break;
+				case 7:	 $title  =	Text::_('COM_PHOCAGUESTBOOK_MOLLOM_CAPTCHA'); 		break;
+				case 8:	 $title  =	Text::_('COM_PHOCAGUESTBOOK_HN_CAPTCHA'); 			break;
 				default: $title  = 'UNKOWN'; break;
 			}
 			echo '<td class="hasTip center" title="' .$title .'">' .$item->captchaid. '</td>';
@@ -218,12 +276,12 @@ endif;
 				case 1:
 					$class  = 'success';
 					$image  = 'icon-health';
-					$title  = 'Fields: ' . JText::_('COM_PHOCAGUESTBOOK_OK');
+					$title  = 'Fields: ' . Text::_('COM_PHOCAGUESTBOOK_OK');
 					break;
 				default:
 					$class  = 'error';
 					$image  = 'icon-key';
-					$title  = JText::_('COM_PHOCAGUESTBOOK_ANY_FIELDS_INVALID');
+					$title  = Text::_('COM_PHOCAGUESTBOOK_ANY_FIELDS_INVALID');
 					break;
 			}
 			echo '<td class="hasTip ' .$class. ' center" title="' .$title .'"> <i class="' .$image. '"></i> </td>';
@@ -234,12 +292,12 @@ endif;
 				case 1:
 					$class  = 'success';
 					$image  = 'icon-health';
-					$title  = 'Session: ' . JText::_('COM_PHOCAGUESTBOOK_OK');
+					$title  = 'Session: ' . Text::_('COM_PHOCAGUESTBOOK_OK');
 					break;
 				default:
 					$class  = 'error';
 					$image  = 'icon-lightning';
-					$title  = JText::_('COM_PHOCAGUESTBOOK_SESSION_INVALID');
+					$title  = Text::_('COM_PHOCAGUESTBOOK_SESSION_INVALID');
 					break;
 			}
 			echo '<td class="hasTip ' .$class. ' center" title="' .$title .'"> <i class="' .$image. '"></i> </td>';
@@ -250,17 +308,17 @@ endif;
 				case 1:
 					$class  = 'success';
 					$image  = 'icon-health';
-					$title  = 'Session: ' . JText::_('COM_PHOCAGUESTBOOK_OK');
+					$title  = 'Session: ' . Text::_('COM_PHOCAGUESTBOOK_OK');
 					break;
 				case 0:
 					$class  = 'info';
 					$image  = 'icon-cancel-2';
-					$title .= JText::_('COM_PHOCAGUESTBOOK_NOT_CHECKED');
+					$title .= Text::_('COM_PHOCAGUESTBOOK_NOT_CHECKED');
 					break;
 				default:
 					$class  = 'error';
 					$image  = 'icon-key';
-					$title  = JText::_('COM_PHOCAGUESTBOOK_PHOCA_GUESTBOOK_SPAM_BLOCKED');
+					$title  = Text::_('COM_PHOCAGUESTBOOK_PHOCA_GUESTBOOK_SPAM_BLOCKED');
 					break;
 			}
 			echo '<td class="hasTip ' .$class. ' center" title="' .$title .'"> <i class="' .$image. '"></i> </td>';
@@ -271,19 +329,19 @@ endif;
 				case 1:
 					$class  = 'success';
 					$image  = 'icon-health';
-					$title  = 'Session: ' . JText::_('COM_PHOCAGUESTBOOK_OK');
+					$title  = 'Session: ' . Text::_('COM_PHOCAGUESTBOOK_OK');
 					break;
 				case 0:
 					$class  = 'info';
 					$image  = 'icon-cancel-2';
-					$title .= JText::_('COM_PHOCAGUESTBOOK_NOT_CHECKED');
+					$title .= Text::_('COM_PHOCAGUESTBOOK_NOT_CHECKED');
 					break;
 				case 2:
 				case 4:
 				default:
 					$class  = 'error';
 					$image  = 'icon-key';
-					$title  = JText::_('COM_PHOCAGUESTBOOK_PHOCA_GUESTBOOK_SPAM_BLOCKED');
+					$title  = Text::_('COM_PHOCAGUESTBOOK_PHOCA_GUESTBOOK_SPAM_BLOCKED');
 					break;
 			}
 			echo '<td class="hasTip ' .$class. ' center" title="' .$title .'"> <i class="' .$image. '"></i> </td>';
@@ -295,17 +353,17 @@ endif;
 				case 1:
 					$class  = 'success';
 					$image  = 'icon-health';
-					$title .= JText::_('COM_PHOCAGUESTBOOK_OK');
+					$title .= Text::_('COM_PHOCAGUESTBOOK_OK');
 					break;
 				case 0:
 					$class  = 'info';
 					$image  = 'icon-cancel-2';
-					$title .= JText::_('COM_PHOCAGUESTBOOK_NOT_CHECKED');
+					$title .= Text::_('COM_PHOCAGUESTBOOK_NOT_CHECKED');
 					break;
 				default:
 					$class  = 'error';
 					$image  = 'icon-lightning';
-					$title .= JText::_('COM_PHOCAGUESTBOOK_PHOCA_GUESTBOOK_SPAM_BLOCKED');
+					$title .= Text::_('COM_PHOCAGUESTBOOK_PHOCA_GUESTBOOK_SPAM_BLOCKED');
 					break;
 			}
 			$title .= '<br/>' . $item->content_akismet_txt;
@@ -319,17 +377,17 @@ endif;
 				case 1:
 					$class  = 'success';
 					$image  = 'icon-health';
-					$title .= JText::_('COM_PHOCAGUESTBOOK_OK');
+					$title .= Text::_('COM_PHOCAGUESTBOOK_OK');
 					break;
 				case 0:
 					$class  = 'info';
 					$image  = 'icon-cancel-2';
-					$title .= JText::_('COM_PHOCAGUESTBOOK_NOT_CHECKED');
+					$title .= Text::_('COM_PHOCAGUESTBOOK_NOT_CHECKED');
 					break;
 				default:
 					$class  = 'error';
 					$image  = 'icon-lightning';
-					$title .= JText::_('COM_PHOCAGUESTBOOK_PHOCA_GUESTBOOK_SPAM_BLOCKED');
+					$title .= Text::_('COM_PHOCAGUESTBOOK_PHOCA_GUESTBOOK_SPAM_BLOCKED');
 					break;
 			}
 			echo '<td class="hasTip ' .$class. ' center" title="' .$title .'"> <i class="' .$image. '"></i> </td>';
@@ -340,12 +398,12 @@ endif;
 				case 1:
 					$class  = 'success';
 					$image  = 'icon-health';
-					$title  = 'IP_List: ' . JText::_('COM_PHOCAGUESTBOOK_OK');
+					$title  = 'IP_List: ' . Text::_('COM_PHOCAGUESTBOOK_OK');
 					break;
 				default:
 					$class  = 'error';
 					$image  = 'icon-lightning';
-					$title  = JText::_('COM_PHOCAGUESTBOOK_IP_BAN_NO_ACCESS');
+					$title  = Text::_('COM_PHOCAGUESTBOOK_IP_BAN_NO_ACCESS');
 					break;
 			}
 			echo '<td class="hasTip ' .$class. ' center" title="' .$title .'"> <i class="' .$image. '"></i> </td>';
@@ -357,17 +415,17 @@ endif;
 				case 1:
 					$class  = 'success';
 					$image  = 'icon-health';
-					$title .= JText::_('COM_PHOCAGUESTBOOK_OK');
+					$title .= Text::_('COM_PHOCAGUESTBOOK_OK');
 					break;
 				case 0:
 					$class  = 'info';
 					$image  = 'icon-cancel-2';
-					$title .= JText::_('COM_PHOCAGUESTBOOK_NOT_CHECKED');
+					$title .= Text::_('COM_PHOCAGUESTBOOK_NOT_CHECKED');
 					break;
 				default:
 					$class  = 'error';
 					$image  = 'icon-lightning';
-					$title .= JText::_('COM_PHOCAGUESTBOOK_IP_BAN_NO_ACCESS');
+					$title .= Text::_('COM_PHOCAGUESTBOOK_IP_BAN_NO_ACCESS');
 					break;
 			}
 			$title .= '<br/>' . $item->ip_stopforum_txt;
@@ -380,17 +438,17 @@ endif;
 				case 1:
 					$class  = 'success';
 					$image  = 'icon-health';
-					$title .=  JText::_('COM_PHOCAGUESTBOOK_OK');
+					$title .=  Text::_('COM_PHOCAGUESTBOOK_OK');
 					break;
 				case 0:
 					$class  = 'info';
 					$image  = 'icon-cancel-2';
-					$title .= JText::_('COM_PHOCAGUESTBOOK_NOT_CHECKED');
+					$title .= Text::_('COM_PHOCAGUESTBOOK_NOT_CHECKED');
 					break;
 				default:
 					$class  = 'error';
 					$image  = 'icon-lightning';
-					$title .= JText::_('COM_PHOCAGUESTBOOK_IP_BAN_NO_ACCESS');
+					$title .= Text::_('COM_PHOCAGUESTBOOK_IP_BAN_NO_ACCESS');
 					break;
 			}
 			echo '<td class="hasTip ' .$class. ' center" title="' .$title .'"> <i class="' .$image. '"></i> </td>';
@@ -401,17 +459,17 @@ endif;
 				case 1:
 					$class  = 'success';
 					$image  = 'icon-health';
-					$title .=  JText::_('COM_PHOCAGUESTBOOK_OK');
+					$title .=  Text::_('COM_PHOCAGUESTBOOK_OK');
 					break;
 				case 0:
 					$class  = 'info';
 					$image  = 'icon-cancel-2';
-					$title .= JText::_('COM_PHOCAGUESTBOOK_NOT_CHECKED');
+					$title .= Text::_('COM_PHOCAGUESTBOOK_NOT_CHECKED');
 					break;
 				default:
 					$class  = 'error';
 					$image  = 'icon-lightning';
-					$title .= JText::_('COM_PHOCAGUESTBOOK_IP_BAN_NO_ACCESS');
+					$title .= Text::_('COM_PHOCAGUESTBOOK_IP_BAN_NO_ACCESS');
 					break;
 			}
 			$title .= '<br/>' . $item->ip_botscout_txt;
@@ -423,19 +481,28 @@ endif;
 
 
 			// ++++++++++++++++++++++++++++++++ DATE +++++++++++++++++++++++++++++
-			echo '<td class="nowrap">' .JHtml::_('date', $item->date, JText::_('DATE_FORMAT_LC4') . ' H:i:s'). '</td>';
+			echo '<td class="nowrap">' .HTMLHelper::_('date', $item->date, Text::_('DATE_FORMAT_LC4') . ' H:i:s'). '</td>';
 
 
 			// ++++++++++++++++++++++++++++++++ ID +++++++++++++++++++++++++++++
 			echo '<td>' .$item->id. '</td>';
 
-			?>
 
+			echo $r->endTr();
+    }
+}
+echo $r->endTblBody();
 
-			</tr>
-			<?php endforeach;?>
+echo $r->tblFoot($this->pagination->getListFooter(), 21);
+echo $r->endTable();
+echo $r->formInputsXML($listOrder, $listDirn, $originalOrders);
+echo $r->endMainContainer();
+echo $r->endForm();
+
+/*
+?>
 			</tbody>
-			<tfoot><?php /*======== TFOOT =========================================================*/ ?>
+			<tfoot>
 			<tr>
 			  <td colspan="20">
 				<?php echo $this->pagination->getListFooter(); ?>
@@ -448,8 +515,8 @@ endif;
         <input type="hidden" name="boxchecked" value="0" />
 		<input type="hidden" name="filter_order" value="<?php echo $listOrder; ?>" />
 		<input type="hidden" name="filter_order_Dir" value="<?php echo $listDirn; ?>" />
-        <?php echo JHtml::_('form.token'); ?>
+        <?php echo HTMLHelper::_('form.token'); ?>
     </div>
 </form>
-
+*/ ?>
 

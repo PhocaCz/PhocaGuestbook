@@ -7,13 +7,14 @@
  */
 
 defined('_JEXEC') or die;
+use Joomla\CMS\Categories\Categories;
 
 /**
  * Phoca Guestbook Category Tree
  *
  * @package     phocaguestbook
  */
-class PhocaguestbookCategories extends JCategories
+class PhocaguestbookCategories extends Categories
 {
 	public function __construct($options = array())
 	{

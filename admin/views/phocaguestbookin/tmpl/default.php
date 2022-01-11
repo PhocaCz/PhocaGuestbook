@@ -1,54 +1,71 @@
 <?php
-/**
- * @package    phocaguestbook
- * @subpackage Views
- * @copyright  Copyright (C) 2012 Jan Pavelka www.phoca.cz
- * @license    http://www.gnu.org/copyleft/gpl.html GNU/GPL
+/* @package Joomla
+ * @copyright Copyright (C) Open Source Matters. All rights reserved.
+ * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
+ * @extension Phoca Extension
+ * @copyright Copyright (C) Jan Pavelka www.phoca.cz
+ * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
-//-- No direct access
-defined('_JEXEC') || die('=;)');
+defined('_JEXEC') or die;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Uri\Uri;
 
-?>
-<form action="index.php" method="post" name="adminForm" id="adminForm">
-<div id="j-sidebar-container" class="span2">
-	<?php echo $this->sidebar; ?>
-</div>
-<div id="j-main-container" class="span10">
-    <?php echo '<div class="ph-cpanel-logo">'.JHtml::_('image', 'media/com_phocaguestbook/images/administrator/logo-phoca-guestbook.png', 'Phoca.cz') . '</div>'; ?>
-	<?php echo JHTML::_('image', 'media/com_phocaguestbook/images/administrator/logo-phoca.png', 'Phoca.cz',  array('align' => 'right') ); ?>
-<h3><?php echo JText::_('COM_PHOCAGUESTBOOK_PHOCA_GUESTBOOK').' - '. JText::_('COM_PHOCAGUESTBOOK_INFORMATION');?></h3>
-<h3><?php echo JText::_('COM_PHOCAGUESTBOOK_HELP');?></h3>
-<p><a href="https://www.phoca.cz/phocaguestbook/" target="_blank">Phoca Guestbook Main Site</a><br />
-   <a href="https://www.phoca.cz/documentation/" target="_blank">Phoca Guestbook User Manual</a><br />
-   <a href="https://www.phoca.cz/forum/" target="_blank">Phoca Guestbook Forum</a><br />
-</p>
-<h3><?php echo JText::_('COM_PHOCAGUESTBOOK_VERSION');?></h3>
-<p> <?php echo $this->tmpl['version'];?></p>
-<h3><?php echo JText::_('COM_PHOCAGUESTBOOK_COPYRIGHT');?></h3>
-<p>© 2007 - <?php echo date("Y");?> Jan Pavelka, Daniel Huber</p>
-<p><a href="https://www.phoca.cz/" target="_blank">www.phoca.cz</a></p>
-<h3><?php echo JText::_('COM_PHOCAGUESTBOOK_LICENCE')?></h3>
-<p><a href="http://www.gnu.org/licenses/gpl-2.0.html" target="_blank">GPLv2</a></p>
-<h3><?php echo JText::_('COM_PHOCAGUESTBOOK_TRANSLATION').': '. JText::_('COM_PHOCAGUESTBOOK_TRANSLATION_LANGUAGE_TAG');?></h3>
-<p>© 2007 - <?php echo date("Y"). ' '. JText::_('COM_PHOCAGUESTBOOK_TRANSLATER');?></p>
-<p><?php echo JText::_('COM_PHOCAGUESTBOOK_TRANSLATION_SUPPORT_URL');?></p>
+$r = $this->r;
+echo $r->startCp();
 
+echo '<div class="ph-box-info">';
 
+echo '<div style="float:right;margin:10px;">' . HTMLHelper::_('image', $this->t['i'] . 'logo-phoca.png', 'Phoca.cz' ) .'</div>'
+	. '<div class="ph-cpanel-logo">'.HTMLHelper::_('image', $this->t['i'] . 'logo-'.str_replace('phoca', 'phoca-', $this->t['c']).'.png', 'Phoca.cz') . '</div>'
+	.'<h3>'.Text::_($this->t['component_head']).' - '. Text::_($this->t['l'].'_INFORMATION').'</h3>'
+	.'<div style="clear:both;"></div>';
 
+echo '<h3>'.  Text::_($this->t['l'].'_HELP').'</h3>';
 
-<?php
-echo JHTML::_('image', 'media/com_phocaguestbook/images/administrator/logo.png', 'Phoca.cz');
+echo '<div>';
+if (!empty($this->t['component_links'])) {
+	foreach ($this->t['component_links'] as $k => $v) {
+	    echo '<div><a href="'.$v[1].'" target="_blank">'.$v[0].'</a></div>';
+	}
+}
+echo '</div>';
+
+echo '<h3>'.  Text::_($this->t['l'] . '_VERSION').'</h3>'
+.'<p>'.  $this->t['version'] .'</p>';
+
+echo '<h3>'.  Text::_($this->t['l'] . '_COPYRIGHT').'</h3>'
+.'<p>© 2007 - '.  date("Y"). ' Jan Pavelka</p>'
+.'<p><a href="https://www.phoca.cz/" target="_blank">www.phoca.cz</a></p>';
+
+echo '<h3>'.  Text::_($this->t['l'] . '_LICENSE').'</h3>'
+.'<p><a href="http://www.gnu.org/licenses/gpl-2.0.html" target="_blank">GPLv2</a></p>';
+
+echo '<h3>'.  Text::_($this->t['l'] . '_TRANSLATION').': '. Text::_($this->t['l'] . '_TRANSLATION_LANGUAGE_TAG').'</h3>'
+        .'<p>© 2007 - '.  date("Y"). ' '. Text::_($this->t['l'] . '_TRANSLATER'). '</p>'
+        .'<p>'.Text::_($this->t['l'] . '_TRANSLATION_SUPPORT_URL').'</p>';
+
+echo '<input type="hidden" name="task" value="" />'
+.'<input type="hidden" name="option" value="'.$this->t['o'].'" />'
+.'<input type="hidden" name="controller" value="'.$this->t['c'].'info" />';
+
+echo HTMLHelper::_('image', $this->t['i'] . 'logo.png', 'Phoca.cz');
+
 echo '<p>&nbsp;</p>';
-?>
 
-<div style="border-top:1px solid #eee"></div>
-<p>&nbsp;</p>
+echo '<div class="ph-cp-hr"></div>';
 
-<div class="btn-group">
-<a class="btn btn-large btn-primary" href="https://www.phoca.cz/version/index.php?phocaguestbook=<?php echo $this->tmpl['version'];?>" target="_blank"><i class="icon-loop icon-white"></i> <?php echo JText::_('COM_PHOCAGUESTBOOK_CHECK_FOR_UPDATE');?></a>
-</div>
-<?php echo '<div style="margin-top:30px;height:39px;background: url(\''.JURI::root(true).'/media/com_phocaguestbook/images/administrator/line.png\') 100% 0 no-repeat;">&nbsp;</div>'; ?>
+echo '<div class="btn-group">';
 
-</div>
-</div>
-</form>
+echo '<a class="btn btn-large btn-primary ph-cp-btn-update" href="https://www.phoca.cz/version/index.php?'.$this->t['c'].'='.  $this->t['version'] .'" target="_blank"><i class="icon-loop icon-white"></i>&nbsp;&nbsp;'.  Text::_($this->t['l'].'_CHECK_FOR_UPDATE') .'</a></div>';
+
+
+echo '<div class="clearfix"></div>';
+
+echo '<div style="margin-top:30px;height:39px;background: url(\''.Uri::root(true).'/media/com_'.$this->t['c'].'/images/administrator/line.png\') 100% 0 no-repeat;">&nbsp;</div>';
+
+echo '</div>';
+
+
+echo '</div>';
+echo $r->endCp();

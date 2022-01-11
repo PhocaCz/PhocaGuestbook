@@ -7,23 +7,25 @@
  */
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
+use Joomla\CMS\MVC\Model\BaseDatabaseModel;
+use Joomla\CMS\Factory;
 
 require_once JPATH_COMPONENT.'/helpers/phocaguestbookcaptcha.php';
 
-class PhocaguestbookModelGuestbooki extends JModelLegacy
+class PhocaguestbookModelGuestbooki extends BaseDatabaseModel
 {
 	var $_data = null;
 
 	function &getData()
 	{
 		//reuse old captcha id
-		$app		= JFactory::getApplication();
+		$app		= Factory::getApplication();
 		$paramsC 	= $app->getParams();
-		$session 	= JFactory::getSession();
+		$session 	= $app->getSession();
 		$captchaId = $session->get('captcha_id','', 'pgb'.$paramsC->get('session_suffix', ''));//Get captcha type
 
 		/*
-		$app		= JFactory::getApplication();
+		$app		= Factory::getApplication();
 		$paramsC 	= $app->getParams();
 		$enable_captcha = $paramsC->get( 'enable_captcha', 1 );
 

@@ -7,26 +7,26 @@
 			description ="COM_PHOCAGUESTBOOK_FIELD_PARENT_DESC"  	default="0"	readonly="true"  />
 		<field name="title" 		type="text" 	class="input-xlarge" label="COM_PHOCAGUESTBOOK_FIELD_SUBJECT_LABEL"
 			description="COM_PHOCAGUESTBOOK_FIELD_SUBJECT_DESC"	/>
-		<field name="alias"			type="text"		class="inputbox"	label="COM_PHOCAGUESTBOOK_FIELD_ALIAS_LABEL"
+		<field name="alias"			type="text"		class="form-control"	label="COM_PHOCAGUESTBOOK_FIELD_ALIAS_LABEL"
 			description="COM_PHOCAGUESTBOOK_FIELD_ALIAS_DESC"/>
-		<field name="username"		type="text"		class="inputbox"	label="COM_PHOCAGUESTBOOK_FIELD_NAME_LABEL"
+		<field name="username"		type="text"		class="form-control"	label="COM_PHOCAGUESTBOOK_FIELD_NAME_LABEL"
 			description="COM_PHOCAGUESTBOOK_FIELD_NAME_DESC"/>
-		<field name="ip"			type="text"		class="inputbox"	label="COM_PHOCAGUESTBOOK_FIELD_IP_LABEL" 
+		<field name="ip"			type="text"		class="form-control"	label="COM_PHOCAGUESTBOOK_FIELD_IP_LABEL"
 			description="COM_PHOCAGUESTBOOK_FIELD_IP_DESC"/>
 
 
 		<field name="catid" 		type="category"		label="COM_PHOCAGUESTBOOK_FIELD_GUESTBOOK_LABEL"
 			description="COM_PHOCAGUESTBOOK_FIELD_GUESTBOOK_DESC" required="true" extension="com_phocaguestbook"/>
-		<field name="date" 			type="calendar"  class="inputbox"	label="COM_PHOCAGUESTBOOK_FIELD_DATE_LABEL"
+		<field name="date" 			type="calendar"  class="form-control"	label="COM_PHOCAGUESTBOOK_FIELD_DATE_LABEL"
 			description="COM_PHOCAGUESTBOOK_FIELD_DATE_DESC"	format="%Y-%m-%d %H:%M:%S"	filter="user_utc" />
-		<field name="email" 		type="text"		class="inputbox"	label="COM_PHOCAGUESTBOOK_FIELD_EMAIL_LABEL"
+		<field name="email" 		type="text"		class="form-control"	label="COM_PHOCAGUESTBOOK_FIELD_EMAIL_LABEL"
 			description="COM_PHOCAGUESTBOOK_FIELD_EMAIL_DESC"  />
-		<field name="homesite" 		type="text"  	class="inputbox"	label="COM_PHOCAGUESTBOOK_FIELD_WEBSITE_LABEL"
+		<field name="homesite" 		type="text"  	class="form-control"	label="COM_PHOCAGUESTBOOK_FIELD_WEBSITE_LABEL"
 			description="COM_PHOCAGUESTBOOK_FIELD_WEBSITE_DESC"/>		
-<!--field name="ordering" type="PHOCAGUESTBOOKOrdering" table="item" class="inputbox" label="COM_PHOCAGUESTBOOK_FIELD_ORDERING_LABEL" description="COM_PHOCAGUESTBOOK_FIELD_ORDERING_DESC" /-->
+<!--field name="ordering" type="PHOCAGUESTBOOKOrdering" table="item" class="form-control" label="COM_PHOCAGUESTBOOK_FIELD_ORDERING_LABEL" description="COM_PHOCAGUESTBOOK_FIELD_ORDERING_DESC" /-->
 
 		<field name="content" type="editor" label="COM_PHOCAGUESTBOOK_FIELD_CONTENT_LABEL"
-			description="COM_PHOCAGUESTBOOK_FIELD_CONTENT_DESC" class="inputbox"
+			description="COM_PHOCAGUESTBOOK_FIELD_CONTENT_DESC" class="form-control"
 			filter="JComponentHelper::filterText"   buttons="true" 
 			hide="pagebreak,readmore"/>
 			

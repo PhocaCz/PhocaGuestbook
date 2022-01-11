@@ -7,11 +7,13 @@
  */
 
 defined('_JEXEC') or die('Restricted access');
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\HTML\HTMLHelper;
 
 jimport('joomla.html.html.bootstrap');
 ///JHtml::_('behavior.formvalidation');
 ///JHtml::_('behavior.tooltip');
-///JHTML::_('behavior.modal');
+///JHtml::_('behavior.modal');
 
 if($this->params->get('custom_color')) :?>
 <style type="text/css">
@@ -41,7 +43,7 @@ if ($this->params->get('show_form')) : ?>
 		if (task == 'phocaguestbook.cancel' || document.formvalidator.isValid(document.getElementById('adminForm'))) {
 			Joomla.submitform(task);
 		} else {
-			alert('<?php echo $this->escape(JText::_('JGLOBAL_VALIDATION_FORM_FAILED')); ?>');
+			alert('<?php echo $this->escape(Text::_('JGLOBAL_VALIDATION_FORM_FAILED')); ?>');
 		}
 	}
 </script>
@@ -67,7 +69,7 @@ if ( $this->params->get( 'show_page_heading' ) ) : ?>
 	  echo $this->tmpl['image'];
    }*/
 
-   echo JHTML::_('content.prepare', $this->guestbooks->description);
+   echo HTMLHelper::_('content.prepare', $this->guestbooks->description);
    ?>
    </div>
 <?php endif;
@@ -78,7 +80,7 @@ if ( $this->params->get( 'show_page_heading' ) ) : ?>
 // - - - - - - - - - - -
 // Page / Different positions
 // - - - - - - - - - - -
-if ($this->params->get('form_style', 1) == 1){
+if ($this->params->get('form_style', 0) == 1){
 	$formStyle = 'form';
 } else {
 	$formStyle = 'form_classic';
@@ -89,7 +91,7 @@ if ($this->params->get('form_style', 1) == 1){
 //  If position = 0 --> Form is top, Messages bottom
 //  If position = 1 --> Form is bottom, Messages top,
 //  If position = 2 --> Use tabs for Message and Form
-switch ($this->params->get('form_position', 2)) {
+switch ($this->params->get('form_position', 0)) {
 	case 0:
 		//echo $this->loadTemplate('form');
 		echo $this->loadTemplate($formStyle);
@@ -103,8 +105,8 @@ switch ($this->params->get('form_position', 2)) {
 	default:?>
 		<div class="tabbable">
 			<ul class="nav nav-tabs">
-				<?php if ($this->params->get('show_form'))  :?><li<?php if ( $this->params->get('tab_active_form')) {echo " class=\"active\"";}?>><a href="#pgbTabForm"  data-toggle="tab"><?php echo JText::_('COM_PHOCAGUESTBOOK_POST_MESSAGE');?></a></li><?php endif;?>
-				<?php if ($this->params->get('show_posts')) :?><li<?php if (!$this->params->get('tab_active_form')) {echo " class=\"active\"";}?>><a href="#pgbTabPosts" data-toggle="tab"><?php echo JText::_('COM_PHOCAGUESTBOOK_ITEMS');?></a></li><?php endif;?>
+				<?php if ($this->params->get('show_form'))  :?><li<?php if ( $this->params->get('tab_active_form')) {echo " class=\"active\"";}?>><a href="#pgbTabForm"  data-toggle="tab"><?php echo Text::_('COM_PHOCAGUESTBOOK_POST_MESSAGE');?></a></li><?php endif;?>
+				<?php if ($this->params->get('show_posts')) :?><li<?php if (!$this->params->get('tab_active_form')) {echo " class=\"active\"";}?>><a href="#pgbTabPosts" data-toggle="tab"><?php echo Text::_('COM_PHOCAGUESTBOOK_ITEMS');?></a></li><?php endif;?>
 			</ul>
 			<div class="tab-content">
 				<div class="tab-pane<?php if ( $this->params->get('tab_active_form')) {echo " active";}?>" id="pgbTabForm">

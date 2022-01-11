@@ -6,6 +6,8 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined('_JEXEC') or die('Restricted access');
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Uri\Uri;
 
 $prevLevel = 1;
 $init = true;
@@ -64,17 +66,17 @@ if ($this->params->get('show_posts') == 1) {
 		}
 		if ($this->params->get('show_pagination_limit')) {
 			//TODO
-			echo JText::_('Display Num').'&nbsp;';
+			echo Text::_('Display Num').'&nbsp;';
 			 echo $this->pagination->getLimitBox();
 		}*/
 
-		$uri = \Joomla\CMS\Uri\Uri::getInstance();
+		$uri = Uri::getInstance();
 		$form2 = '';
 		$form2 = '<div><form action="'.htmlspecialchars($uri->toString()).'" method="post" name="adminForm" id="pgbadminForm">';
 		if (count($this->items)) {
 			$form2 .='<div class="pgcenter"><div class="pagination">';
 			if ($this->params->get('show_pagination_limit', 0)) {
-				$form2 .= '<div class="pginline">'.JText::_('COM_PHOCAGUESTBOOK_DISPLAY_NUM') .'&nbsp;'.$this->pagination->getLimitBox().'</div>';
+				$form2 .= '<div class="pginline">'.Text::_('COM_PHOCAGUESTBOOK_DISPLAY_NUM') .'&nbsp;'.$this->pagination->getLimitBox().'</div>';
 			}
 			if ($this->params->get('show_pagination', 1)) {
 				$form2 .= '<div style="margin:0 10px 0 10px;" class="sectiontablefooter'.$this->params->get( 'pageclass_sfx' ).'" id="pg-pagination" >'.$this->pagination->getPagesLinks().'</div><div style="margin:0 10px 0 10px;display:inline;" class="pagecounter">'.$this->pagination->getPagesCounter().'</div>';
@@ -91,7 +93,7 @@ if ($this->params->get('show_posts') == 1) {
 
 	} else {
 		//echo '<div>'.// start tag at the top
-		echo JText::_('COM_PHOCAGUESTBOOK_THERE_IS_NO_POST').'</div>';
+		echo Text::_('COM_PHOCAGUESTBOOK_THERE_IS_NO_POST').'</div>';
 	}
 
 	echo $this->params->get('pgbinfo');

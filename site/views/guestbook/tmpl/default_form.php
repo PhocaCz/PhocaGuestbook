@@ -7,7 +7,10 @@
  */
 
 defined('_JEXEC') or die('Restricted access');
-JHtml::_('behavior.tooltip');
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Factory;
+
 
 $hiddenfield =	' 		<div class="control-group '.$this->params->get('hidden_field_class').'">'.
 				'			<div class="controls input-prepend input-group">'.
@@ -20,7 +23,7 @@ $hiddenfield =	' 		<div class="control-group '.$this->params->get('hidden_field_
 // - - - - - - - - - - -
 if ($this->params->get('show_form') == 1) :?>
 <div class="well pgwell pgb_background pgb_sec_font">
-	<h4 class="pgb_font"><?php echo JText::_('COM_PHOCAGUESTBOOK_POST_MESSAGE');?><br/>&nbsp;</h4>
+	<h4 class="pgb_font"><?php echo Text::_('COM_PHOCAGUESTBOOK_POST_MESSAGE');?><br/>&nbsp;</h4>
 	<form action="<?php echo $this->t['actionurl']; ?>" method="post" name="adminForm" id="adminForm" class="form-validate">
 
 	<?php if ($this->params->get('display_title_form', 2)) : ?>
@@ -28,7 +31,7 @@ if ($this->params->get('show_form') == 1) :?>
 			<div class="controls input-prepend input-group">
 				<?php
 
-				$app				= JFactory::getApplication();
+				$app				= Factory::getApplication();
 				$reportTitle 		= $app->input->get('reporttitle', '', 'string');
 				$formTitle			= $this->form->getInput('title');
 				if ($reportTitle != '') {
@@ -100,11 +103,11 @@ if ($this->params->get('show_form') == 1) :?>
 	<div class="btn-toolbar">
 		<div class="btn-group">
 			<button type="submit" class="btn btn-primary">
-				<i class="glyphicon glyphicon-ok icon-ok"></i>  <?php echo JText::_('COM_PHOCAGUESTBOOK_SUBMIT');?></button>
+				<i class="glyphicon glyphicon-ok icon-ok"></i>  <?php echo Text::_('COM_PHOCAGUESTBOOK_SUBMIT');?></button>
 		</div>
 		<div class="btn-group">
 			<button type="button" class="btn" onclick="Joomla.submitbutton('phocaguestbook.cancel')">
-				<i class="glyphicon glyphicon-remove icon-remove"></i>  <?php echo JText::_('COM_PHOCAGUESTBOOK_RESET');?></button>
+				<i class="glyphicon glyphicon-remove icon-remove"></i>  <?php echo Text::_('COM_PHOCAGUESTBOOK_RESET');?></button>
 		</div>
 	</div>
 	<?php echo $this->form->getInput('language'); ?>
@@ -113,7 +116,7 @@ if ($this->params->get('show_form') == 1) :?>
 	<input type="hidden" name="cid" value="<?php echo $this->guestbooks->id;?>" />
 	<input type="hidden" name="option" value="com_phocaguestbook" />
 	<input type="hidden" name="task" value="phocaguestbook.submit" />
-	<?php echo JHtml::_('form.token');?>
+	<?php echo HTMLHelper::_('form.token');?>
 
 	</form>
 </div>

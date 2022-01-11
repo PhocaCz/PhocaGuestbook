@@ -7,7 +7,10 @@
  */
 
 //-- No direct access
-defined('_JEXEC') || die('=;)');
+defined('_JEXEC') or die('Restricted access');
+use Joomla\CMS\MVC\Controller\BaseController;
+use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
 
 /**
  * Phoca Guestbook default Controller.
@@ -15,11 +18,11 @@ defined('_JEXEC') || die('=;)');
  * @package    phocaguestbook
  * @subpackage Controllers
  */
-class PhocaguestbookController extends JControllerLegacy
+class PhocaguestbookController extends BaseController
 {
 	public function display($cachable = false, $urlparams = false)
 	{
-		$app		= JFactory::getApplication();
+		$app		= Factory::getApplication();
 		$paramsC 	= $app->getParams();
 		$cache 		= $paramsC->get( 'enable_cache', 0 );
 		$cachable 	= false;
@@ -38,7 +41,7 @@ class PhocaguestbookController extends JControllerLegacy
 		if ($vName == 'form' && !$this->checkEditId('com_phocaguestbook.edit.guestbook', $id)) {
 			// Somehow the person just went to the form - we don't allow that.
 			
-			throw new Exception( JText::sprintf('JLIB_APPLICATION_ERROR_UNHELD_ID', $id), 403);
+			throw new Exception( Text::sprintf('JLIB_APPLICATION_ERROR_UNHELD_ID', $id), 403);
 			return false;
 		}
 

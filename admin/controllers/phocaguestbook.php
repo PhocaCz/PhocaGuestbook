@@ -6,7 +6,9 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 //-- No direct access
-defined('_JEXEC') || die('=;)');
+defined('_JEXEC') or die('Restricted access');
+use Joomla\CMS\MVC\Controller\FormController;
+use Joomla\CMS\Factory;
 
 /**
  * phocaguestbook Controller.
@@ -14,11 +16,11 @@ defined('_JEXEC') || die('=;)');
  * @package    phocaguestbook
  * @subpackage Controllers
  */
-class PhocaguestbookControllerPhocaguestbook extends JControllerForm
+class PhocaguestbookControllerPhocaguestbook extends FormController
 {
 	
 	function reply() {
-		$app   = JFactory::getApplication();
+		$app   = Factory::getApplication();
 		$cid   = $this->input->post->get('cid', array(), 'array');
 		$context = "$this->option.edit.$this->context";
 

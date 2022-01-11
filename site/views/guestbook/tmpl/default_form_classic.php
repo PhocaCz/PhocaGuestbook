@@ -6,19 +6,22 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined('_JEXEC') or die('Restricted access');
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Factory;
 
-jimport('joomla.html.html.bootstrap');
-JHtml::_('behavior.keepalive');
+//jimport('joomla.html.html.bootstrap');
+//JHtml::_('behavior.keepalive');
 ///JHtml::_('behavior.formvalidation');
 ///JHtml::_('behavior.tooltip');
-///JHTML::_('behavior.modal');
+///JHtml::_('behavior.modal');
 
 // - - - - - - - - - - -
 // Form
 // - - - - - - - - - - -
 if ($this->params->get('show_form') == 1) : ?>
 <div class="well pgwell pgb_background pgb_sec_font">
-	<h4 class="pgb_font"><?php echo JText::_('COM_phocaguestbook_POST_MESSAGE');?></h4>
+	<h4 class="pgb_font"><?php echo Text::_('COM_phocaguestbook_POST_MESSAGE');?></h4>
 	<form action="<?php echo $this->t['actionurl']; ?>" method="post" name="adminForm" id="adminForm" class="form-validate form-horizontal">
 
 	<?php if ($this->params->get('display_title_form', 2)) : ?>
@@ -26,7 +29,7 @@ if ($this->params->get('show_form') == 1) : ?>
 			<div class="control-label"><?php echo $this->form->getLabel('title'); ?></div>
 			<div class="controls"><?php
 
-				$app				= JFactory::getApplication();
+				$app				= Factory::getApplication();
 				$reportTitle 		= $app->input->get('reporttitle', '', 'string');
 				$formTitle			= $this->form->getInput('title');
 				if ($reportTitle != '') {
@@ -83,7 +86,7 @@ if ($this->params->get('show_form') == 1) : ?>
 				?><br />
 			<div class="input-append">
 				<?php echo $this->form->getInput('guestbook_captcha'); ?>
-				<a href="javascript:reloadCaptcha();" title="<?php echo JText::_('COM_PHOCAGUESTBOOK_RELOAD_IMAGE');?>" class="btn hasTooltip" ><i class="icon-loop"></i></a>
+				<a href="javascript:reloadCaptcha();" title="<?php echo Text::_('COM_PHOCAGUESTBOOK_RELOAD_IMAGE');?>" class="btn hasTooltip" ><i class="icon-loop"></i></a>
 			</div> JOOMLA CAPTCHA:*/?>
 			<?php echo $this->form->getInput('captcha'); ?>
 			</div>
@@ -102,11 +105,11 @@ if ($this->params->get('show_form') == 1) : ?>
 	<hr class="hr-condensed" />
 	<div class="btn-toolbar">
 		<div class="btn-group">
-			<button type="submit" class="btn btn-primary">
+			<button type="submit" class="btn btn-primary pgb-btn-primary">
 				<?php /*<i class="glyphicon glyphicon-ok icon-ok"></i> <?php*/ echo JText::_('COM_PHOCAGUESTBOOK_SUBMIT');?></button>
 		</div>
 		<div class="btn-group">
-			<button type="button" class="btn" onclick="Joomla.submitbutton('phocaguestbook.cancel')">
+			<button type="button" class="btn btn-danger pgb-btn-danger" onclick="Joomla.submitbutton('phocaguestbook.cancel')">
 				<?php /*<i class="glyphicon glyphicon-remove icon-remove"></i><?php*/ echo JText::_('COM_PHOCAGUESTBOOK_RESET');?>	</button>
 		</div>
 	</div>
@@ -117,7 +120,7 @@ if ($this->params->get('show_form') == 1) : ?>
 	<input type="hidden" name="cid" value="<?php echo $this->guestbooks->id;?>" />
 	<input type="hidden" name="option" value="com_phocaguestbook" />
 	<input type="hidden" name="task" value="phocaguestbook.submit" />
-	<?php echo JHtml::_('form.token');?>
+	<?php echo HTMLHelper::_('form.token');?>
 
 	</form>
 </div>

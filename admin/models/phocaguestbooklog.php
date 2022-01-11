@@ -6,7 +6,9 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 //-- No direct access
-defined('_JEXEC') || die('=;)');
+defined('_JEXEC') or die('Restricted access');
+use Joomla\CMS\MVC\Model\AdminModel;
+use Joomla\CMS\Table\Table;
 
 /**
  * phocaguestbook Model.
@@ -14,7 +16,7 @@ defined('_JEXEC') || die('=;)');
  * @package    phocaguestbook
  * @subpackage Models
  */
-class PhocaguestbookModelPhocaguestbookLog extends JModelAdmin
+class PhocaguestbookModelPhocaguestbookLog extends AdminModel
 {
 	
 	public $typeAlias 			= 'com_phocaguestbook.phocaguestbooklog';
@@ -25,7 +27,7 @@ class PhocaguestbookModelPhocaguestbookLog extends JModelAdmin
      */
     public function getTable($type = 'phocaguestbookLogging', $prefix = 'Table', $config = array())
     {
-        return JTable::getInstance($type, $prefix, $config);
+        return Table::getInstance($type, $prefix, $config);
     }
 
     /**

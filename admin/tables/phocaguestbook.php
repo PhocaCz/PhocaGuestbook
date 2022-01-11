@@ -7,7 +7,11 @@
  */
 
 //-- No direct access
-defined('_JEXEC') || die('=;)');
+defined('_JEXEC') or die('Restricted access');
+
+use Joomla\CMS\Application\ApplicationHelper;
+use Joomla\CMS\Table\Nested;
+use Joomla\CMS\Factory;
 
 
 /**
@@ -16,22 +20,22 @@ defined('_JEXEC') || die('=;)');
  * @package    phocaguestbook
  * @subpackage Components
  */
-class TablePhocaguestbook extends JTableNested 
+class TablePhocaguestbook extends Nested
 {
 	function __construct(& $db) {
 		parent::__construct('#__phocaguestbook_items', 'id', $db);
 	}
-	
+
 	function check() {
 		if(empty($this->alias)) {
-			$this->alias = JApplication::stringURLSafe($this->title);
+			$this->alias = ApplicationHelper::stringURLSafe($this->title);
 		}
 		if(empty($this->date)) {
-			$this->date = JFactory::getDate()->toSql();
+			$this->date = Factory::getDate()->toSql();
 		}
-		
+
 		//$this->alias = PhocaGuestbookHelper::getAliasName($this->alias);
 		return true;
-	}	
-	
+	}
+
 }

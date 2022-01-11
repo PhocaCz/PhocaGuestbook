@@ -6,7 +6,9 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 
-defined('_JEXEC') || die('=;)');
+defined('_JEXEC') or die('Restricted access');
+use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
 
 class com_phocaguestbookInstallerScript
 {
@@ -23,17 +25,17 @@ class com_phocaguestbookInstallerScript
     function install($parent) {
         $this->loadLanguage($parent);
         $msg = '';
-        JFactory::getApplication()->enqueueMessage($msg, 'message');
+        Factory::getApplication()->enqueueMessage($msg, 'message');
         return true;
     }
 
     public function update($parent){
-		$msg 	=  JText::_('COM_PHOCAGUESTBOOK_UPDATE_TEXT');
-		$app	= JFactory::getApplication();
+		$msg 	=  Text::_('COM_PHOCAGUESTBOOK_UPDATE_TEXT');
+		$app	= Factory::getApplication();
 
 
 		// In newest Joomla! versions root must be published
-		$db = JFactory::getDbo();
+		$db = Factory::getDbo();
 		$db->setQuery('SELECT id FROM #__phocaguestbook_items WHERE level = 0 AND alias = '.$db->quote('root'));
 		$root = $db->loadResult();
 		if ($root > 0) {
@@ -59,15 +61,15 @@ class com_phocaguestbookInstallerScript
         if ($type == 'update' || $type == 'install') {
 
             if ($type == 'update') {
-                $status =  JText::_($this->updatetext);
+                $status =  Text::_($this->updatetext);
 
             } else {
-                $status =  JText::_($this->installtext);
+                $status =  Text::_($this->installtext);
             }
-            $version 	= JText::_($this->versiontext). ': ' . $parent->getManifest()->version;
+            $version 	= Text::_($this->versiontext). ': ' . $parent->getManifest()->version;
             $link 		= 'index.php?option='.$this->extension;
-            $component	= JText::_($this->extensiontext);
-            $configure	= JText::_($this->configuretext);
+            $component	= Text::_($this->extensiontext);
+            $configure	= Text::_($this->configuretext);
 
             $o = '';
             $o .= $this->getStyle();
@@ -98,7 +100,7 @@ class com_phocaguestbookInstallerScript
 
     public function loadLanguage($parent) {
         $extension = $this->extension;
-        $lang = JFactory::getLanguage();
+        $lang = Factory::getLanguage();
         $path = $parent->getParent()->getPath('source');
         $lang->load($this->extension, $path, 'en-GB', true);
         $lang->load($this->extension, $path, $lang->getDefault(), true);
@@ -112,7 +114,7 @@ class com_phocaguestbookInstallerScript
 	
 /*
 	function getParam( $name ) {
-		$db = JFactory::getDbo();
+		$db = Factory::getDbo();
 		$db->setQuery('SELECT manifest_cache FROM #__extensions WHERE name = "com_phocaguestbook"');
 		$manifest = json_decode( $db->loadResult(), true );
 		return $manifest[ $name ];

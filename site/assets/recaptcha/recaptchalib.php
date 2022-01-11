@@ -41,6 +41,7 @@ define("RECAPTCHA_API_SECURE_SERVER", "https://www.google.com/recaptcha/api");
 define("RECAPTCHA_VERIFY_SERVER", "www.google.com");
 
 defined('_JEXEC') or die();
+use Joomla\CMS\Language\Text;
 
 class PhocaguestbookHelperReCaptcha
 {
@@ -112,7 +113,7 @@ public static function _recaptcha_http_post($host, $path, $data, $port = 80) {
 public static function recaptcha_get_html ($pubkey, $error = null, $use_ssl = false)
 {
 	if ($pubkey == null || $pubkey == '') {
-		return '<div>'.JText::_('COM_PHOCAGUESTBOOK_RECAPTCHA_ERROR_GET_API').
+		return '<div>'.Text::_('COM_PHOCAGUESTBOOK_RECAPTCHA_ERROR_GET_API').
 			'<br /> <a href=\'https://www.google.com/recaptcha/admin/create\'>https://www.google.com/recaptcha/admin/create</a></div>';
 	}
 	

@@ -6,6 +6,10 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */ 
  defined('_JEXEC') or die;
+use Joomla\CMS\Categories\CategoryNode;
+use Joomla\CMS\Categories\Categories;
+use Joomla\CMS\Factory;
+use Joomla\CMS\Component\ComponentHelper;
  
 
  /**
@@ -20,7 +24,7 @@ abstract class PhocaguestbookHelperRoute
 	 */
 	public static function getCategoryRoute($catid)
 	{
-		if ($catid instanceof JCategoryNode)
+		if ($catid instanceof CategoryNode)
 		{
 			$id = $catid->id;
 			$category = $catid;
@@ -28,7 +32,7 @@ abstract class PhocaguestbookHelperRoute
 		else
 		{
 			$id = (int) $catid;
-			$category = JCategories::getInstance('Phocaguestbook')->get($id);
+			$category = Categories::getInstance('Phocaguestbook')->get($id);
 		}
 
 
@@ -72,7 +76,7 @@ abstract class PhocaguestbookHelperRoute
 	
 	protected static function _findItem($needles = null)
 	{
-		$app		= JFactory::getApplication();
+		$app		= Factory::getApplication();
 		$menus		= $app->getMenu('site');
 
 
@@ -82,7 +86,7 @@ abstract class PhocaguestbookHelperRoute
 		{
 			self::$lookup = array();
 
-			$component	= JComponentHelper::getComponent('com_phocaguestbook');
+			$component	= ComponentHelper::getComponent('com_phocaguestbook');
 			$items		= $menus->getItems('component_id', $component->id);
 						
 			foreach ($items as $item)

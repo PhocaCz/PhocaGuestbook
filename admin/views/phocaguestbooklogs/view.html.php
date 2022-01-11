@@ -7,7 +7,14 @@
  */
 
 //-- No direct access
-defined('_JEXEC') || die('=;)');
+defined('_JEXEC') or die('Restricted access');
+use Joomla\CMS\MVC\View\HtmlView;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Toolbar\Toolbar;
+use Joomla\CMS\Toolbar\ToolbarHelper;
 
 
 /**
@@ -16,42 +23,41 @@ defined('_JEXEC') || die('=;)');
  * @package    phocaguestbook
  * @subpackage Views
  */
-class PhocaguestbookViewPhocaguestbooklogs extends JViewLegacy
+class PhocaguestbookViewPhocaguestbooklogs extends HtmlView
 {
-    /**
-     * @var array
-     */
     protected $items;
+	protected $pagination;
+	protected $state;
+	protected $t;
+	protected $r;
+	public $filterForm;
+    public $activeFilters;
 
-    /**
-     * @var JPagination
-     */
-    protected $pagination;
-    /**
-     * @var array
-     */
-    protected $state;
-    /**
-     * Phoca Guestbook view display method
-     */
     public function display($tpl = null)
     {
-		JHtml::stylesheet( 'media/com_phocaguestbook/css/administrator/phocaguestbook.css' );
-		
+		$this->t			= PhocaguestbookHelper::setVars('log');
+		$this->r 			= new PhocaguestbookRenderAdminviews();
+
         $this->items 		= $this->get('Items');
         $this->pagination	= $this->get('Pagination');
         $this->state		= $this->get('State');
-        $this->params       = JComponentHelper::getParams('com_phocaguestbook');
-        
+        $this->filterForm   	= $this->get('FilterForm');
+        $this->activeFilters 	= $this->get('ActiveFilters');
+        $this->params       = ComponentHelper::getParams('com_phocaguestbook');
+
+        foreach ($this->items as &$item) {
+			$this->ordering[0][] = $item->id;
+		}
+
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {
 			throw new Exception(implode("\n", $errors), 500);
 			return false;
 		}
-		
-		$this->addToolBar();        
+
+		$this->addToolBar();
 		$this->sidebar = JHtmlSidebar::render();
-				
+
         parent::display($tpl);
     }
 
@@ -61,38 +67,43 @@ class PhocaguestbookViewPhocaguestbooklogs extends JViewLegacy
     protected function addToolBar()
     {
 		require_once JPATH_COMPONENT.'/helpers/phocaguestbook.php';
-		
+
 		$canDo = phocaguestbookHelper::getActions();
-		$user  = JFactory::getUser();
-		
+		$user  = Factory::getUser();
+
 		//TOOLBAR
-        JToolBarHelper::title(JText::_('COM_PHOCAGUESTBOOK_LOGGING'), 'file-2');
-   
+
+        $bar = ToolBar::getInstance( 'toolbar' );
+		$dhtml = '<a href="index.php?option=com_phocaguestbook" class="btn btn-small"><i class="icon-home-2" title="'.Text::_('COM_PHOCAGUESTBOOK_CONTROL_PANEL').'"></i> '.Text::_('COM_PHOCAGUESTBOOK_CONTROL_PANEL').'</a>';
+		$bar->appendButton('Custom', $dhtml);
+
+        ToolbarHelper::title(Text::_('COM_PHOCAGUESTBOOK_LOGGING'), 'file-2');
+
         if ($canDo->get('core.admin')) {
-			JToolBarHelper::deleteList('COM_PHOCAGUESTBOOK_WARNING_DELETE_ITEMS', 'phocaguestbooklogs.delete', 'COM_PHOCAGUESTBOOK_DELETE');
-			JToolbarHelper::preferences('com_phocaguestbook');
+			ToolbarHelper::deleteList('COM_PHOCAGUESTBOOK_WARNING_DELETE_ITEMS', 'phocaguestbooklogs.delete', 'COM_PHOCAGUESTBOOK_DELETE');
+			ToolbarHelper::preferences('com_phocaguestbook');
 		}
-		
-	    JToolBarHelper::help( 'screen.phocaguestbook', true );
-       
+
+	    ToolbarHelper::help( 'screen.phocaguestbook', true );
+
 		//SIDEBAR
-		JHtmlSidebar::setAction('index.php?option=com_phocaguestbook&view=phocaguestbooklogs');
-       
+		/*JHtmlSidebar::setAction('index.php?option=com_phocaguestbook&view=phocaguestbooklogs');
+
 		JHtmlSidebar::addFilter(
-			JText::_('COM_PHOCAGUESTBOOK_SELECT_GUESTBOOK'),
+			Text::_('COM_PHOCAGUESTBOOK_SELECT_GUESTBOOK'),
 			'filter_category_id',
-			JHtml::_('select.options', JHtml::_('category.options', 'com_phocaguestbook'), 'value', 'text', $this->state->get('filter.category_id'))
+			HTMLHelper::_('select.options', HTMLHelper::_('category.options', 'com_phocaguestbook'), 'value', 'text', $this->state->get('filter.category_id'))
 		);
-		
+
 		JHtmlSidebar::addFilter(
-			JText::_('JOPTION_SELECT_PUBLISHED'),
+			Text::_('JOPTION_SELECT_PUBLISHED'),
 			'filter_published',
-			JHtml::_('select.options', array(1 => 'COM_PHOCAGUESTBOOK_PUBLISHED', 2 => 'COM_PHOCAGUESTBOOK_REVIEW', 3 => 'COM_PHOCAGUESTBOOK_REJECT'), 'value', 'text', $this->state->get('filter.state'), true)
-		);
+			HTMLHelper::_('select.options', array(1 => 'COM_PHOCAGUESTBOOK_PUBLISHED', 2 => 'COM_PHOCAGUESTBOOK_REVIEW', 3 => 'COM_PHOCAGUESTBOOK_REJECT'), 'value', 'text', $this->state->get('filter.state'), true)
+		);*/
 
     }
 
-    
+
     /**
 	 * Returns an array of fields the table can be sorted by
 	 * @return  array  Array containing the field name to sort by as the key and display text as value
@@ -100,10 +111,10 @@ class PhocaguestbookViewPhocaguestbooklogs extends JViewLegacy
 	protected function getSortFields()
 	{
 		return array(
-			'a.date' => JText::_('COM_PHOCAGUESTBOOK_DATE'),
-			'category_title' => JText::_('COM_PHOCAGUESTBOOK_FIELD_GUESTBOOK_LABEL'),
-			'a.state' => JText::_('Status'),
-			'a.id' => JText::_('JGRID_HEADING_ID')
+			'a.date' => Text::_('COM_PHOCAGUESTBOOK_DATE'),
+			'category_title' => Text::_('COM_PHOCAGUESTBOOK_FIELD_GUESTBOOK_LABEL'),
+			'a.state' => Text::_('Status'),
+			'a.id' => Text::_('JGRID_HEADING_ID')
 		);
 	}
 }

@@ -6,7 +6,8 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 //-- No direct access
-defined('_JEXEC') || die('=;)');
+defined('_JEXEC') or die('Restricted access');
+use Joomla\CMS\MVC\Controller\AdminController;
 
 
 //-- Import the Class JControllerAdmin
@@ -15,7 +16,7 @@ jimport('joomla.application.component.controlleradmin');
 /**
  * phocaguestbook Controller.
  */
-class PhocaguestbookControllerPhocaguestbooklogs extends JControllerAdmin
+class PhocaguestbookControllerPhocaguestbooklogs extends AdminController
 {
 	
     /**

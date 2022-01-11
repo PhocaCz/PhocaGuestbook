@@ -6,7 +6,9 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 //-- No direct access
-defined('_JEXEC') || die('=;)');
+defined('_JEXEC') or die('Restricted access');
+use Joomla\CMS\MVC\Controller\BaseController;
+use Joomla\CMS\Factory;
 
 /**
  * phocaguestbook default Controller.
@@ -14,10 +16,10 @@ defined('_JEXEC') || die('=;)');
  * @package    phocaguestbook
  * @subpackage Controllers
  */
-class PhocaguestbookController extends JControllerLegacy
+class PhocaguestbookController extends BaseController
 {
 	protected $default_view = 'phocaguestbookcp';
-	
+
     /**
      * Method to display the view.
      *
@@ -28,13 +30,13 @@ class PhocaguestbookController extends JControllerLegacy
      */
     public function display($cachable = false, $urlparams = false)
     {
-		$view	= JFactory::getApplication()->input->get('view');
-		$layout	= JFactory::getApplication()->input->get('layout');
-		$id     = JFactory::getApplication()->input->getInt('id');
-	
+		$view	= Factory::getApplication()->input->get('view');
+		$layout	= Factory::getApplication()->input->get('layout');
+		$id     = Factory::getApplication()->input->getInt('id');
+
 		phocaguestbookHelper::addSubmenu($view);
         parent::display($cachable, $urlparams);
-        
+
         return $this;
     }
 }

@@ -6,7 +6,13 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 //-- No direct access
-defined('_JEXEC') || die('=;)');
+defined('_JEXEC') or die('Restricted access');
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Factory;
+use Joomla\CMS\Object\CMSObject;
+use Joomla\CMS\Filesystem\Folder;
+use Joomla\CMS\Installer\Installer;
 jimport('joomla.filesystem.folder');
 
 /**
@@ -27,31 +33,31 @@ class PhocaguestbookHelper
     {
 
         JHtmlSidebar::addEntry(
-        JText::_('COM_PHOCAGUESTBOOK_CONTROL_PANEL')
+        Text::_('COM_PHOCAGUESTBOOK_CONTROL_PANEL')
         , 'index.php?option=com_phocaguestbook&view=phocaguestbookcp'
         , $viewName == 'phocaguestbookcp'
         );
 
         JHtmlSidebar::addEntry(
-        JText::_('COM_PHOCAGUESTBOOK_ITEMS')
+        Text::_('COM_PHOCAGUESTBOOK_ITEMS')
         , 'index.php?option=com_phocaguestbook&view=phocaguestbooks'
         , $viewName == 'phocaguestbooks'
         );
 
         JHtmlSidebar::addEntry(
-        JText::_('COM_PHOCAGUESTBOOK_GUESTBOOKS')
+        Text::_('COM_PHOCAGUESTBOOK_GUESTBOOKS')
         , 'index.php?option=com_categories&extension=com_phocaguestbook'
         , $viewName == 'categories'
         );
 
         JHtmlSidebar::addEntry(
-        JText::_('COM_PHOCAGUESTBOOK_LOGGING')
+        Text::_('COM_PHOCAGUESTBOOK_LOGGING')
         , 'index.php?option=com_phocaguestbook&view=phocaguestbooklogs'
         , $viewName == 'phocaguestbooklogs'
         );
 
         JHtmlSidebar::addEntry(
-        JText::_('COM_PHOCAGUESTBOOK_INFO')
+        Text::_('COM_PHOCAGUESTBOOK_INFO')
         , 'index.php?option=com_phocaguestbook&view=phocaguestbookin'
         , $viewName == 'phocaguestbookin'
         );
@@ -64,8 +70,8 @@ class PhocaguestbookHelper
 	{
 
 		// Reverted a change for version 2.5.6
-		$user	= JFactory::getUser();
-		$result	= new JObject;
+		$user	= Factory::getUser();
+		$result	= new CMSObject;
 
 		if (empty($categoryId)) {
 			$assetName = 'com_phocaguestbook';
@@ -93,12 +99,12 @@ class PhocaguestbookHelper
 	public static function getPhocaVersion()
 	{
 		$folder = JPATH_ADMINISTRATOR . '/components/com_phocaguestbook';
-		if (JFolder::exists($folder)) {
-			$xmlFilesInDir = JFolder::files($folder, '.xml$');
+		if (Folder::exists($folder)) {
+			$xmlFilesInDir = Folder::files($folder, '.xml$');
 		} else {
 			$folder = JPATH_SITE . '/components/com_phocaguestbook';
-			if (JFolder::exists($folder)) {
-				$xmlFilesInDir = JFolder::files($folder, '.xml$');
+			if (Folder::exists($folder)) {
+				$xmlFilesInDir = Folder::files($folder, '.xml$');
 			} else {
 				$xmlFilesInDir = null;
 			}
@@ -107,7 +113,7 @@ class PhocaguestbookHelper
 		$xml_items = array();
 		if (!empty($xmlFilesInDir)) {
 			foreach ($xmlFilesInDir as $xmlfile) {
-				if ($data = \JInstaller::parseXMLInstallFile($folder.'/'.$xmlfile)) {
+				if ($data = Installer::parseXMLInstallFile($folder.'/'.$xmlfile)) {
 					foreach($data as $key => $value) {
 						$xml_items[$key] = $value;
 					}
@@ -120,6 +126,23 @@ class PhocaguestbookHelper
 		} else {
 			return '';
 		}
+	}
+
+    public static function setVars( $task = '') {
+
+		$a			= array();
+		$app		= Factory::getApplication();
+		$a['o'] 	= htmlspecialchars(strip_tags($app->input->get('option')));
+		$a['c'] 	= str_replace('com_', '', $a['o']);
+		$a['n'] 	= 'Phoca' . ucfirst(str_replace('com_phoca', '', $a['o']));
+		$a['l'] 	= strtoupper($a['o']);
+		$a['i']		= 'media/'.$a['o'].'/images/administrator/';
+		$a['ja']	= 'media/'.$a['o'].'/js/administrator/';
+		$a['jf']	= 'media/'.$a['o'].'/js/';
+		$a['s']		= 'media/'.$a['o'].'/css/administrator/'.$a['c'].'.css';
+		$a['task']	= $a['c'] . htmlspecialchars(strip_tags($task));
+		$a['tasks'] = $a['task']. 's';
+		return $a;
 	}
 
 }

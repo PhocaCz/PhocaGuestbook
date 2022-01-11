@@ -6,6 +6,10 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined('JPATH_BASE') or die;
+use Joomla\CMS\Form\FormHelper;
+use Joomla\CMS\Form\Form;
+use Joomla\CMS\Form\FormField;
+use Joomla\CMS\Factory;
 
 JFormHelper::loadFieldClass('text');
 class JFormFieldPhocacaptcha extends JFormFieldText
@@ -14,9 +18,10 @@ class JFormFieldPhocacaptcha extends JFormFieldText
 
 	protected function getInput() {
 
-		$document	= JFactory::getDocument();
-		$session 	= JFactory::getSession();
-		$app		= JFactory::getApplication();
+		$document	= Factory::getDocument();
+
+		$app		= Factory::getApplication();
+		$session 	= $app->getSession();
 		$params 	= $app->getParams();
 		$namespace	= 'pgb'.$params->get('session_suffix', '');
 		$captchaCnt = $session->get('captcha_cnt',  0, $namespace) + 1;

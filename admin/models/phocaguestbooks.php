@@ -6,7 +6,12 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 //-- No direct access
-defined('_JEXEC') || die('=;)');
+defined('_JEXEC') or die('Restricted access');
+use Joomla\CMS\MVC\Model\ListModel;
+use Joomla\CMS\Factory;
+use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Table\Table;
+use Joomla\Utilities\ArrayHelper;
 
 
 //-- Import the class JModelList
@@ -18,7 +23,7 @@ jimport('joomla.application.component.modellist');
  * @package phocaguestbook
  * @subpackage Models
  */
-class PhocaguestbookModelPhocaguestbooks extends JModelList
+class PhocaguestbookModelPhocaguestbooks extends ListModel
 {
 
 	/**
@@ -60,7 +65,7 @@ class PhocaguestbookModelPhocaguestbooks extends JModelList
 	protected function populateState($ordering = null, $direction = null)
 	{
 		// Initialise variables.
-		$app = JFactory::getApplication();
+		$app = Factory::getApplication();
 
 		// Adjust the context to support modal layouts.
 		if ($layout = $app->input->get('layout'))
@@ -85,7 +90,7 @@ class PhocaguestbookModelPhocaguestbooks extends JModelList
 		$this->setState('filter.level', $level);
 
 		// Load the parameters.
-		$params = JComponentHelper::getParams('com_phocaguestbook');
+		$params = ComponentHelper::getParams('com_phocaguestbook');
 		$this->setState('params', $params);
 
 		// List state information.
@@ -119,7 +124,7 @@ class PhocaguestbookModelPhocaguestbooks extends JModelList
     protected function getListQuery()
     {
         // Create a new query object.
-        $db = JFactory::getDBO();
+        $db = Factory::getDBO();
         $query = $db->getQuery(true);
 
 		// Select the required fields from the table.
@@ -165,7 +170,8 @@ class PhocaguestbookModelPhocaguestbooks extends JModelList
 		$baselevel = 1;
 		$categoryId = $this->getState('filter.category_id');
 		if (is_numeric($categoryId) && (int)$categoryId > 0) {
-			$cat_tbl = JTable::getInstance('Category', 'JTable');
+			//$cat_tbl = Table::getInstance('Category', 'Table');
+            $cat_tbl = Table::getInstance('CategoryTable', '\\Joomla\\Component\\Categories\\Administrator\\Table\\');
 			$cat_tbl->load($categoryId);
 			$rgt = $cat_tbl->rgt;
 			$lft = $cat_tbl->lft;
@@ -174,7 +180,7 @@ class PhocaguestbookModelPhocaguestbooks extends JModelList
 			$query->where('c.rgt <= '.(int) $rgt);
 		}
 		elseif (is_array($categoryId)) {
-			\Joomla\Utilities\ArrayHelper::toInteger($categoryId);
+			ArrayHelper::toInteger($categoryId);
 			$categoryId = implode(',', $categoryId);
 			$query->where('a.catid IN ('.$categoryId.')');
 		}

@@ -97,21 +97,19 @@
 		<field 	name="form_position"
 				type="radio"
 				class="btn-group"
-				default="2"
+				default="0"
 				label="COM_PHOCAGUESTBOOK_FIELD_FORM_POSITION_LABEL"
 				description="COM_PHOCAGUESTBOOK_FIELD_FORM_POSITION_DESC">
 			<option value="0">COM_PHOCAGUESTBOOK_TOP</option>
 			<option value="1">COM_PHOCAGUESTBOOK_BOTTOM</option>
-			<option value="2">COM_PHOCAGUESTBOOK_TAB</option>
 		</field>
 		<field 	name="form_style"
 				type="radio"
 				class="btn-group"
-				default="1"
+				default="0"
 				label="COM_PHOCAGUESTBOOK_FIELD_FORM_STYLE_LABEL"
 				description="COM_PHOCAGUESTBOOK_FIELD_FORM_STYLE_DESC">
 			<option value="0">COM_PHOCAGUESTBOOK_STYLE_CLASSIC</option>
-			<option value="1">COM_PHOCAGUESTBOOK_STYLE_ICONS</option>
 		</field>
 
 

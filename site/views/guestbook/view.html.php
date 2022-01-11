@@ -6,9 +6,16 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined('_JEXEC') or die();
+use Joomla\CMS\MVC\View\HtmlView;
+use Joomla\CMS\Factory;
+use Joomla\CMS\Router\Route;
+use Joomla\CMS\Uri\Uri;
+use Joomla\CMS\Language\Text;
+use Joomla\Registry\Registry;
+use Joomla\CMS\HTML\HTMLHelper;
 require_once JPATH_COMPONENT.'/helpers/phocaguestbookonlinecheck.php';
 
-class PhocaguestbookViewGuestbook extends JViewLegacy
+class PhocaguestbookViewGuestbook extends HtmlView
 {
     /**
      * @var
@@ -24,10 +31,10 @@ class PhocaguestbookViewGuestbook extends JViewLegacy
 	function display($tpl = null) {
 
 
-		$app		= JFactory::getApplication();
-		$user  		= JFactory::getUser();
-		$document	= JFactory::getDocument();
-		$session 	= JFactory::getSession();
+		$app		= Factory::getApplication();
+		$user  		= Factory::getUser();
+		$document	= Factory::getDocument();
+		$session 	= $app->getSession();
 
 		// - - - - - - - - - - -
 		// Get constant data from model
@@ -36,8 +43,8 @@ class PhocaguestbookViewGuestbook extends JViewLegacy
 
 		$tmplGet 		= $app->input->get('tmpl', '', 'string');
 		$url			= 'index.php';
-		$url			= JRoute::_($url);
-		$uri 			= JURI::getInstance($url);
+		$url			= Route::_($url);
+		$uri 			= Uri::getInstance($url);
 		if ($tmplGet != '') {
 			$uri->setVar( 'tmpl', $tmplGet );
 		}
@@ -45,34 +52,38 @@ class PhocaguestbookViewGuestbook extends JViewLegacy
 
 		// Check for errors.
 		if ($guestbooks == false) {
-			throw new Exception(JText::_('COM_PHOCAGUESTBOOK_GUESTBOOK_NOT_FOUND'), 404);
+			throw new Exception(Text::_('COM_PHOCAGUESTBOOK_GUESTBOOK_NOT_FOUND'), 404);
 			return false;
 		}
 
 		// Load the parameters.
 		// Merge Global => GUESTBOOK => Menu Item params into new object in view
 		$applparams = $app->getParams();
-		$bookparams = new JRegistry;
-		$menuParams = new JRegistry;
+		$bookparams = new Registry;
+		$menuParams = new Registry;
 		$bookparams->loadString($guestbooks->get('params'));
+
 		if ($menu = $app->getMenu()->getActive()) {
-			$menuParams->loadString($menu->params);
+			$menuParams->loadString($menu->getParams());
 		}
 
 		$params = clone $applparams;
 		$params->merge($bookparams);
 		$params->merge($menuParams);
 
-		if ($params->get('load_bootstrap', 0) == 1) {
-			JHtml::_('bootstrap.loadCss');
-		}
-		JHTML::stylesheet( 'media/com_phocaguestbook/css/phocaguestbook.css' );
+
+
+		//if ($params->get('load_bootstrap', 0) == 1) {
+		//	HTMLHelper::_('bootstrap.loadCss');
+		//}
+		HTMLHelper::stylesheet( 'media/com_phocaguestbook/css/phocaguestbook.css' );
+
 
 		// Check whether category access level allows access.
 		if (!$params->get('access-view')) {
 
-			$uri = \Joomla\CMS\Uri\Uri::getInstance();
-			$app->redirect('index.php?option=com_users&view=login&return=' . base64_encode($uri), JText::_('COM_PHOCAGUESTBOOK_NOT_AUTHORIZED_DO_ACTION'));
+			$uri = Uri::getInstance();
+			$app->redirect('index.php?option=com_users&view=login&return=' . base64_encode($uri), Text::_('COM_PHOCAGUESTBOOK_NOT_AUTHORIZED_DO_ACTION'));
 			return;
 		}
 
@@ -167,7 +178,7 @@ class PhocaguestbookViewGuestbook extends JViewLegacy
 			if ($isSpam) {
 				// Banned Client
 				$params->set('show_form', 0);
-				$app->enqueueMessage(JText::_('COM_PHOCAGUESTBOOK_IP_BAN_NO_ACCESS'), 'error');
+				$app->enqueueMessage(Text::_('COM_PHOCAGUESTBOOK_IP_BAN_NO_ACCESS'), 'error');
 			}
 		} //end of ip check
 
@@ -175,7 +186,7 @@ class PhocaguestbookViewGuestbook extends JViewLegacy
 		// user can create posts
 		if (!$params->get('access-post')){
 			$params->set('show_form', 0);
-			$app->enqueueMessage(JText::_('COM_PHOCAGUESTBOOK_REG_USER_ONLY_NO_ACCESS'), 'warning');
+			$app->enqueueMessage(Text::_('COM_PHOCAGUESTBOOK_REG_USER_ONLY_NO_ACCESS'), 'warning');
 		}
 
 		//check procedure (form was send with error/successful)
@@ -252,7 +263,7 @@ class PhocaguestbookViewGuestbook extends JViewLegacy
 
 			$pagination	= $this->get('pagination');
 
-			$document->addCustomTag('<style type="text/css"> .pgb-comment:after { '."\n\t".'content: "'.JText::_('COM_PHOCAGUESTBOOK_CSS_COMMENT').'";'."\n".'}</style>');
+			$document->addCustomTag('<style type="text/css"> .pgb-comment:after { '."\n\t".'content: "'.Text::_('COM_PHOCAGUESTBOOK_CSS_COMMENT').'";'."\n".'}</style>');
 		}
 		//Escape strings for HTML output
 		$this->pageclass_sfx = htmlspecialchars($params->get('pageclass_sfx'));
@@ -272,7 +283,7 @@ class PhocaguestbookViewGuestbook extends JViewLegacy
 	}
 
 	protected function _prepareDocument() {
-		$app		= JFactory::getApplication();
+		$app		= Factory::getApplication();
 		$pathway 	= $app->getPathway();
 
 		$title = $this->params->get('page_title'); //$this->guestbooks->title; dont use guestbook title
@@ -280,10 +291,10 @@ class PhocaguestbookViewGuestbook extends JViewLegacy
 			$title = $app->get('sitename');
 		}
 		elseif ($app->get('sitename_pagetitles', 0) == 1) {
-			$title = JText::sprintf('JPAGETITLE', $app->get('sitename'), $title);
+			$title = Text::sprintf('JPAGETITLE', $app->get('sitename'), $title);
 		}
 		elseif ($app->get('sitename_pagetitles', 0) == 2) {
-			$title = JText::sprintf('JPAGETITLE', $title, $app->get('sitename'));
+			$title = Text::sprintf('JPAGETITLE', $title, $app->get('sitename'));
 		}
 
 		$this->document->setTitle($title);
@@ -323,9 +334,9 @@ class PhocaguestbookViewGuestbook extends JViewLegacy
 		if ($this->params->get('show_feed_link', 1)) {
 			$link = '&format=feed&limitstart=';
 			$attribs = array('type' => 'application/rss+xml', 'title' => 'RSS 2.0');
-			$this->document->addHeadLink(JRoute::_($link . '&type=rss'), 'alternate', 'rel', $attribs);
+			$this->document->addHeadLink(Route::_($link . '&type=rss'), 'alternate', 'rel', $attribs);
 			$attribs = array('type' => 'application/atom+xml', 'title' => 'Atom 1.0');
-			$this->document->addHeadLink(JRoute::_($link . '&type=atom'), 'alternate', 'rel', $attribs);
+			$this->document->addHeadLink(Route::_($link . '&type=atom'), 'alternate', 'rel', $attribs);
 		}
 	}
 }

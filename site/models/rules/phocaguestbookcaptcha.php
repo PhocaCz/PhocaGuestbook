@@ -7,24 +7,33 @@
  */
 
 defined('_JEXEC') or die;
+use Joomla\CMS\Form\FormRule;
+use Joomla\Registry\Registry;
+use Joomla\CMS\Form\Form;
+use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
 
-class JFormRulePhocaguestbookCaptcha extends JFormRule
+class JFormRulePhocaguestbookCaptcha extends FormRule
 {
-	public function test(SimpleXMLElement $element, $value, $group = null, JRegistry $input = null, JForm $form = null)
+	public function test(SimpleXMLElement $element, $value, $group = null, Registry $input = null, Form $form = null)
 	{
 
 		//E_ERROR, E_WARNING, E_NOTICE, E_USER_ERROR, E_USER_WARNING, E_USER_NOTICE.
 		$info = array();
 		$info['field'] = 'guestbook_captcha';
-		$app		= JFactory::getApplication();
+		$app		= Factory::getApplication();
 		$params 	= $app->getParams();
-		$session = JFactory::getSession();
+		$session = $app->getSession();
 		$namespace = 'pgb'.$params->get('session_suffix', '');
 
 		$captchaId = $session->get('captcha_id',     null, $namespace);
 		$value_exp = $session->get('captcha_result', null, $namespace);
+
+
 		$session->clear('captcha_id',     $namespace);
 		$session->clear('captcha_result', $namespace);
+        //$session->set('captcha_id',    '', $namespace);
+	    //$session->set('captcha_result', '', $namespace);
 
 		$recaptcha_connection_method = $params->get('recaptcha_connection_method', 1);
 
@@ -32,7 +41,9 @@ class JFormRulePhocaguestbookCaptcha extends JFormRule
 		switch ($captchaId) {
 			default:
 			case 1: //COM_PHOCAGUESTBOOK_JOOMLA_CAPTCHA -> do not use this check
-				return new JException(JText::_('COM_PHOCAGUESTBOOK_POSSIBLE_SPAM_DETECTED' ), "105", E_USER_ERROR, $info, false);
+				//return new JException(Text::_('COM_PHOCAGUESTBOOK_POSSIBLE_SPAM_DETECTED' ), "105", E_USER_ERROR, $info, false);
+                 $app->enqueueMessage(Text::_('COM_PHOCAGUESTBOOK_POSSIBLE_SPAM_DETECTED' ), 'warning');
+			        return false;
 				break;
 			case 2: //COM_PHOCAGUESTBOOK_STANDARD_CAPTCHA
 			case 3: //COM_PHOCAGUESTBOOK_MATH_CAPTCHA
@@ -41,17 +52,23 @@ class JFormRulePhocaguestbookCaptcha extends JFormRule
 			case 8: //COM_PHOCAGUESTBOOK_HN_CAPTCHA
 
 				if (!$value_exp) {
-					return new JException(JText::_('COM_PHOCAGUESTBOOK_POSSIBLE_SPAM_DETECTED' ), "105", E_USER_ERROR, $info, false);
+					//return new JException(Text::_('COM_PHOCAGUESTBOOK_POSSIBLE_SPAM_DETECTED' ), "105", E_USER_ERROR, $info, false);
+                     $app->enqueueMessage(Text::_('COM_PHOCAGUESTBOOK_POSSIBLE_SPAM_DETECTED' ), 'warning');
+			        return false;
 				} else if (!$value) {
-					return new JException(JText::_('COM_PHOCAGUESTBOOK_WRONG_CAPTCHA' ), "105", E_USER_ERROR, $info, false);
+					//return new JException(Text::_('COM_PHOCAGUESTBOOK_WRONG_CAPTCHA' ), "105", E_USER_ERROR, $info, false);
+                     $app->enqueueMessage(Text::_('COM_PHOCAGUESTBOOK_WRONG_CAPTCHA' ), 'warning');
+			            return false;
 				} else if ($value != $value_exp) {
-					return new JException(JText::_('COM_PHOCAGUESTBOOK_WRONG_CAPTCHA' ), "105", E_USER_ERROR, $info, false);
+					//return new JException(Text::_('COM_PHOCAGUESTBOOK_WRONG_CAPTCHA' ), "105", E_USER_ERROR, $info, false);
+                     $app->enqueueMessage(Text::_('COM_PHOCAGUESTBOOK_WRONG_CAPTCHA' ), 'warning');
+			            return false;
 				}
 				break;
 			case 5: //COM_PHOCAGUESTBOOK_RECAPTCHA_CAPTCHA
 				require_once JPATH_COMPONENT.'/assets/recaptcha/recaptchalib.php';
 				//We need to reed recaptcha fields!
-				$app = JFactory::getApplication();
+				$app = Factory::getApplication();
 				$challange = $app->input->post->get('recaptcha_challenge_field', 'ABC', 'string');
 				$response = $app->input->post->get('recaptcha_response_field', 'DEF', 'string');
 				$privateKey = $params->get('recaptcha_privatekey', '');
@@ -62,7 +79,9 @@ class JFormRulePhocaguestbookCaptcha extends JFormRule
 									$response);
 				if (!$resp->is_valid) {
 					// What happens when the CAPTCHA was entered incorrectly
-					return new JException(JText::_('COM_PHOCAGUESTBOOK_WRONG_CAPTCHA' ), "105", E_USER_ERROR, $info, false);
+					//return new JException(Text::_('COM_PHOCAGUESTBOOK_WRONG_CAPTCHA' ), "105", E_USER_ERROR, $info, false);
+                    $app->enqueueMessage(Text::_('COM_PHOCAGUESTBOOK_WRONG_CAPTCHA' ), 'warning');
+			        return false;
 				}
 				break;
 			case 7: //COM_PHOCAGUESTBOOK_MOLLOM_CAPTCHA -> not implemented yet!
@@ -76,7 +95,9 @@ class JFormRulePhocaguestbookCaptcha extends JFormRule
 
 				if ($resp == false) {
 					// What happens when the CAPTCHA was entered incorrectly
-					return new JException(JText::_('COM_PHOCAGUESTBOOK_WRONG_CAPTCHA' ), "105", E_USER_ERROR, $info, false);
+					//return new JException(Text::_('COM_PHOCAGUESTBOOK_WRONG_CAPTCHA' ), "105", E_USER_ERROR, $info, false);
+                    $app->enqueueMessage(Text::_('COM_PHOCAGUESTBOOK_WRONG_CAPTCHA' ), 'warning');
+			        return false;
 				}
 				break;
 

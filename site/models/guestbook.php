@@ -7,11 +7,18 @@
  */
 
 //-- No direct access
-defined('_JEXEC') || die('=;)');
+defined('_JEXEC') or die('Restricted access');
+use Joomla\CMS\MVC\Model\FormModel;
+use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Session\Session;
+use Joomla\CMS\Uri\Uri;
+use Joomla\CMS\Filter\InputFilter;
+use Joomla\CMS\Categories\Categories;
 require_once JPATH_COMPONENT.'/helpers/phocaguestbookemail.php';
 
 
-class PhocaguestbookModelGuestbook extends JModelForm
+class PhocaguestbookModelGuestbook extends FormModel
 {
 	//category/guestbook
 	protected $_guestbook;
@@ -19,7 +26,7 @@ class PhocaguestbookModelGuestbook extends JModelForm
 	protected $_guestbookId;
 
 	function __construct() {
-		$app 	= JFactory::getApplication('site');
+		$app 	= Factory::getApplication('site');
 
 		// Load ID
 		$pk  = $app->input->getInt('cid');
@@ -39,23 +46,23 @@ class PhocaguestbookModelGuestbook extends JModelForm
 
 
 	function store(&$data) {
-		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+		Session::checkToken() or jexit(Text::_('JINVALID_TOKEN'));
 
-		$uri 	= \Joomla\CMS\Uri\Uri::getInstance();
-		$app    = JFactory::getApplication();
+		$uri 	= Uri::getInstance();
+		$app    = Factory::getApplication();
 		$params = $this->getState('params');
 
 		// cat id test
 		$id = $this->getState('category.id');
 		if (!$id){
-			jexit(JText::_('COM_PHOCAGUESTBOOK_POSSIBLE_SPAM_DETECTED'));
+			jexit(Text::_('COM_PHOCAGUESTBOOK_POSSIBLE_SPAM_DETECTED'));
 		}
 
 		// HTML Purifier - - - - - - - - - -
 		if ($params->get('enable_html_purifier', 1) == 0) {
 			$filterTags		= '';//preg_split( '#[,\s]+#', trim( ) ); // black list method is used
 			$filterAttrs	= '';//preg_split( '#[,\s]+#', trim( ) ); // black list method is used
-			$filter	= new JFilterInput( $filterTags, $filterAttrs, 1, 1, 1 );
+			$filter	= new InputFilter( $filterTags, $filterAttrs, 1, 1, 1 );
 			$data['guestbook_content']	= $filter->clean( $data['content'] );
 		} else {
 			require_once( JPATH_COMPONENT.'/assets/library/HTMLPurifier.standalone.php' );
@@ -79,6 +86,9 @@ class PhocaguestbookModelGuestbook extends JModelForm
 		$data['date'] = gmdate('Y-m-d H:i:s');   // Create the timestamp for the date
 
 
+        $data['path'] = '';
+
+
 		// SAVING DATA - - - - - - - - - -
 		// TRUE MODEL
 		$row = $this->getTable('phocaguestbook');
@@ -89,7 +99,7 @@ class PhocaguestbookModelGuestbook extends JModelForm
 
 		// Bind the form fields to the table
 		if (!$row->bind($data)) {
-			$this->setError($this->_db->getErrorMsg());
+			$this->setError($row->getError());
 			return false;
 		}
 
@@ -105,23 +115,25 @@ class PhocaguestbookModelGuestbook extends JModelForm
 
 		// Make sure the table is valid
 		if (!$row->check()) {
-			$this->setError($this->_db->getErrorMsg());
+			$this->setError($row->getError());
 			return false;
 		}
 
 
 		// Store the Phoca guestbook table to the database
 		if (!$row->store()) {
-			$this->setError($this->_db->getErrorMsg());
+			$this->setError($row->getError());
+
 			return false;
 		}
 
+
 		// Everything OK - send email for menu item and guestbook
 		if ($params->get('send_email', 0) > 0) {
-			PhocaguestbookEmailHelper::sendPhocaGuestbookMail($params->get('send_email', 0), $data, \Joomla\CMS\Uri\Uri::getInstance()->toString(), $params);
+			PhocaguestbookEmailHelper::sendPhocaGuestbookMail($params->get('send_email', 0), $data, Uri::getInstance()->toString(), $params);
 		}
 		if ($params->get('send_super_email', 0) > 0) {
-			PhocaguestbookEmailHelper::sendPhocaGuestbookMail($params->get('send_super_email', 0), $data, \Joomla\CMS\Uri\Uri::getInstance()->toString(), $params);
+			PhocaguestbookEmailHelper::sendPhocaGuestbookMail($params->get('send_super_email', 0), $data, Uri::getInstance()->toString(), $params);
 		}
 
 		$data['id'] = $row->id;
@@ -134,6 +146,8 @@ class PhocaguestbookModelGuestbook extends JModelForm
 	function doLog(&$logging, $success) {
 		$params = $this->getState('params');
 
+
+
 		if($params->get('enable_logging', 0) &&
 		  ($params->get('logging_failed', 0) || $success )) {
 			$logging->date = gmdate('Y-m-d H:i:s');   // Create the timestamp for the date
@@ -141,17 +155,26 @@ class PhocaguestbookModelGuestbook extends JModelForm
 				$logging->state = 3;	//1 = published, 2 = review, 3 = reject
 			}
 
+
 			// Make sure the table is valid
 			if (!$logging->check()) {
-				$this->setError($this->_db->getErrorMsg());
+				$this->setError($logging->getError());
 				return false;
 			}
 
 			// Store the Phoca guestbook table to the database
 			if (!$logging->store()) {
-				$this->setError($this->_db->getErrorMsg());
-				return false;
+
+                if (!$logging->captchaid) {
+                    $logging->captchaid = 0;
+                }
+                if (!$logging->hidden_field) {
+                    $logging->hidden_field = 0;
+                }
+				$this->setError($logging->getError());
+                return false;
 			}
+
 		}
 
 		return true;
@@ -160,8 +183,8 @@ class PhocaguestbookModelGuestbook extends JModelForm
 
 	protected function populateState($ordering = null, $direction = null)
 	{
-		$app 	= JFactory::getApplication('site');
-		$user	= JFactory::getUser();
+		$app 	= Factory::getApplication('site');
+		$user	= Factory::getUser();
 
 		// Load filter, enable filter.published
 		if ((!$user->authorise('core.edit.state', 'com_phocaguestbook')) &&  (!$user->authorise('core.edit', 'com_phocaguestbook'))){
@@ -264,14 +287,14 @@ class PhocaguestbookModelGuestbook extends JModelForm
 		}
 
 
-		$form->setValue('version', null, $params->get('form_style', 1));
+		$form->setValue('version', null, $params->get('form_style', 0));
 
 		return $form;
 	}
 
 	protected function loadFormData()
 	{
-		$data = (array) JFactory::getApplication()->getUserState('com_phocaguestbook.guestbook.data', array());
+		$data = (array) Factory::getApplication()->getUserState('com_phocaguestbook.guestbook.data', array());
 		return $data;
 	}
 
@@ -289,7 +312,7 @@ class PhocaguestbookModelGuestbook extends JModelForm
 
 
 		$context			= 'com_phocaguestbook.guestbook.';
-		$app				= JFactory::getApplication();
+		$app				= Factory::getApplication();
 
 		$limit = $app->getUserStateFromRequest('list.limit', 'limit', $params->get('default_pagination', 5), 'int');
 		$start = $app->input->get('limitstart', $this->getState('list.limitstart', 0), 'int');
@@ -357,13 +380,13 @@ class PhocaguestbookModelGuestbook extends JModelForm
 	public function getGuestbook()
 	{
 		if (!is_object($this->_guestbook)) {
-			$categories = JCategories::getInstance('Phocaguestbook');
+			$categories = Categories::getInstance('Phocaguestbook');
 
 			$this->_guestbook = $categories->get($this->getState('category.id', 'root'));
 
 			// Compute selected asset permissions.
 			if (is_object($this->_guestbook)) {
-				$user	= JFactory::getUser();
+				$user	= Factory::getUser();
 				$groups	= $user->getAuthorisedViewLevels();
 				$userId	= $user->get('id');
 				$asset	= 'com_phocaguestbook.category.'.$this->getState('category.id', 'root');
@@ -409,10 +432,10 @@ class PhocaguestbookModelGuestbook extends JModelForm
 	function _buildL1Query() {
 		$filter_order = $this->getState('filter.ordering', 'lft');
         $filter_order_dir = $this->getState('filter.direction', 'ASC');
-        $filter_order = JFilterInput::getInstance()->clean($filter_order, 'cmd');
-        $filter_order_dir = JFilterInput::getInstance()->clean($filter_order_dir, 'word');
+        $filter_order = InputFilter::getInstance()->clean($filter_order, 'cmd');
+        $filter_order_dir = InputFilter::getInstance()->clean($filter_order_dir, 'word');
 
-		$db			= JFactory::getDBO();
+		$db			= Factory::getDBO();
 		$where 		= array();
 		$where[]	= 'catid = '.$this->getState('category.id');
 		if ($this->_guestbook->getParams()->get('access-state') != true) {
@@ -440,8 +463,8 @@ class PhocaguestbookModelGuestbook extends JModelForm
 		$filter_order = $this->getState('filter.ordering', 'lft');
         $filter_order_dir = $this->getState('filter.direction', 'ASC');
 
-        $filter_order = JFilterInput::getInstance()->clean($filter_order, 'cmd');
-        $filter_order_dir = JFilterInput::getInstance()->clean($filter_order_dir, 'word');
+        $filter_order = InputFilter::getInstance()->clean($filter_order, 'cmd');
+        $filter_order_dir = InputFilter::getInstance()->clean($filter_order_dir, 'word');
 
         $filter_sub_order_dir = $this->getState('filter.subdirection', 'ASC');
 		if ($filter_sub_order_dir == 'DESC') {
@@ -460,7 +483,7 @@ class PhocaguestbookModelGuestbook extends JModelForm
 
 
 
-		$db			= JFactory::getDBO();
+		$db			= Factory::getDBO();
 		$where		= array();
 		$whereb		= array();
 		$whered		= array();
@@ -524,7 +547,7 @@ class PhocaguestbookModelGuestbook extends JModelForm
 
 		$this->_db->setQuery( $query );
 		if(!$this->_db->query()) {
-			$this->setError($this->_db->getErrorMsg());
+			$this->setError($this->getError());
 			return false;
 		}
 		return true;
@@ -545,7 +568,7 @@ class PhocaguestbookModelGuestbook extends JModelForm
 
 		$this->_db->setQuery( $query );
 		if (!$this->_db->query()) {
-			$this->setError($this->_db->getErrorMsg());
+			$this->setError($this->getError());
 			return false;
 		}
 		return true;

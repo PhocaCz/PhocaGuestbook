@@ -6,12 +6,16 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined('JPATH_BASE') or die;
+use Joomla\CMS\Form\FormHelper;
+use Joomla\CMS\Form\Form;
+use Joomla\CMS\Form\FormField;
+use Joomla\CMS\Language\Text;
 JFormHelper::loadFieldClass('email');
 
 class JFormFieldPhocaEmail extends JFormFieldEMail
 {
 	protected $type 		= 'PhocaEmail';
-	
+
 	protected function getInput() {
 
 		if (!$this->hidden && ($this->form->getValue('version') == 1)) {
@@ -21,24 +25,24 @@ class JFormFieldPhocaEmail extends JFormFieldEMail
 			$maxLength	= $this->element['maxlength'] ? ' maxlength="'.(int) $this->element['maxlength'].'"' : '';
 			$readonly	= ((string) $this->element['readonly'] == 'true') ? ' readonly="readonly"' : '';
 			$disabled	= ((string) $this->element['disabled'] == 'true') ? ' disabled="disabled"' : '';
-			$placeholder= htmlspecialchars($this->getTitle() . ($this->required ? ''.JText::_('COM_PHOCAGUESTBOOK_REQUIREDSIGN') : ''), ENT_COMPAT, 'UTF-8');
+			$placeholder= htmlspecialchars($this->getTitle() . ($this->required ? ''.Text::_('COM_PHOCAGUESTBOOK_REQUIREDSIGN') : ''), ENT_COMPAT, 'UTF-8');
 			// Initialize JavaScript field attributes.
 			$onchange	= $this->element['onchange'] ? ' onchange="'.(string) $this->element['onchange'].'"' : '';
 			$value 		= htmlspecialchars($this->value, ENT_COMPAT, 'UTF-8');
 			$requInput	= $this->required ? ' required="required" aria-required="true"' : '';
-			
+
 			//prepend:
 			$preIcon	= $this->element['preicon'] 	? '<i class="' . $this->element['preicon'] . ' tip" title="' . $placeholder . '"></i>' : '';
 			$postIcon	= $this->element['posticon'] 	? '<i class="' . $this->element['preicon'] . '"></i>' : '';
 			if ($postIcon && $this->element['posthref']) {
 				//$postIcon = '<a href="' . (string) $this->element['posthref'] . '" title="' . JText::_('COM_PHOCAGUESTBOOK_RELOAD_IMAGE') . '" class="btn hasTooltip" >' . $postIcon . '</a>';
-				
-				$postIcon = '<span class="add-on input-group-addon"><a href="' . (string) $this->element['posthref'] . '" title="' . JText::_('COM_PHOCAGUESTBOOK_RELOAD_IMAGE') . '" class="" >' . $postIcon . '</a></span>';
+
+				$postIcon = '<span class="add-on input-group-addon"><a href="' . (string) $this->element['posthref'] . '" title="' . Text::_('COM_PHOCAGUESTBOOK_RELOAD_IMAGE') . '" class="" >' . $postIcon . '</a></span>';
 			}
 
 			// Get the label text from the XML element, defaulting to the element name.
 			$text = $this->element['label'] ? (string) $this->element['label'] : (string) $this->element['name'];
-			$text = $this->translateLabel ? JText::_($text) : $text;
+			$text = $this->translateLabel ? Text::_($text) : $text;
 
 			// Add the opening label tag and main attributes attributes.
 			$label = '<label id="' . $this->id . '-lbl" for="' . $this->id . '" class="element-invisible" title="' . $placeholder  . '">' . $text . '</label>';
@@ -49,17 +53,17 @@ class JFormFieldPhocaEmail extends JFormFieldEMail
 		} else {
 			return parent::getInput();
 		}
-		
+
 	}
-	
+
 	protected function getLabel() {
-		
+
 		if (!$this->hidden && ($this->form->getValue('version') == 1)) {
 			return '';
 		} else {
 			return parent::getLabel();
 		}
 	}
-	
+
 }
 ?>

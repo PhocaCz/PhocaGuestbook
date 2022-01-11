@@ -6,9 +6,13 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined('_JEXEC') or die('Restricted access');
+use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Router\Route;
 
 
-$app				= JFactory::getApplication();
+$app				= Factory::getApplication();
 $values = &$this->values;
 
 		//Maximum of links in the message
@@ -43,10 +47,10 @@ $values = &$this->values;
 		if ($this->params->get('display_comment_email', 1)) {
 			if ($values->email != '') {
 				if ($sep == 1) {
-					echo ' ( '. JHTML::_( 'email.cloak', phocaguestbookHelperFront::wordDelete($values->email, 50, '...') ).' )';
+					echo ' ( '. HTMLHelper::_( 'email.cloak', phocaguestbookHelperFront::wordDelete($values->email, 50, '...') ).' )';
 					$sep = 1;
 				} else {
-					echo JHTML::_( 'email.cloak', phocaguestbookHelperFront::wordDelete($values->email, 50, '...') );
+					echo HTMLHelper::_( 'email.cloak', phocaguestbookHelperFront::wordDelete($values->email, 50, '...') );
 					$sep = 1;
 				}
 			}
@@ -102,22 +106,22 @@ $values = &$this->values;
 		<hr  class="hr-condensed pgb_border"/>
 		<small class="pgb_thi_font">
 			<?php if ($this->params->get('display_comment_date', 1)) {
-				echo JHTML::_('date',  $values->date, JText::_( $this->params->get('date_format', 'DATE_FORMAT_LC') ) );
+				echo HTMLHelper::_('date',  $values->date, Text::_( $this->params->get('date_format', 'DATE_FORMAT_LC') ) );
 				}
 		if ($this->params->get('access-delete') || $this->params->get('access-state')) : ?>
 		<div class="pull-right">
 		<?php
 		if ($this->params->get('access-delete')) : ?>
-			<a href="<?php echo JRoute::_('index.php?option=com_phocaguestbook&task=phocaguestbook.delete&id='.$this->guestbooks->id.'&Itemid='.$app->input->get('Itemid', 0, 'int').'&controller=phocaguestbook&mid='.$values->id.'&start='.$this->pagination->limitstart)?>" onclick="return confirm(\'<?php echo JText::_( 'COM_PHOCAGUESTBOOK_WARNING_DELETE_ITEM' )?>\');" title="<?php echo JText::_('COM_PHOCAGUESTBOOK_DELETE');?>" class="btn hasTooltip">
+			<a href="<?php echo Route::_('index.php?option=com_phocaguestbook&task=phocaguestbook.delete&id='.$this->guestbooks->id.'&Itemid='.$app->input->get('Itemid', 0, 'int').'&controller=phocaguestbook&mid='.$values->id.'&start='.$this->pagination->limitstart)?>" onclick="return confirm(\'<?php echo Text::_( 'COM_PHOCAGUESTBOOK_WARNING_DELETE_ITEM' )?>\');" title="<?php echo Text::_('COM_PHOCAGUESTBOOK_DELETE');?>" class="btn hasTooltip">
 			<i class="glyphicon glyphicon-trash icon-trash"></i>
 			</a>
 		<?php endif;
 		if ($this->params->get('access-state')) :
 			if ($values->published==1) :?>
-				<a href="<?php echo JRoute::_('index.php?option=com_phocaguestbook&task=phocaguestbook.unpublish&id='.$this->guestbooks->id.'&Itemid='.$app->input->get('Itemid', 0, 'int').'&controller=phocaguestbook&mid='.$values->id.'&start='.$this->pagination->limitstart)?>" title="<?php echo JText::_('COM_PHOCAGUESTBOOK_UNPUBLISH');?>" class="btn hasTooltip">
+				<a href="<?php echo Route::_('index.php?option=com_phocaguestbook&task=phocaguestbook.unpublish&id='.$this->guestbooks->id.'&Itemid='.$app->input->get('Itemid', 0, 'int').'&controller=phocaguestbook&mid='.$values->id.'&start='.$this->pagination->limitstart)?>" title="<?php echo Text::_('COM_PHOCAGUESTBOOK_UNPUBLISH');?>" class="btn hasTooltip">
 				<i class="glyphicon glyphicon-remove icon-remove"></i></a>
 			<?php else:  ?>
-				<a href="<?php echo JRoute::_('index.php?option=com_phocaguestbook&task=phocaguestbook.publish&id='.$this->guestbooks->id.'&Itemid='.$app->input->get('Itemid', 0, 'int').'&controller=phocaguestbook&mid='.$values->id.'&start='.$this->pagination->limitstart)?>" title="<?php echo JText::_('COM_PHOCAGUESTBOOK_PUBLISH');?>" class="btn hasTooltip">
+				<a href="<?php echo Route::_('index.php?option=com_phocaguestbook&task=phocaguestbook.publish&id='.$this->guestbooks->id.'&Itemid='.$app->input->get('Itemid', 0, 'int').'&controller=phocaguestbook&mid='.$values->id.'&start='.$this->pagination->limitstart)?>" title="<?php echo Text::_('COM_PHOCAGUESTBOOK_PUBLISH');?>" class="btn hasTooltip">
 				<i class="glyphicon glyphicon-ok icon-ok"></i></a>
 			<?php endif; ?>
 		<?php endif; ?>
