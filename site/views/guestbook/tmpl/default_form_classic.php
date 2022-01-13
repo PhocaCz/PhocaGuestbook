@@ -97,8 +97,10 @@ if ($this->params->get('show_form') == 1) : ?>
 	<?php if ($this->params->get('display_privacy_checkbox_form', 0)):	?>
 		<div class="control-group">
 			<div class="control-label"><?php echo $this->form->getLabel('privacy_checkbox'); ?></div>
-			<div class="controls"><?php echo $this->form->getInput('privacy_checkbox');  ?>
-				<div class="ph-privacy-row"><?php echo $this->params->get('privacy_checkbox_text', ''); ?></div></div>
+			<div class="controls ph-privacy-box">
+                <div class="ph-privacy-checkbox"><?php echo $this->form->getInput('privacy_checkbox');  ?></div>
+				<div class="ph-privacy-text"><?php echo $this->params->get('privacy_checkbox_text', ''); ?></div>
+            </div>
 		</div>
 	<?php endif;?>
 
