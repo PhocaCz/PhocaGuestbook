@@ -69,10 +69,11 @@ class PhocaguestbookHelperFront
 	public static function getInfo() {
 
 		PluginHelper::importPlugin('phocatools');
-        $results = Factory::getApplication()->triggerEvent('PhocatoolsOnDisplayInfo', array('NjI5NTYxNTY5NQ=='));
+        $results = Factory::getApplication()->triggerEvent('onPhocatoolsOnDisplayInfo', array('NjI5NTYxNTY5NQ=='));
         if (isset($results[0]) && $results[0] === true) {
             return '';
         }
+
 
 
 		return '<div style="tex'.'t-alig'

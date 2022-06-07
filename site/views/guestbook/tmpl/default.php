@@ -6,6 +6,8 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 
+
+
 defined('_JEXEC') or die('Restricted access');
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\HTML\HTMLHelper;
@@ -91,6 +93,9 @@ if ($this->params->get('form_style', 0) == 1){
 //  If position = 0 --> Form is top, Messages bottom
 //  If position = 1 --> Form is bottom, Messages top,
 //  If position = 2 --> Use tabs for Message and Form
+
+
+
 switch ($this->params->get('form_position', 0)) {
 	case 0:
 		//echo $this->loadTemplate('form');

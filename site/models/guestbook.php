@@ -60,8 +60,8 @@ class PhocaguestbookModelGuestbook extends FormModel
 
 		// HTML Purifier - - - - - - - - - -
 		if ($params->get('enable_html_purifier', 1) == 0) {
-			$filterTags		= '';//preg_split( '#[,\s]+#', trim( ) ); // black list method is used
-			$filterAttrs	= '';//preg_split( '#[,\s]+#', trim( ) ); // black list method is used
+			$filterTags		= [];//preg_split( '#[,\s]+#', trim( ) ); // black list method is used
+			$filterAttrs	= [];//preg_split( '#[,\s]+#', trim( ) ); // black list method is used
 			$filter	= new InputFilter( $filterTags, $filterAttrs, 1, 1, 1 );
 			$data['guestbook_content']	= $filter->clean( $data['content'] );
 		} else {

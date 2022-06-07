@@ -91,8 +91,8 @@ class PhocaguestbookViewGuestbook extends HtmlView
 		$params->set('date_format',	PhocaguestbookHelperFront::getDateFormat($params->get('date_format', 'DATE_FORMAT_LC')));
 		$params->set('captcha_id', 	PhocaguestbookHelperFront::getCaptchaId($params->get('enable_captcha', '')));
 		$params->set('pgbinfo',		PhocaguestbookHelperFront::getInfo());
-		$params->set('show_form', $params->get('display_form',1));
 
+		$params->set('show_form', $params->get('display_form',1));
 
 		$params->set('show_posts', $params->get('display_posts',1));
 		// Captcha not for registered
