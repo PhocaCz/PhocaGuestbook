@@ -27,8 +27,7 @@ CREATE TABLE IF NOT EXISTS `#__phocaguestbook_items` (
   `language` char(7) NOT NULL default '',
   PRIMARY KEY  (`id`),
   KEY `published` (`published`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
-
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 --
@@ -72,4 +71,4 @@ CREATE TABLE IF NOT EXISTS `#__phocaguestbook_logging` (
   `params` text,
   PRIMARY KEY  (`id`),
   KEY `state` (`state`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
