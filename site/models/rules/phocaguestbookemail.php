@@ -39,7 +39,7 @@ class JFormRulePhocaguestbookEmail extends EmailRule
 
 		//BANNED EMAIL
 		$banned = $params->get('banned_email');
-		foreach(explode(';', $banned) as $item){
+		foreach(explode(';', (string)$banned) as $item){
 			if (trim($item) != '')
 			if (StringHelper::stristr($item, $value) !== false){
 					//return new JException(Text::_('COM_PHOCAGUESTBOOK_BAD_EMAIL' ), "105", E_USER_ERROR, $info, false);

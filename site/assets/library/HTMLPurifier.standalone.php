@@ -2443,7 +2443,7 @@ class HTMLPurifier_Config
     {
         return $this->getDefinition('HTML', true, true);
     }
-    
+
     /**
      * @return HTMLPurifier_CSSDefinition|null
      */
@@ -2451,7 +2451,7 @@ class HTMLPurifier_Config
     {
         return $this->getDefinition('CSS', true, true);
     }
-    
+
     /**
      * @return HTMLPurifier_URIDefinition|null
      */
@@ -8320,7 +8320,7 @@ class HTMLPurifier_PropertyListIterator extends FilterIterator
     /**
      * @return bool
      */
-    public function accept()
+    public function accept() : bool
     {
         $key = $this->getInnerIterator()->key();
         if (strncmp($key, $this->filter, $this->l) !== 0) {
@@ -8438,7 +8438,7 @@ class HTMLPurifier_StringHash extends ArrayObject
      * @param mixed $index
      * @return mixed
      */
-    public function offsetGet($index)
+    public function offsetGet($index) : mixed
     {
         $this->accessed[$index] = true;
         return parent::offsetGet($index);

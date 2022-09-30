@@ -589,7 +589,7 @@ class PhocaguestbookHelperCaptchaEasycalc
 	$params->get('calc_max_value', 20)  // Determine max. operand
 	$params->get('calc_negativ') == 0)*/
 
-	public function createCaptchaData($typeOfOperator, $numOfOperand, $convertToString, $maxValue, $useNegativ){
+	public static function createCaptchaData($typeOfOperator, $numOfOperand, $convertToString, $maxValue, $useNegativ){
 		$captcha = array();
 
         // Determine values
@@ -651,7 +651,7 @@ class PhocaguestbookHelperCaptchaEasycalc
 	}
 
     // Convert numbers into strings, depending on type
-    private function converttostring($x, $type)
+    private static function converttostring($x, $type)
     {
 		switch ($type){
 			case 0: $convert = 0;   break; //do not convert
