@@ -38,7 +38,7 @@ class JFormRulePhocaguestbookEmail extends EmailRule
 		}
 
 		//BANNED EMAIL
-		$banned = $params->get('banned_email');
+		$banned = $params->get('banned_email', '');
 		foreach(explode(';', (string)$banned) as $item){
 			if (trim($item) != '')
 			if (StringHelper::stristr($item, $value) !== false){
