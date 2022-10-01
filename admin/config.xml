@@ -187,6 +187,11 @@
 			<option value="1">COM_PHOCAGUESTBOOK_YES</option>
 		</field>
 
+		<field name="store_ip" type="radio" class="btn-group" default="1" label="COM_PHOCAGUESTBOOK_FIELD_STORE_IP_ADDRESS_LABEL" description="COM_PHOCAGUESTBOOK_FIELD_STORE_IP_ADDRESS_DESC">
+                <option value="0">COM_PHOCAGUESTBOOK_NO</option>
+                <option value="1">COM_PHOCAGUESTBOOK_YES</option>
+            </field>
+
 	</fieldset>
 
 	<fieldset 	name="post"

@@ -92,6 +92,8 @@ class PhocaguestbookControllerPhocaguestbook extends FormController
 		}
 		$logging->captchaid = $captcha_id;
 
+		$store_ip				= $params->get( 'store_ip', 1 );
+
 		// Save params
 		$model->setState('params', $params);
 
@@ -120,6 +122,14 @@ class PhocaguestbookControllerPhocaguestbook extends FormController
 			$data['userip'] = $_SERVER['REMOTE_ADDR'];
 		}
 		$logging->ip = $data['userip'];
+
+		// Anonymize IP - for logging now, for data before saving in model
+		if ($store_ip == 0) {
+			$logging->ip = 'anonymous';
+		}
+
+
+
 
 		//captcha
 		switch ($params->get('captcha_id')) {
@@ -432,6 +442,10 @@ class PhocaguestbookControllerPhocaguestbook extends FormController
 		}
 
 		// CHECKS DONE - store entry
+
+		if ($store_ip == 0) {
+			$data['userip'] = 'anonymous';
+		}
 
 		$msg = '';
 		if ($model->store($data)) {

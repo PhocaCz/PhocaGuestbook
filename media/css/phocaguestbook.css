@@ -65,3 +65,15 @@
 .pgb-btn-danger {
     margin: auto 0.3em;
 }
+
+
+@media (max-width:768px) {
+
+    #phocaguestbook .form-horizontal .controls {
+        margin-left: 0;
+    }
+    #phocaguestbook .form-horizontal .control-label {
+        float: none;
+        display: block;
+    }
+}

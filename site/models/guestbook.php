@@ -51,6 +51,7 @@ class PhocaguestbookModelGuestbook extends FormModel
 		$uri 	= Uri::getInstance();
 		$app    = Factory::getApplication();
 		$params = $this->getState('params');
+        $store_ip				= $params->get( 'store_ip', 1 );
 
 		// cat id test
 		$id = $this->getState('category.id');
@@ -83,6 +84,12 @@ class PhocaguestbookModelGuestbook extends FormModel
 			$data['published'] = $params->get('review_item', 1);
 		}
 		$data['ip'] = $_SERVER["REMOTE_ADDR"];
+
+        if ($store_ip == 0) {
+			$data['userip'] = 'anonymous';
+            $data['ip'] = 'anonymous';
+		}
+
 		$data['date'] = gmdate('Y-m-d H:i:s');   // Create the timestamp for the date
 
 
