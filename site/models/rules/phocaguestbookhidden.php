@@ -10,6 +10,8 @@ defined('_JEXEC') or die;
 use Joomla\CMS\Form\FormRule;
 use Joomla\Registry\Registry;
 use Joomla\CMS\Form\Form;
+use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
 
 class JFormRulePhocaguestbookHidden extends FormRule
 {
@@ -23,7 +25,7 @@ class JFormRulePhocaguestbookHidden extends FormRule
 		//Get POST Data - - - - - - - - -
 		if ($value != '') {
 			//return new JException(JText::_('COM_PHOCAGUESTBOOK_POSSIBLE_SPAM_DETECTED' ), "200", E_ERROR, $info, false);  //no user error! <- system error
-            $app->enqueueMessage(Text::_('COM_PHOCAGUESTBOOK_POSSIBLE_SPAM_DETECTED' ), 'warning');
+            Factory::getApplication()->enqueueMessage(Text::_('COM_PHOCAGUESTBOOK_POSSIBLE_SPAM_DETECTED' ), 'warning');
             return false;
 		}
 
