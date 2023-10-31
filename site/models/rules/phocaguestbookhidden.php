@@ -25,12 +25,8 @@ class JFormRulePhocaguestbookHidden extends FormRule
 		//Get POST Data - - - - - - - - -
 		if ($value != '') {
 			//return new JException(JText::_('COM_PHOCAGUESTBOOK_POSSIBLE_SPAM_DETECTED' ), "200", E_ERROR, $info, false);  //no user error! <- system error
-
             $app = Factory::getApplication();
             $app->enqueueMessage(Text::_('COM_PHOCAGUESTBOOK_POSSIBLE_SPAM_DETECTED' ), 'warning');
-
-            Factory::getApplication()->enqueueMessage(Text::_('COM_PHOCAGUESTBOOK_POSSIBLE_SPAM_DETECTED' ), 'warning');
-
             return false;
 		}
 

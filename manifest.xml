@@ -29,7 +29,7 @@
 		<downloads>
 			<downloadurl type="full" format="zip">https://github.com/PhocaCz/PhocaGuestbook/releases/download/4.0.4/com_phocaguestbook_v4.0.4.zip</downloadurl>
 		</downloads>
-		<sha512>61a9c4e8625b60f79a5a6d94076d18887585c877ed9b3a0293fcac342dac6dcc4be7bf86a466e545caa0632b5bf1265d721a52061605bb3e9019638ae6ce9216</sha512>
+		<sha512>ffb2116d2f6598bc56e61c35bbcae5c52ba153c524eae56f866428ecd53735a693b11b6d0bd34a19cb18dc9733a22227ed018936dcd6b4285a75e756c31d1fac</sha512>
 		<tags>
 			<tag>stable</tag>
 		</tags>
