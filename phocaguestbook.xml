@@ -2,12 +2,12 @@
 <extension type="component" method="upgrade" version="4.0">
 	<name>com_phocaguestbook</name>
 	<author>Jan Pavelka (www.phoca.cz)</author>
-	<creationDate>01/10/2022</creationDate>
+	<creationDate>31/10/2023</creationDate>
 	<authorEmail></authorEmail>
 	<authorUrl>https://www.phoca.cz</authorUrl>
 	<copyright>Jan Pavelka</copyright>
 	<license>GNU/GPL</license>
-	<version>4.0.2</version>
+	<version>4.0.4</version>
 	<description>COM_PHOCAGUESTBOOK_XML_DESCRIPTION</description>
 	<scriptfile>script.php</scriptfile>
 	<projectName>PhocaGuestbook</projectName>

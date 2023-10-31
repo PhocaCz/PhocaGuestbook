@@ -14,7 +14,7 @@ use Joomla\Registry\Registry;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 
-JFormHelper::loadRuleClass('Url');
+FormHelper::loadRuleClass('Url');
 
 class JFormRulePhocaguestbookHomesite extends UrlRule
 {
@@ -24,12 +24,12 @@ class JFormRulePhocaguestbookHomesite extends UrlRule
 		//E_ERROR, E_WARNING, E_NOTICE, E_USER_ERROR, E_USER_WARNING, E_USER_NOTICE.
 		$info = array();
 		$info['field'] = 'guestbook_website';
-		$app		= Factory::getApplication();
 		$params 	= $app->getParams();
 
 		//URL FORMAT
 		if(!parent::test($element, $value, $group, $input, $form)){
 			//return new JException(Text::_('COM_PHOCAGUESTBOOK_BAD_WEBSITE' ), "105", E_USER_ERROR, $info, false);
+            $app		= Factory::getApplication();
             $app->enqueueMessage(Text::_('COM_PHOCAGUESTBOOK_BAD_WEBSITE' ), 'warning');
             return false;
 		}

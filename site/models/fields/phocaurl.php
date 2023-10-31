@@ -10,9 +10,11 @@ use Joomla\CMS\Form\FormHelper;
 use Joomla\CMS\Form\Form;
 use Joomla\CMS\Form\FormField;
 use Joomla\CMS\Language\Text;
-JFormHelper::loadFieldClass('url');
 
-class JFormFieldPhocaUrl extends JFormFieldUrl
+
+FormHelper::loadFieldClass('url');
+
+class JFormFieldPhocaUrl extends FormField
 {
 	protected $type 		= 'PhocaUrl';
 

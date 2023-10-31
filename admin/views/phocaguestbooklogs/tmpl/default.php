@@ -9,6 +9,7 @@
 defined('_JEXEC') or die('Restricted access');
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Language\Text;
 
@@ -48,7 +49,7 @@ echo $r->jsJorderTable($listOrder);
 
 echo $r->startForm($this->t['o'], $this->t['tasks'], 'adminForm');
 echo $r->startMainContainer();
-echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this));
+echo LayoutHelper::render('joomla.searchtools.default', array('view' => $this));
 
 //echo $r->startTable('categoryList');
 echo '<table class="table table-striped pgb-tableinfo" id="categoryList">' . "\n";

@@ -113,7 +113,10 @@ class PhocaguestbookViewGuestbook extends HtmlView
 			$params->set('hidden_field_name', $session->get('hidden_field_name', '', $namespace));
 			$params->set('hidden_field_class', $session->get('hidden_field_class', '', $namespace));
 
-			$document->addCustomTag('<style type="text/css"> .'.$params->get('hidden_field_class').' { '."\n\t".'display: none !important;'."\n".'}</style>');
+			$wa = Factory::getApplication()->getDocument()->getWebAssetManager();
+			$wa->addInlineStyle('.'.$params->get('hidden_field_class').' { '."\n\t".'display: none !important;'."\n".'}');
+
+			//$document->addCustomTag('<style type="text/css"> .'.$params->get('hidden_field_class').' { '."\n\t".'display: none !important;'."\n".'}</style>');
 		} else {
 			$params->set('hidden_field_position', -1);
 		}
@@ -263,7 +266,9 @@ class PhocaguestbookViewGuestbook extends HtmlView
 
 			$pagination	= $this->get('pagination');
 
-			$document->addCustomTag('<style type="text/css"> .pgb-comment:after { '."\n\t".'content: "'.Text::_('COM_PHOCAGUESTBOOK_CSS_COMMENT').'";'."\n".'}</style>');
+			$wa = Factory::getApplication()->getDocument()->getWebAssetManager();
+			$wa->addInlineStyle(' .pgb-comment:after { '."\n\t".'content: "'.Text::_('COM_PHOCAGUESTBOOK_CSS_COMMENT').'";'."\n".'}');
+			//$document->addCustomTag('<style type="text/css"> .pgb-comment:after { '."\n\t".'content: "'.Text::_('COM_PHOCAGUESTBOOK_CSS_COMMENT').'";'."\n".'}</style>');
 		}
 		//Escape strings for HTML output
 		$this->pageclass_sfx = htmlspecialchars($params->get('pageclass_sfx', ''));

@@ -24,7 +24,7 @@ use Joomla\CMS\Editor\Editor;
 
 defined('JPATH_PLATFORM') or die;
 
-class JFormFieldPhocaEditor extends JFormField
+class JFormFieldPhocaEditor extends FormField
 {
 
 	public $type = 'PhocaEditor';
@@ -126,7 +126,10 @@ class JFormFieldPhocaEditor extends JFormField
             $editor .= LayoutHelper::render('joomla.tinymce.textarea', $textarea);
 
            // if (!$app->client->mobile) {
+
                 ///$editor .= LayoutHelper::render('joomla.tinymce.togglebutton');
+                // Joomla TinyMCE JS asks for the button in Javascript
+                $editor .= '<button type="button" disabled class="btn btn-secondary js-tiny-toggler-button" style="display: none"><span style="display: none" class="icon-eye" aria-hidden="true"></span></button>';
            // }
 
             $editor .= '</div>';

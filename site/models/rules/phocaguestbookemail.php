@@ -15,7 +15,7 @@ use Joomla\Registry\Registry;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 
-JFormHelper::loadRuleClass('email');
+FormHelper::loadRuleClass('email');
 use Joomla\String\StringHelper;
 
 class JFormRulePhocaguestbookEmail extends EmailRule

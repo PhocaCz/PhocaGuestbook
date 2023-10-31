@@ -9,6 +9,7 @@
 defined('_JEXEC') or die('Restricted access');
 use Joomla\CMS\MVC\View\HtmlView;
 use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Toolbar\Toolbar;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 use Joomla\CMS\Language\Text;
 
@@ -58,7 +59,7 @@ class PhocaguestbookViewPhocaguestbookIn extends HtmlView
         ToolBarHelper::title(Text::_('COM_PHOCAGUESTBOOK_PG_INFO'), 'info');
 
 		// This button is unnecessary but it is displayed because Joomla! design bug
-		$bar = JToolBar::getInstance( 'toolbar' );
+		$bar = ToolBar::getInstance( 'toolbar' );
 		$dhtml = '<a href="index.php?option=com_phocaguestbook" class="btn btn-small"><i class="icon-home-2" title="'.Text::_('COM_PHOCAGUESTBOOK_CONTROL_PANEL').'"></i> '.Text::_('COM_PHOCAGUESTBOOK_CONTROL_PANEL').'</a>';
 		$bar->appendButton('Custom', $dhtml);
 

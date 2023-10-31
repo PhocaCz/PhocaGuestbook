@@ -70,7 +70,7 @@
 			<option value="0">COM_PHOCAGUESTBOOK_NO</option>
 		</field>
 
-		<field name="privacy_checkbox_text" default="" buttons="0" width="330" type="editor" filter="JComponentHelper::filterText" label="COM_PHOCAGUESTBOOK_FIELD_PRIVACY_CHECKBOX_DESCRIPTION_LABEL" description="COM_PHOCAGUESTBOOK_FIELD_PRIVACY_CHECKBOX_DESCRIPTION_DESC"/>
+		<field name="privacy_checkbox_text" default="" buttons="0" width="330" type="editor" filter="\Joomla\CMS\Component\ComponentHelper::filterText" label="COM_PHOCAGUESTBOOK_FIELD_PRIVACY_CHECKBOX_DESCRIPTION_LABEL" description="COM_PHOCAGUESTBOOK_FIELD_PRIVACY_CHECKBOX_DESCRIPTION_DESC"/>
 
 		<field 	name="enable_editor"
 				type="radio"

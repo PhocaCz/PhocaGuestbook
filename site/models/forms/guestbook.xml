@@ -18,7 +18,7 @@
 			id="guestbook-website" 		validate="phocaguestbookhomesite"	preicon="glyphicon glyphicon-home icon-home"
 			description="COM_PHOCAGUESTBOOK_FIELD_WEBSITE_DESC"  />
 
-		<field name="content" type="phocaeditor"  label="COM_PHOCAGUESTBOOK_CONTENT" id="guestbook-content" 	validate="phocaguestbookcontent" rows="10" description="COM_PHOCAGUESTBOOK_FIELD_CONTENT_DESC" class="inputbox input-xxlarge" filter="JComponentHelper::filterText" buttons="false" editor="tinymce" hide="readmore,pagebreak,module,article,contact,menu,fields" />
+		<field name="content" type="phocaeditor"  label="COM_PHOCAGUESTBOOK_CONTENT" id="guestbook-content" 	validate="phocaguestbookcontent" rows="10" description="COM_PHOCAGUESTBOOK_FIELD_CONTENT_DESC" class="inputbox input-xxlarge" filter="\Joomla\CMS\Component\ComponentHelper::filterText" buttons="false" editor="tinymce" hide="readmore,pagebreak,module,article,contact,menu,fields" />
 
 		<field
 			name="privacy_checkbox"

@@ -11,9 +11,10 @@ defined('_JEXEC') or die('Restricted access');
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
+use Joomla\CMS\Factory;
 
 // Include the component HTML helpers.
-JHtml::addIncludePath(JPATH_COMPONENT.'/helpers/html');
+HtmlHelper::addIncludePath(JPATH_COMPONENT.'/helpers/html');
 
 
 
@@ -22,7 +23,7 @@ $params = $this->state->get('params');
 $params = $params->toArray();
 
 
-JFactory::getDocument()->addScriptDeclaration(
+Factory::getDocument()->addScriptDeclaration(
 
 'Joomla.submitbutton = function(task) {
 	if (task != "'. $this->t['task'].'.cancel" && document.getElementById("jform_catid").value == "") {

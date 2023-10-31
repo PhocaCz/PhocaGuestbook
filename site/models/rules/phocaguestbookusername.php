@@ -13,7 +13,7 @@ use Joomla\CMS\Form\FormRule;
 use Joomla\Registry\Registry;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
-JFormHelper::loadRuleClass('Username');
+FormHelper::loadRuleClass('Username');
 
 class JFormRulePhocaguestbookUsername extends UsernameRule
 {

@@ -18,18 +18,18 @@
 		<field name="catid" 		type="category"		label="COM_PHOCAGUESTBOOK_FIELD_GUESTBOOK_LABEL"
 			description="COM_PHOCAGUESTBOOK_FIELD_GUESTBOOK_DESC" required="true" extension="com_phocaguestbook"/>
 		<field name="date" 			type="calendar"  class="form-control"	label="COM_PHOCAGUESTBOOK_FIELD_DATE_LABEL"
-			description="COM_PHOCAGUESTBOOK_FIELD_DATE_DESC"	format="%Y-%m-%d %H:%M:%S"	filter="user_utc" />
+			description="COM_PHOCAGUESTBOOK_FIELD_DATE_DESC" filter="user_utc" translateformat="true" />
 		<field name="email" 		type="text"		class="form-control"	label="COM_PHOCAGUESTBOOK_FIELD_EMAIL_LABEL"
 			description="COM_PHOCAGUESTBOOK_FIELD_EMAIL_DESC"  />
 		<field name="homesite" 		type="text"  	class="form-control"	label="COM_PHOCAGUESTBOOK_FIELD_WEBSITE_LABEL"
-			description="COM_PHOCAGUESTBOOK_FIELD_WEBSITE_DESC"/>		
+			description="COM_PHOCAGUESTBOOK_FIELD_WEBSITE_DESC"/>
 <!--field name="ordering" type="PHOCAGUESTBOOKOrdering" table="item" class="form-control" label="COM_PHOCAGUESTBOOK_FIELD_ORDERING_LABEL" description="COM_PHOCAGUESTBOOK_FIELD_ORDERING_DESC" /-->
 
 		<field name="content" type="editor" label="COM_PHOCAGUESTBOOK_FIELD_CONTENT_LABEL"
 			description="COM_PHOCAGUESTBOOK_FIELD_CONTENT_DESC" class="form-control"
-			filter="JComponentHelper::filterText"   buttons="true" 
+			filter="\Joomla\CMS\Component\ComponentHelper::filterText"   buttons="true"
 			hide="pagebreak,readmore"/>
-			
+
 	</fieldset>
 	<fieldset name="attribs">
 		<field name="published" type="list" label="COM_PHOCAGUESTBOOK_FIELD_PUBLISHED_LABEL"
@@ -44,7 +44,7 @@
 			description="COM_PHOCAGUESTBOOK_FIELD_LANGUAGE_ITEM_DESC" class="small">
 			<option value="*">JALL</option>
 		</field>
-		
+
 
     </fieldset>
 </form>

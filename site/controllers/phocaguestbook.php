@@ -496,7 +496,7 @@ class PhocaguestbookControllerPhocaguestbook extends FormController
 
 		if ($bookparams->get('access-delete')) {
 
-			if (count( $cid ) < 1) {
+			if ((int)$cid < 1) {
 
 				throw new Exception(Text::_( 'COM_PHOCAGUESTBOOK_WARNING_SELECT_ITEM_DELETE' ), 500);
 				return false;
@@ -546,7 +546,7 @@ class PhocaguestbookControllerPhocaguestbook extends FormController
 		$limitstart	= $this->input->getInt( 'start', '');
 
 		if ($bookparams->get('access-state')) {
-			if (count( $entryid ) < 1) {
+			if ((int)$entryid < 1) {
 
 				throw new Exception(Text::_( 'COM_PHOCAGUESTBOOK_WARNING_SELECT_ITEM_UNPUBLISH' ), 500);
 				return false;
@@ -562,7 +562,7 @@ class PhocaguestbookControllerPhocaguestbook extends FormController
 		}
 
 		// Redirect
-		$link	= 'index.php?option=com_phocaguestbook&task=phocaguestbook.guestbook&id='.$id.'&Itemid='.$itemid.'&start='.$limitstart;
+		$link	= 'index.php?option=com_phocaguestbook&task=phocaguestbook.guestbook&id='.$entryid.'&Itemid='.$itemid.'&start='.$limitstart;
 		$link	= Route::_($link, false);
 		$this->setRedirect( $link);
 	}

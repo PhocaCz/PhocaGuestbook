@@ -65,7 +65,7 @@ echo '</div>';
 
 
 echo '<div class="ph-extension-links-box">';
-echo JText::_('COM_PHOCAGUESTBOOK_SECURITY_PARAMETERS_SETTINGS') . '<br>';
+echo Text::_('COM_PHOCAGUESTBOOK_SECURITY_PARAMETERS_SETTINGS') . '<br>';
 echo '<a href="https://www.phoca.cz/documents/3-phoca-guestbook-component/436-trying-to-prevent-from-spam" style="text-decoration:underline;" target="_blank">Trying to prevent from spam</a>';
 echo '</div>';
 

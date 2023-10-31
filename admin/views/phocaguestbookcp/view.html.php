@@ -6,6 +6,8 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined('_JEXEC') or die();
+
+use Joomla\CMS\HTML\Helpers\Sidebar;
 use Joomla\CMS\MVC\View\HtmlView;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
@@ -47,7 +49,7 @@ class PhocaguestbookViewPhocaguestbookCp extends HtmlView
 		$this->t['version'] = PhocaguestbookHelper::getPhocaVersion();
 
 		$this->addToolBar();
-		$this->sidebar = JHtmlSidebar::render();
+		$this->sidebar = Sidebar::render();
 
         parent::display($tpl);
     }

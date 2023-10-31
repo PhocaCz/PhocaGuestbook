@@ -7,11 +7,15 @@
  */
 //-- No direct access
 defined('_JEXEC') or die('Restricted access');
+
+use Joomla\CMS\HTML\Helpers\StringHelper;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Filter\OutputFilter;
+
 
 $r 			= $this->r;
 $user		= Factory::getUser();
@@ -57,7 +61,7 @@ echo $r->jsJorderTable($listOrder);
 
 echo $r->startForm($this->t['o'], $this->t['tasks'], 'adminForm');
 echo $r->startMainContainer();
-echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this));
+echo LayoutHelper::render('joomla.searchtools.default', array('view' => $this));
 
 
 //echo $r->startTable('categoryList');
@@ -242,7 +246,7 @@ if (is_array($this->items)) {
 
             $content = strip_tags($item->content);
             $content = OutputFilter::cleanText($content);
-            echo $r->td(JHtmlString::truncate($content, 40, true, false));
+            echo $r->td(StringHelper::truncate($content, 40, true, false));
 
             echo $r->td($this->escape($item->username));
             echo $r->td($item->ip);
@@ -311,7 +315,7 @@ if (is_array($this->items)) {
 				<td class="hidden-phone"><?php
 					$content = strip_tags($item->content);
 					$content = OutputFilter::cleanText($content);
-					echo JHtmlString::truncate($content, 40, true, false);
+					echo StringHelper::truncate($content, 40, true, false);
 				?></td>
 				<td>
 					<?php echo $this->escape($item->username) ?>

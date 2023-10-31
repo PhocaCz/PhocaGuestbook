@@ -376,7 +376,7 @@ class PhocaguestbookModelGuestbook extends FormModel
 		if (empty($this->_pagination)) {
 			jimport( 'joomla.html.pagination' );
 
-			//$this->_pagination = new JPagination($this->getTotal(), $this->getState('list.start'), $this->getState('list.limit') );
+			//$this->_pagination = new Pagination($this->getTotal(), $this->getState('list.start'), $this->getState('list.limit') );
 			$this->_pagination = new PhocaGuestbookPaginationPosts( $this->getTotal(), $this->getState('list.start'), $this->getState('list.limit') );
 		}
 
@@ -451,7 +451,7 @@ class PhocaguestbookModelGuestbook extends FormModel
 
 		// Filter by language
 		if ($this->getState('filter.language')) {
-			$where[] =  'language IN ('.$db->Quote(JFactory::getLanguage()->getTag()).','.$db->Quote('*').')';
+			$where[] =  'language IN ('.$db->Quote(Factory::getLanguage()->getTag()).','.$db->Quote('*').')';
 		}
 
 		$where[]	= 'level = 1';
@@ -506,9 +506,9 @@ class PhocaguestbookModelGuestbook extends FormModel
 
 		// Filter by language
 		if ($this->getState('filter.language')) {
-			$where[]  =  'language IN ('.$db->Quote(JFactory::getLanguage()->getTag()).','.$db->Quote('*').')';
-			$whereb[] =  'b.language IN ('.$db->Quote(JFactory::getLanguage()->getTag()).','.$db->Quote('*').')';
-			$whered[] =  'd.language IN ('.$db->Quote(JFactory::getLanguage()->getTag()).','.$db->Quote('*').')';
+			$where[]  =  'language IN ('.$db->Quote(Factory::getLanguage()->getTag()).','.$db->Quote('*').')';
+			$whereb[] =  'b.language IN ('.$db->Quote(Factory::getLanguage()->getTag()).','.$db->Quote('*').')';
+			$whered[] =  'd.language IN ('.$db->Quote(Factory::getLanguage()->getTag()).','.$db->Quote('*').')';
 		}
 
 		$where[] = 'level = 1';
@@ -553,7 +553,7 @@ class PhocaguestbookModelGuestbook extends FormModel
 			->where($where);
 
 		$this->_db->setQuery( $query );
-		if(!$this->_db->query()) {
+		if(!$this->_db->execute()) {
 			$this->setError($this->getError());
 			return false;
 		}
@@ -574,7 +574,7 @@ class PhocaguestbookModelGuestbook extends FormModel
 			->where($where);
 
 		$this->_db->setQuery( $query );
-		if (!$this->_db->query()) {
+		if (!$this->_db->execute()) {
 			$this->setError($this->getError());
 			return false;
 		}

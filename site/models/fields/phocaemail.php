@@ -10,9 +10,11 @@ use Joomla\CMS\Form\FormHelper;
 use Joomla\CMS\Form\Form;
 use Joomla\CMS\Form\FormField;
 use Joomla\CMS\Language\Text;
-JFormHelper::loadFieldClass('email');
+use Joomla\CMS\Form\Field\EmailField;
 
-class JFormFieldPhocaEmail extends JFormFieldEMail
+FormHelper::loadFieldClass('email');
+
+class JFormFieldPhocaEmail extends EmailField
 {
 	protected $type 		= 'PhocaEmail';
 

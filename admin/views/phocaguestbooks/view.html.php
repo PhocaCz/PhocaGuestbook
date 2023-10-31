@@ -8,6 +8,8 @@
 
 //-- No direct access
 defined('_JEXEC') or die('Restricted access');
+
+use Joomla\CMS\HTML\Helpers\Sidebar;
 use Joomla\CMS\MVC\View\HtmlView;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\HTML\HTMLHelper;
@@ -60,7 +62,7 @@ class PhocaguestbookViewPhocaguestbooks extends HtmlView
 		$this->f_levels = $options;
 
 		$this->addToolBar();
-		$this->sidebar = JHtmlSidebar::render();
+		$this->sidebar = Sidebar::render();
 
         parent::display($tpl);
     }

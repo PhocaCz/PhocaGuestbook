@@ -108,11 +108,11 @@ if ($this->params->get('show_form') == 1) : ?>
 	<div class="btn-toolbar">
 		<div class="btn-group">
 			<button type="submit" class="btn btn-primary pgb-btn-primary">
-				<?php /*<i class="glyphicon glyphicon-ok icon-ok"></i> <?php*/ echo JText::_('COM_PHOCAGUESTBOOK_SUBMIT');?></button>
+				<?php /*<i class="glyphicon glyphicon-ok icon-ok"></i> <?php*/ echo Text::_('COM_PHOCAGUESTBOOK_SUBMIT');?></button>
 		</div>
 		<div class="btn-group">
 			<button type="button" class="btn btn-danger pgb-btn-danger" onclick="Joomla.submitbutton('phocaguestbook.cancel')">
-				<?php /*<i class="glyphicon glyphicon-remove icon-remove"></i><?php*/ echo JText::_('COM_PHOCAGUESTBOOK_RESET');?>	</button>
+				<?php /*<i class="glyphicon glyphicon-remove icon-remove"></i><?php*/ echo Text::_('COM_PHOCAGUESTBOOK_RESET');?>	</button>
 		</div>
 	</div>
 

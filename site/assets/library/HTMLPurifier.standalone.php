@@ -121,6 +121,8 @@ class HTMLPurifier
      */
     public $context;
 
+
+
     /**
      * Initializes the purifier.
      *
@@ -4225,7 +4227,8 @@ class HTMLPurifier_Encoder
             $str = strtr($str, self::testEncodingSupportsASCII($encoding));
             return $str;
         } elseif ($encoding === 'iso-8859-1') {
-            $str = utf8_encode($str);
+           // $str = utf8_encode($str);
+            $str = mb_convert_encoding($str, 'UTF-8', 'ISO-8859-1');
             return $str;
         }
         $bug = HTMLPurifier_Encoder::testIconvTruncateBug();
@@ -7670,6 +7673,9 @@ class HTMLPurifier_Lexer
      * If it does, set to true.
      */
     public $tracksLineNumbers = false;
+
+       public $_entity_parser;
+
 
     // -- STATIC ----------------------------------------------------------
 
@@ -14129,6 +14135,8 @@ class HTMLPurifier_AttrTransform_Name extends HTMLPurifier_AttrTransform
 class HTMLPurifier_AttrTransform_NameSync extends HTMLPurifier_AttrTransform
 {
 
+
+    public $idDef;
     public function __construct()
     {
         $this->idDef = new HTMLPurifier_AttrDef_HTML_ID();
@@ -14750,6 +14758,7 @@ class HTMLPurifier_ChildDef_List extends HTMLPurifier_ChildDef
      * @type string
      */
     public $type = 'list';
+    private $whitespace = false;
     /**
      * @type array
      */
@@ -15521,6 +15530,8 @@ class HTMLPurifier_DefinitionCache_Null extends HTMLPurifier_DefinitionCache
 
 class HTMLPurifier_DefinitionCache_Serializer extends HTMLPurifier_DefinitionCache
 {
+
+
 
     /**
      * @param HTMLPurifier_Definition $def

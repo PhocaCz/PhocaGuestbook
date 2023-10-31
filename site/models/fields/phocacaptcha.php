@@ -10,9 +10,10 @@ use Joomla\CMS\Form\FormHelper;
 use Joomla\CMS\Form\Form;
 use Joomla\CMS\Form\FormField;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Form\Field\TextField;
 
-JFormHelper::loadFieldClass('text');
-class JFormFieldPhocacaptcha extends JFormFieldText
+FormHelper::loadFieldClass('text');
+class JFormFieldPhocacaptcha extends TextField
 {
 	protected $type 		= 'phocacaptcha';
 
@@ -28,6 +29,8 @@ class JFormFieldPhocacaptcha extends JFormFieldText
 
 		$id = $session->get('captcha_id', '', $namespace);
 
+		$wa = Factory::getApplication()->getDocument()->getWebAssetManager();
+
 		switch ($id){
 			default:
 			case 1: //COM_PHOCAGUESTBOOK_JOOMLA_CAPTCHA -> do not use this function -> is error
@@ -37,7 +40,9 @@ class JFormFieldPhocacaptcha extends JFormFieldText
 			case 8: //COM_PHOCAGUESTBOOK_HN_CAPTCHA
 				//Add relaod java script
 				$js = PhocaguestbookHelperFront::setCaptchaReloadJS();
-				$document->addScriptDeclaration($js);
+				//$document->addScriptDeclaration($js);
+				$wa->addInlineScript($js);
+
 				$retval = '<p class="pgb-captcha-in">' .phocaguestbookHelperFront::getCaptchaUrl($id). '</p> '  . parent::getInput();
 
 				break;
@@ -48,7 +53,8 @@ class JFormFieldPhocacaptcha extends JFormFieldText
 				$publicKey = $params->get('recaptcha_publickey', '');
 				$theme     = $params->get('recaptcha_theme', 'red');
 				$js     = 'var RecaptchaOptions = { theme : "'.$theme.'" };';
-				$document->addScriptDeclaration($js);
+				//$document->addScriptDeclaration($js);
+				$wa->addInlineScript($js);
 
 				$session->set('captcha_cnt', $captchaCnt, $namespace); 					//Set new Retry count
 				//$retval = '</div><div>' . PhocaGuestbookHelperReCaptcha::recaptcha_get_html($publicKey);
@@ -64,15 +70,12 @@ class JFormFieldPhocacaptcha extends JFormFieldText
 				//$document->addScriptDeclaration($js);
 
 
-
-
-
-
 				$session->set('captcha_cnt', $captchaCnt, $namespace); 					//Set new Retry count
 
 				$siteKey	= strip_tags(trim($params->get( 'recaptcha_publickey', '' )));
 
-				$document->addScript('https://www.google.com/recaptcha/api.js');
+				//$document->addScript('https://www.google.com/recaptcha/api.js');
+				$wa->registerAndUseScript('com_phocaguestbook.recaptcha', 'https://www.google.com/recaptcha/api.js', array('version' => 'auto'));
 				$retval =  '</div><div><div class="g-recaptcha" data-sitekey="'.$siteKey.'"></div>';
 
 				break;
@@ -97,7 +100,8 @@ class JFormFieldPhocacaptcha extends JFormFieldText
 				require_once JPATH_COMPONENT.'/helpers/phocaguestbookonlinecheck.php';
 				//Add relaod java script
 				$js = PhocaguestbookHelperFront::setCaptchaReloadJS();
-				$document->addScriptDeclaration($js);
+				//$document->addScriptDeclaration($js);
+				$wa->addInlineScript($js);
 				$mollomSession = $session->get('captcha_session', null, $namespace);
 
 				$captcha = PhocaguestbookOnlinecheckHelper::createMollomCaptcha(

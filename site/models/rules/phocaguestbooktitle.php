@@ -22,6 +22,7 @@ class JFormRulePhocaguestbookTitle extends FormRule
 
 		if (preg_match("~[<|>]~",$value)) {
 			//return new JException(Text::_('COM_PHOCAGUESTBOOK_BAD_SUBJECT' ), "105", E_USER_ERROR, $info, false);
+            $app		= Factory::getApplication();
             $app->enqueueMessage(Text::_('COM_PHOCAGUESTBOOK_BAD_SUBJECT' ), 'warning');
 			return false;
 		}

@@ -7,6 +7,8 @@
  */
 //-- No direct access
 defined('_JEXEC') or die('Restricted access');
+
+use Joomla\CMS\HTML\Helpers\Sidebar;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Factory;
@@ -32,31 +34,31 @@ class PhocaguestbookHelper
     public static function addSubmenu($viewName = 'phocaguestbookcp')
     {
 
-        JHtmlSidebar::addEntry(
+        Sidebar::addEntry(
         Text::_('COM_PHOCAGUESTBOOK_CONTROL_PANEL')
         , 'index.php?option=com_phocaguestbook&view=phocaguestbookcp'
         , $viewName == 'phocaguestbookcp'
         );
 
-        JHtmlSidebar::addEntry(
+        Sidebar::addEntry(
         Text::_('COM_PHOCAGUESTBOOK_ITEMS')
         , 'index.php?option=com_phocaguestbook&view=phocaguestbooks'
         , $viewName == 'phocaguestbooks'
         );
 
-        JHtmlSidebar::addEntry(
+        Sidebar::addEntry(
         Text::_('COM_PHOCAGUESTBOOK_GUESTBOOKS')
         , 'index.php?option=com_categories&extension=com_phocaguestbook'
         , $viewName == 'categories'
         );
 
-        JHtmlSidebar::addEntry(
+        Sidebar::addEntry(
         Text::_('COM_PHOCAGUESTBOOK_LOGGING')
         , 'index.php?option=com_phocaguestbook&view=phocaguestbooklogs'
         , $viewName == 'phocaguestbooklogs'
         );
 
-        JHtmlSidebar::addEntry(
+        Sidebar::addEntry(
         Text::_('COM_PHOCAGUESTBOOK_INFO')
         , 'index.php?option=com_phocaguestbook&view=phocaguestbookin'
         , $viewName == 'phocaguestbookin'
