@@ -6,6 +6,8 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU/GPL
  */
 defined('JPATH_BASE') or die;
+
+use Joomla\CMS\Form\Field\UrlField;
 use Joomla\CMS\Form\FormHelper;
 use Joomla\CMS\Form\Form;
 use Joomla\CMS\Form\FormField;
@@ -14,7 +16,7 @@ use Joomla\CMS\Language\Text;
 
 FormHelper::loadFieldClass('url');
 
-class JFormFieldPhocaUrl extends FormField
+class JFormFieldPhocaUrl extends UrlField
 {
 	protected $type 		= 'PhocaUrl';
 

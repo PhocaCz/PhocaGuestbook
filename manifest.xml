@@ -24,12 +24,11 @@
 		<description><![CDATA[ Phoca Guestbook is Joomla! CMS component. It displays guestbook form with Captcha (8 types of Captcha) and many other different internal or external spam protection methods. ]]></description>
 		<element>com_phocaguestbook</element>
 		<type>component</type>
-		<version>4.0.4</version>
-		<infourl title="Phoca Guestbook 4.0.4">http://www.phoca.cz/version/index.php?phocaguestbook=4.0.4</infourl>
+		<version>4.0.5</version>
+		<infourl title="Phoca Guestbook 4.0.5">http://www.phoca.cz/version/index.php?phocaguestbook=4.0.5</infourl>
 		<downloads>
-			<downloadurl type="full" format="zip">https://github.com/PhocaCz/PhocaGuestbook/releases/download/4.0.4/com_phocaguestbook_v4.0.4.zip</downloadurl>
+			<downloadurl type="full" format="zip">https://github.com/PhocaCz/PhocaGuestbook/releases/download/4.0.5/com_phocaguestbook_v4.0.5.zip</downloadurl>
 		</downloads>
-		<sha512>ffb2116d2f6598bc56e61c35bbcae5c52ba153c524eae56f866428ecd53735a693b11b6d0bd34a19cb18dc9733a22227ed018936dcd6b4285a75e756c31d1fac</sha512>
 		<tags>
 			<tag>stable</tag>
 		</tags>
@@ -37,6 +36,26 @@
 		<maintainerurl>https://www.phoca.cz/</maintainerurl>
 		<section>Updates</section>
 		<targetplatform name="joomla" version="4\.*"/>
+		<client>administrator</client>
+	</update>
+	<update>
+		<name><![CDATA[ Phoca Guestbook ]]></name>
+		<description><![CDATA[ Phoca Guestbook is Joomla! CMS component. It displays guestbook form with Captcha (8 types of Captcha) and many other different internal or external spam protection methods. ]]></description>
+		<element>com_phocaguestbook</element>
+		<type>component</type>
+		<version>5.0.0</version>
+		<infourl title="Phoca Guestbook 5.0.0">http://www.phoca.cz/version/index.php?phocaguestbook=5.0.0</infourl>
+		<downloads>
+			<downloadurl type="full" format="zip">https://github.com/PhocaCz/PhocaGuestbook/releases/download/5.0.0/com_phocaguestbook_v5.0.0.zip</downloadurl>
+		</downloads>
+		<sha512>44fdc032675d048f1dcf028b3b14347fb4d8e934b189743bf78cb408db50c35c899870d63280f057c49781acb96fd3d21f2e7851c07b77b4014048a275bc5871</sha512>
+		<tags>
+			<tag>stable</tag>
+		</tags>
+		<maintainer><![CDATA[ Phoca.cz ]]></maintainer>
+		<maintainerurl>https://www.phoca.cz/</maintainerurl>
+		<section>Updates</section>
+		<targetplatform name="joomla" version="(4|5)\.*"/>
 		<client>administrator</client>
 	</update>
 </updates>

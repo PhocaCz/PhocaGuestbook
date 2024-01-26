@@ -76,7 +76,7 @@ class PhocaguestbookViewPhocaguestbooklogs extends HtmlView
 		//TOOLBAR
 
         $bar = ToolBar::getInstance( 'toolbar' );
-		$dhtml = '<a href="index.php?option=com_phocaguestbook" class="btn btn-small"><i class="icon-home-2" title="'.Text::_('COM_PHOCAGUESTBOOK_CONTROL_PANEL').'"></i> '.Text::_('COM_PHOCAGUESTBOOK_CONTROL_PANEL').'</a>';
+		$dhtml = '<a href="index.php?option=com_phocaguestbook" class="btn btn-primary btn-small"><i class="icon-home-2" title="'.Text::_('COM_PHOCAGUESTBOOK_CONTROL_PANEL').'"></i> '.Text::_('COM_PHOCAGUESTBOOK_CONTROL_PANEL').'</a>';
 		$bar->appendButton('Custom', $dhtml);
 
         ToolbarHelper::title(Text::_('COM_PHOCAGUESTBOOK_LOGGING'), 'file-2');

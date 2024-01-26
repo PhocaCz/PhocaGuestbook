@@ -602,7 +602,7 @@ class PhocaguestbookModelGuestbook extends FormModel
 
 			$query = "INSERT INTO `#__phocaguestbook_items` (`id`, `catid`, `parent_id`, `lft`, `rgt`, `level`, `path`, `username`, `userid`, `email`, `homesite`, `ip`, `title`, `alias`, `content`, `date`, `published`, `checked_out`, `checked_out_time`, `params`, `language`) VALUES (1, 0, 0, 0, 1, 0, '', 'ROOT', 0, '', '', '', 'root', 'root', '', '0000-00-00 00:00:00', 0, 0, '0000-00-00 00:00:00', '', '*');";
 			$this->_db->setQuery($query);
-			if (!$this->_db->query()) {
+			if (!$this->_db->execute()) {
 				$this->setError('Database Error Check Reference');
 				return false;
 			}
