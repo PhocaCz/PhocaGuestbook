@@ -289,7 +289,7 @@ class PhocaguestbookModelGuestbook extends FormModel
 		}
 
 		//$form->setFieldAttribute('content', 'type', 'textarea');
-		if (false == $params->get('enable_editor', 1)) {
+		if (false == $params->get('enable_editor', 0)) {
 			$form->setFieldAttribute('content', 'type', 'textarea');
 		}
 

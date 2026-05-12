@@ -12,6 +12,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Table\Table;
 use Joomla\Utilities\ArrayHelper;
+use Phoca\PhocaGuestbook\MVC\Model\AdminModelTrait;
 
 
 //-- Import the class JModelList
@@ -27,6 +28,7 @@ jimport('joomla.application.component.modellist');
 class PhocaguestbookModelPhocaguestbooklogs extends ListModel
 {
 
+    use AdminModelTrait;
 	/**
 	 * Constructor.
 	 * @param	array	An optional associative array of configuration settings.

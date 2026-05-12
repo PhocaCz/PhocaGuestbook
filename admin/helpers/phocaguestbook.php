@@ -13,7 +13,7 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Object\CMSObject;
-use Joomla\CMS\Filesystem\Folder;
+use Joomla\Filesystem\Folder;
 use Joomla\CMS\Installer\Installer;
 jimport('joomla.filesystem.folder');
 
@@ -101,11 +101,11 @@ class PhocaguestbookHelper
 	public static function getPhocaVersion()
 	{
 		$folder = JPATH_ADMINISTRATOR . '/components/com_phocaguestbook';
-		if (Folder::exists($folder)) {
+		if (is_dir($folder)) {
 			$xmlFilesInDir = Folder::files($folder, '.xml$');
 		} else {
 			$folder = JPATH_SITE . '/components/com_phocaguestbook';
-			if (Folder::exists($folder)) {
+			if (is_dir($folder)) {
 				$xmlFilesInDir = Folder::files($folder, '.xml$');
 			} else {
 				$xmlFilesInDir = null;

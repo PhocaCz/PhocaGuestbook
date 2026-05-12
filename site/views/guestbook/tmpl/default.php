@@ -94,8 +94,6 @@ if ($this->params->get('form_style', 0) == 1){
 //  If position = 1 --> Form is bottom, Messages top,
 //  If position = 2 --> Use tabs for Message and Form
 
-
-
 switch ($this->params->get('form_position', 0)) {
 	case 0:
 		//echo $this->loadTemplate('form');

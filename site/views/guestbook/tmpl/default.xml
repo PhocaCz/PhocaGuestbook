@@ -23,7 +23,7 @@
 	<fieldset name="basic"><!-- addfieldpath="/administrator/components/com_phocaguestbook/models/fields" -->
 
 		<field 	name="display_form"
-				type="radio"
+				type="list"
 				class="btn-group"
 				label="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_FORM_LABEL"
 				description="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_FORM_DESC">
@@ -33,7 +33,7 @@
 		</field>
 
 		<field 	name="display_posts"
-				type="radio"
+				type="list"
 				class="btn-group"
 				label="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_POSTS_LABEL"
 				description="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_POSTS_DESC">
@@ -43,7 +43,7 @@
 		</field>
 
 		<field 	name="display_comments"
-				type="radio"
+				type="list"
 				class="btn-group"
 				label="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_COMMENTS_LABEL"
 				description="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_COMMENTS_DESC">
@@ -53,7 +53,7 @@
 		</field>
 
 		<field	name="show_pagination"
-				type="radio"
+				type="list"
 				class="btn-group"
 				label="COM_PHOCAGUESTBOOK_FIELD_PAGINATION_SHOW_LABEL"
 				description="COM_PHOCAGUESTBOOK_FIELD_PAGINATION_SHOW_DESC">
@@ -72,7 +72,7 @@
 		</field>
 
 		<field 	name="form_style"
-				type="radio"
+				type="list"
 				class="btn-group"
 				label="COM_PHOCAGUESTBOOK_FIELD_FORM_STYLE_LABEL"
 				description="COM_PHOCAGUESTBOOK_FIELD_FORM_STYLE_DESC">
@@ -112,7 +112,7 @@
 				description="COM_PHOCAGUESTBOOK_FIELD_PREDEFINED_NAME_DESC"/>
 
 		<field 	name="review_item"
-				type="radio"
+				type="list"
 				class="btn-group"
 				label="COM_PHOCAGUESTBOOK_FIELD_REVIEW_ITEM_LABEL"
 				description="COM_PHOCAGUESTBOOK_FIELD_REVIEW_ITEM_DESC">
@@ -131,7 +131,7 @@
 	<field name="spacer1" type="spacer" hr="true" />
 
 		<field 	name="custom_color"
-				type="radio"
+				type="radio" layout="joomla.form.field.radio.switcher"
 				class="btn-group"
 				default="0"
 				label="COM_PHOCAGUESTBOOK_FIELD_USE_CUSTOM_COLOR_LABEL"
@@ -183,7 +183,7 @@
               label="COM_PHOCAGUESTBOOK_CONFIG_HEAD_FORM_LABEL">
 
 		<field 	name="display_title_form"
-				type="radio"
+				type="list"
 				class="btn-group"
 				label="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_SUBJECT_FORM_LABEL"
 				description="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_SUBJECT_FORM_DESC">
@@ -195,7 +195,7 @@
 
 		<field 	name="display_name_form"
 				class="btn-group"
-				type="radio"
+				type="list"
 				label="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_NAME_FORM_LABEL"
 				description="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_NAME_FORM_DESC">
 			<option value="">COM_PHOCAGUESTBOOK_USE_GLOBAL</option>
@@ -205,7 +205,7 @@
 		</field>
 
 		<field 	name="display_email_form"
-				type="radio"
+				type="list"
 				class="btn-group"
 				label="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_EMAIL_FORM_LABEL"
 				description="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_EMAIL_FORM_DESC">
@@ -216,7 +216,7 @@
 		</field>
 
 		<field 	name="display_website_form"
-				type="radio"
+				type="list"
 				class="btn-group"
 				label="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_WEBSITE_FORM_LABEL"
 				description="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_WEBSITE_FORM_DESC">
@@ -227,7 +227,7 @@
 		</field>
 
 		<field 	name="display_content_form"
-				type="radio"
+				type="list"
 				class="btn-group"
 				label="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_CONTENT_FORM_LABEL"
 				description="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_CONTENT_FORM_DESC">
@@ -240,7 +240,7 @@
 		<field name="spacer2" type="spacer" hr="true" />
 
 		<field 	name="enable_editor"
-				type="radio"
+				type="list"
 				class="btn-group"
 				label="COM_PHOCAGUESTBOOK_FIELD_ENABLE_JAVASCRIPT_EDITOR_LABEL"
 				description="COM_PHOCAGUESTBOOK_FIELD_ENABLE_JAVASCRIPT_EDITOR_DESC">
@@ -252,7 +252,7 @@
 		<field name="spacer3" type="spacer" hr="true" />
 
 		<field 	name="form_action_hidden_word"
-				type="radio"
+				type="list"
 				class="btn-group"
 				label="COM_PHOCAGUESTBOOK_FIELD_FORM_ACTION_FORBIDDEN_WORD_LABEL"
 				description="COM_PHOCAGUESTBOOK_FIELD_FORM_ACTION_FORBIDDEN_WORD_DESC">
@@ -262,7 +262,7 @@
 			<option value="0">COM_PHOCAGUESTBOOK_REJECT</option>
 		</field>
 		<field 	name="form_action_banned_ip"
-				type="radio"
+				type="list"
 				class="btn-group"
 				label="COM_PHOCAGUESTBOOK_FIELD_FORM_ACTION_BANNED_IP_LABEL"
 				description="COM_PHOCAGUESTBOOK_FIELD_FORM_ACTION_BANNED_IP_DESC">
@@ -273,7 +273,7 @@
 		</field>
 
 		<field 	name="contentcheck_block_spam"
-				type="radio"
+				type="list"
 				class="btn-group"
 				label="COM_PHOCAGUESTBOOK_FIELD_BLOCK_SPAM_CONTENT_LABEL"
 				description="COM_PHOCAGUESTBOOK_FIELD_BLOCK_SPAM_CONTENT_DESC">
@@ -289,7 +289,7 @@
 				label="COM_PHOCAGUESTBOOK_CONFIG_HEAD_POST_LABEL">
 
 		<field 	name="display_name"
-				type="radio"
+				type="list"
 				class="btn-group"
 				label="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_NAME_MESSAGE_LABEL"
 				description="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_NAME_MESSAGE_DESC">
@@ -299,7 +299,7 @@
 		</field>
 
 		<field 	name="display_email"
-				type="radio"
+				type="list"
 				class="btn-group"
 				label="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_EMAIL_MESSAGE_LABEL"
 				description="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_EMAIL_MESSAGE_DESC">
@@ -309,7 +309,7 @@
 		</field>
 
 		<field 	name="display_website"
-				type="radio"
+				type="list"
 				class="btn-group"
 				label="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_WEBSITE_MESSAGE_LABEL"
 				description="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_WEBSITE_MESSAGE_DESC">
@@ -321,7 +321,7 @@
 		<field name="spacer4" type="spacer" hr="true" />
 
 		<field 	name="display_hidden_word"
-				type="radio"
+				type="list"
 				class="btn-group"
 				label="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_FORBIDDEN_WORD_LABEL"
 				description="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_FORBIDDEN_WORD_DESC">
@@ -337,7 +337,7 @@
 
 
 		<field 	name="display_comment_name"
-				type="radio"
+				type="list"
 				class="btn-group"
 				label="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_NAME_COMMENT_LABEL"
 				description="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_NAME_COMMENT_DESC">
@@ -347,7 +347,7 @@
 		</field>
 
 		<field 	name="display_comment_subject"
-				type="radio"
+				type="list"
 				class="btn-group"
 				label="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_SUBJECT_COMMENT_LABEL"
 				description="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_SUBJECT_COMMENT_DESC">
@@ -357,7 +357,7 @@
 		</field>
 
 		<field 	name="display_comment_email"
-				type="radio"
+				type="list"
 				class="btn-group"
 				label="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_EMAIL_COMMENT_LABEL"
 				description="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_EMAIL_COMMENT_DESC">
@@ -367,7 +367,7 @@
 		</field>
 
 		<field 	name="display_comment_website"
-				type="radio"
+				type="list"
 				class="btn-group"
 				label="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_WEBSITE_COMMENT_LABEL"
 				description="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_WEBSITE_COMMENT_DESC">
@@ -377,7 +377,7 @@
 		</field>
 
 		<field 	name="display_comment_date"
-				type="radio"
+				type="list"
 				class="btn-group"
 				label="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_DATE_COMMENT_LABEL"
 				description="COM_PHOCAGUESTBOOK_FIELD_DISPLAY_DATE_COMMENT_DESC">

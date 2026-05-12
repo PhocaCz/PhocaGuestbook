@@ -19,9 +19,10 @@ use Joomla\CMS\Factory;
 // - - - - - - - - - - -
 // Form
 // - - - - - - - - - - -
+
 if ($this->params->get('show_form') == 1) : ?>
 <div class="well pgwell pgb_background pgb_sec_font">
-	<h4 class="pgb_font"><?php echo Text::_('COM_phocaguestbook_POST_MESSAGE');?></h4>
+	<h4 class="pgb_font"><?php echo Text::_('COM_PHOCAGUESTBOOK_POST_MESSAGE');?></h4>
 	<form action="<?php echo $this->t['actionurl']; ?>" method="post" name="adminForm" id="adminForm" class="form-validate form-horizontal">
 
 	<?php if ($this->params->get('display_title_form', 2)) : ?>
@@ -56,6 +57,7 @@ if ($this->params->get('show_form') == 1) : ?>
 				if($this->params->get('hidden_field_position')==3){echo $this->form->getInput($this->params->get('hidden_field_name'));}  ?></div>
 		</div>
 	<?php	endif;
+
 	if ($this->params->get('display_website_form', 0)) : ?>
 		<div class="control-group">
 			<div class="control-label"><?php echo $this->form->getLabel('homesite'); ?></div>
@@ -63,6 +65,8 @@ if ($this->params->get('show_form') == 1) : ?>
 				if($this->params->get('hidden_field_position')==4){echo $this->form->getInput($this->params->get('hidden_field_name'));}  ?></div>
 		</div>
 	<?php	endif;
+
+
 	if ($this->params->get('display_content_form', 2)) : ?>
 		<div class="control-group">
 			<div class="control-label"><?php echo $this->form->getLabel('content'); ?></div>
@@ -70,6 +74,9 @@ if ($this->params->get('show_form') == 1) : ?>
 				if($this->params->get('hidden_field_position')==5){echo $this->form->getInput($this->params->get('hidden_field_name'));}  ?></div>
 		</div>
 	<?php	endif;
+
+
+
 	if ($this->params->get('enable_captcha', '') && $this->params->get('captcha_id', 0) > 0) :
 		// Set fix height because of pane slider
 		$maxImageHeight = '';/*'style="height:100px"';*/?>
@@ -128,4 +135,5 @@ if ($this->params->get('show_form') == 1) : ?>
 </div>
 <?php
 endif; //showForm
+
 ?>

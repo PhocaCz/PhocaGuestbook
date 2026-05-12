@@ -9,6 +9,7 @@
 defined('_JEXEC') or die('Restricted access');
 use Joomla\CMS\MVC\Model\AdminModel;
 use Joomla\CMS\Table\Table;
+use Phoca\PhocaGuestbook\MVC\Model\AdminModelTrait;
 
 /**
  * phocaguestbook Model.
@@ -18,9 +19,9 @@ use Joomla\CMS\Table\Table;
  */
 class PhocaguestbookModelPhocaguestbookLog extends AdminModel
 {
-	
+	use AdminModelTrait;
 	public $typeAlias 			= 'com_phocaguestbook.phocaguestbooklog';
-	
+
     /**
      * Returns a reference to the a Table object, always creating it.
      * @internal param \The $type table type to instantiate
@@ -42,5 +43,5 @@ class PhocaguestbookModelPhocaguestbookLog extends AdminModel
     {
 		return false;
     }
-	
+
 }

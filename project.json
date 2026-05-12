@@ -5,6 +5,7 @@
 	"license": "GNU/GPL",
 	"projectName": "PhocaGuestbook",
 	"extensionName": "Phoca Guestbook",
+	"nameSpace": "Phoca\\Component\\Phocaguestbook",
 	"projectInitials" : "GB",				  
 	"description": "Phoca Guestbook is Joomla! CMS component. It displays guestbook form with Captcha (8 types of Captcha) and many other different internal or external spam protection methods.",
 	"projectUrl": "https://www.phoca.cz/phocaguestbook",

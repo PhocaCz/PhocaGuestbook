@@ -36,6 +36,7 @@ class PhocaguestbookViewGuestbook extends HtmlView
 		$document	= Factory::getDocument();
 		$session 	= $app->getSession();
 
+
 		// - - - - - - - - - - -
 		// Get constant data from model
 		$state		= $this->get('State');

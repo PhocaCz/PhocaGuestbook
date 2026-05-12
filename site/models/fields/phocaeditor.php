@@ -22,7 +22,7 @@ use Joomla\Registry\Registry;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Editor\Editor;
 
-defined('JPATH_PLATFORM') or die;
+defined('_JEXEC') or die;
 
 class JFormFieldPhocaEditor extends FormField
 {
@@ -31,6 +31,7 @@ class JFormFieldPhocaEditor extends FormField
 	protected $editor;
 
 	protected function getInput(){
+
 
 		$app = Factory::getApplication();
 		$class = $this->element['class'] ? ' class="' . (string) $this->element['class'] . ' mceEditor mce_editable"' : 'mce_editable';
@@ -80,14 +81,19 @@ class JFormFieldPhocaEditor extends FormField
 			$paramsE 	= new Registry($plugin->params);
 
 
-            $wa         = $app->getDocument()->getWebAssetManager();
+         /*   $wa         = $app->getDocument()->getWebAssetManager();
             if (!$wa->assetExists('script', 'tinymce')) {
                 $wa->registerScript('tinymce', 'media/vendor/tinymce/tinymce.min.js', [], ['defer' => true]);
             }
             if (!$wa->assetExists('script', 'plg_editors_tinymce')) {
                 $wa->registerScript('plg_editors_tinymce', 'plg_editors_tinymce/tinymce.min.js', [], ['defer' => true], ['core', 'tinymce']);
             }
-		    $wa->useScript('tinymce')->useScript('plg_editors_tinymce');
+		    $wa->useScript('tinymce')->useScript('plg_editors_tinymce');*/
+
+            $wa = $app->getDocument()->getWebAssetManager();
+            $wr = $wa->getRegistry();
+            $wr->addRegistryFile('media/plg_editors_tinymce/joomla.asset.json');
+            $wa->useScript('tinymce')->useScript('plg_editors_tinymce');
 
 
 
@@ -225,20 +231,22 @@ class JFormFieldPhocaEditor extends FormField
 
             // Set the selected skin
             $skin = $levelParams->get($app->isClient('administrator') ? 'skin_admin' : 'skin', 'oxide');
+            $skinDark = $levelParams->get($app->isClient('administrator') ? 'skin_admin_dark' : 'skin_dark', 'oxide-dark');
 
             // Check that selected skin exists.
-            $skin = Folder::exists(JPATH_ROOT . '/media/vendor/tinymce/skins/ui/' . $skin) ? $skin : 'oxide';
+            $skin = is_dir(JPATH_ROOT . '/media/vendor/tinymce/skins/ui/' . $skin) ? $skin : 'oxide';
+            $skinDark = is_dir(JPATH_ROOT . '/media/vendor/tinymce/skins/ui/' . $skinDark) ? $skinDark : 'oxide-dark';
 
             $langMode   = $levelParams->get('lang_mode', 1);
             $langPrefix = $levelParams->get('lang_code', 'en');
 
             if ($langMode)
             {
-                if (file_exists(JPATH_ROOT . '/media/vendor/tinymce/langs/' . $language->getTag() . '.js'))
+                if (is_file(JPATH_ROOT . '/media/vendor/tinymce/langs/' . $language->getTag() . '.js'))
                 {
                     $langPrefix = $language->getTag();
                 }
-                elseif (file_exists(JPATH_ROOT . '/media/vendor/tinymce/langs/' . substr($language->getTag(), 0, strpos($language->getTag(), '-')) . '.js'))
+                elseif (is_file(JPATH_ROOT . '/media/vendor/tinymce/langs/' . substr($language->getTag(), 0, strpos($language->getTag(), '-')) . '.js'))
                 {
                     $langPrefix = substr($language->getTag(), 0, strpos($language->getTag(), '-'));
                 }
@@ -593,7 +601,8 @@ class JFormFieldPhocaEditor extends FormField
                     'directionality' => $text_direction,
                     'language' => $langPrefix,
                     'autosave_restore_when_empty' => false,
-                    'skin'     => $skin,
+                    'skin_light' => $skin,
+                    'skin_dark'  => $skinDark,
                     'theme'    => $theme,
                     'schema'   => 'html5',
 
@@ -646,7 +655,11 @@ class JFormFieldPhocaEditor extends FormField
                     'dndEnabled' => $dragdrop,
 
                     // Disable TinyMCE Branding
-                    'branding'   => false,
+                    'branding'    => false,
+                    'promotion'   => false,
+
+                    // Use Joomla's bundled GPL TinyMCE.
+                    'license_key' => 'gpl',
                 )
             );
 
@@ -680,8 +693,17 @@ class JFormFieldPhocaEditor extends FormField
                 array('title' => 'Tag', 'value' => 'tag'),
             );
 
-		    $options['tinyMCE']['default'] = $scriptOptions;
-		    $doc->addScriptOptions('plg_editor_tinymce', $options);
+            if (empty($options['tinyMCE']['default']))
+            {
+                $options['tinyMCE']['default'] = $scriptOptions;
+            }
+
+            $options['tinyMCE'][$fieldName]['toolbar']  = empty($toolbar) ? null : 'jxtdbuttons ' . implode(' ', $toolbar);
+            $options['tinyMCE'][$fieldName]['menubar']  = false;
+            $options['tinyMCE'][$fieldName]['plugins']  = implode(',', array_unique($plugins));
+            $options['tinyMCE'][$fieldName]['joomlaMergeDefaults'] = true;
+            $options['tinyMCE'][$fieldName]['joomlaExtButtons']    = ['names' => []];
+            $doc->addScriptOptions('plg_editor_tinymce', $options, false);
 
             return $editor;
 		} else {

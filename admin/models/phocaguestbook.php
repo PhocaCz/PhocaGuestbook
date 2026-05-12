@@ -12,6 +12,7 @@ use Joomla\CMS\Application\ApplicationHelper;
 use Joomla\CMS\MVC\Model\AdminModel;
 use Joomla\CMS\Table\Table;
 use Joomla\CMS\Factory;
+use Phoca\PhocaGuestbook\MVC\Model\AdminModelTrait;
 
 /**
  * phocaguestbook Model.
@@ -21,6 +22,7 @@ use Joomla\CMS\Factory;
  */
 class PhocaguestbookModelPhocaguestbook extends AdminModel
 {
+    use AdminModelTrait;
 	protected $_data;
 	public $typeAlias 			= 'com_phocaguestbook.phocaguestbook';
 
@@ -154,11 +156,14 @@ class PhocaguestbookModelPhocaguestbook extends AdminModel
 			{
 				$this->_data = $this->getItem();
 
+
 				// Prime some default values.
 				if ($this->getState('phocaguestbook.id') == 0) {
-					$this->_data->set('catid', $app->input->getInt('catid', $app->getUserState('com_phocaguestbook.phocaguestbook.filter.category_id')));
+					//$this->_data->set('catid', $app->input->getInt('catid', $app->getUserState('com_phocaguestbook.phocaguestbook.filter.category_id')));
+                    $this->_data->catid = $app->input->getInt('catid', $app->getUserState('com_phocaguestbook.phocaguestbook.filter.category_id'));
 
-					$this->_data->set('parent_id', $app->input->getInt('parentid', 1));
+					//$this->_data->set('parent_id', $app->input->getInt('parentid', 1));
+                    $this->_data->parent_id =  $app->input->getInt('parentid', 1);
 				}
 			}
 		}
