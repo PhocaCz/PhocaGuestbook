@@ -34,7 +34,7 @@ if ($this->params->get('show_form') == 1) : ?>
 				$reportTitle 		= $app->input->get('reporttitle', '', 'string');
 				$formTitle			= $this->form->getInput('title');
 				if ($reportTitle != '') {
-					$formTitle = str_replace('value=""', 'value="'.urldecode(strip_tags($reportTitle)).'"', $this->form->getInput('title'));
+					$formTitle = str_replace('value=""', 'value="'.htmlspecialchars(urlencode(strip_tags($reportTitle)), ENT_QUOTES, 'UTF-8').'"', $this->form->getInput('title'));
 				}
 				echo $formTitle;
 
