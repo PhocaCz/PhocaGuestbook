@@ -79,7 +79,9 @@
 			<folder>help</folder>
 			<folder>models</folder>
 			<filename>phocaguestbook.php</filename>
+			<filename>FOSS.md</filename>
 			<filename>index.html</filename>
+			<filename>LICENSE</filename>
 			<filename>config.xml</filename>
 			<filename>access.xml</filename>
 			<filename>controller.php</filename>
