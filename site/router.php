@@ -24,13 +24,13 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Menu\AbstractMenu;
 use Joomla\Database\DatabaseInterface;
 use Joomla\Database\ParameterType;
-
+use Joomla\CMS\Categories\Categories;
 
 class PhocaguestbookRouter extends RouterView
 {
 
 	protected $noIDs = false;
-	//private $categoryFactory;
+	private $categoryFactory;
 	private $categoryCache = [];
 	private $db;
 
@@ -182,6 +182,11 @@ class PhocaguestbookRouter extends RouterView
 		return (int) $segment;
 	}
 
+
+    private function getCategories(array $options = []): CategoryInterface
+	{
+		return Categories::getInstance('Phocaguestbook', $options);
+	}
 
 	/*private function getCategories(array $options = []): CategoryInterface
 	{

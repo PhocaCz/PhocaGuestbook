@@ -62,19 +62,19 @@
 		<description><![CDATA[ Phoca Guestbook is Joomla! CMS component. It displays guestbook form with Captcha (8 types of Captcha) and many other different internal or external spam protection methods. ]]></description>
 		<element>com_phocaguestbook</element>
 		<type>component</type>
-		<version>6.1.1</version>
-		<infourl title="Phoca Guestbook 6.1.1">http://www.phoca.cz/version/index.php?phocaguestbook=6.1.1</infourl>
+		<version>6.1.2</version>
+		<infourl title="Phoca Guestbook 6.1.2">http://www.phoca.cz/version/index.php?phocaguestbook=6.1.2</infourl>
 		<downloads>
-			<downloadurl type="full" format="zip">https://github.com/PhocaCz/PhocaGuestbook/releases/download/6.1.1/com_phocaguestbook_v6.1.1.zip</downloadurl>
+			<downloadurl type="full" format="zip">https://github.com/PhocaCz/PhocaGuestbook/releases/download/6.1.2/com_phocaguestbook_v6.1.2.zip</downloadurl>
 		</downloads>
-		<sha512>04c572f339ae9da4072f9c03088fef7761293abab4cf27b72a14020aecdb07b44e25719308110d0cc4ea06c15752b2b2cdb4e5140a64e9a6942018f88c494637</sha512>
+		<sha512>87510b856501ee2c8174d54bd6766ab43f3461b8e099bbfedc456677abf9c2a93705c9f2b6df38f2b1cdc769bb107c6ee87932829cf096f4a72e810886e96f88</sha512>
 		<tags>
 			<tag>stable</tag>
 		</tags>
 		<maintainer><![CDATA[ Phoca.cz ]]></maintainer>
 		<maintainerurl>https://www.phoca.cz/</maintainerurl>
 		<section>Updates</section>
-		<targetplatform name="joomla" version="(5|6)\.*"/>
+		<targetplatform name="joomla" version="6\.*"/>
 		<client>administrator</client>
 	</update>
 </updates>
